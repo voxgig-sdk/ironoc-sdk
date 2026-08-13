@@ -26,8 +26,8 @@ import {
 describe('DonateRestControllerEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBPROJECTISSUES_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBPROJECTISSUES_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_PROJECT_ISSUES_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_PROJECT_ISSUES_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = GithubProjectIssuesSDK.test()
@@ -63,7 +63,7 @@ describe('DonateRestControllerEntity', async () => {
     const donate_rest_controller_ref01_ent = client.DonateRestController()
     const donate_rest_controller_ref01_match: any = {}
 
-    const donate_rest_controller_ref01_list = await donate_rest_controller_ref01_ent.list(donate_rest_controller_ref01_match)
+    const donate_rest_controller_ref01_list = (await donate_rest_controller_ref01_ent.list(donate_rest_controller_ref01_match)).map((e: any) => e.data())
 
 
   })

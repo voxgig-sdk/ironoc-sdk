@@ -72,7 +72,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local coffees, err = client:Coffee():list()
+local repositoryissuedomains, err = client:RepositoryIssueDomain():list()
 if err then error(err) end
 ```
 
@@ -130,7 +130,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Coffee():list()
+local result, err = client:RepositoryIssueDomain():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -245,9 +245,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local coffee, err = client:Coffee():load()
+    local repository_detail_domain, err = client:RepositoryDetailDomain():load()
     if err then error(err) end
-    -- coffee is the loaded record
+    -- repository_detail_domain is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -261,7 +261,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | `description` |  |
 | `id` |  |
 | `image` |  |
-| `ingredient` |  |
+| `ingredients` |  |
 | `title` |  |
 
 Operations: List, Update.
@@ -275,7 +275,7 @@ API path: `/api/coffees`
 | `description` |  |
 | `id` |  |
 | `image` |  |
-| `ingredient` |  |
+| `ingredients` |  |
 | `title` |  |
 
 Operations: List.
@@ -304,13 +304,13 @@ API path: `/api/portfolio-items`
 
 | Field | Description |
 | --- | --- |
-| `app_home` |  |
+| `appHome` |  |
 | `description` |  |
-| `full_name` |  |
-| `issue_count` |  |
+| `fullName` |  |
+| `issueCount` |  |
 | `name` |  |
-| `repo_url` |  |
-| `topic` |  |
+| `repoUrl` |  |
+| `topics` |  |
 
 Operations: List, Load.
 
@@ -321,7 +321,7 @@ API path: `/api/get-repo-detail`
 | Field | Description |
 | --- | --- |
 | `body` |  |
-| `label` |  |
+| `labels` |  |
 | `number` |  |
 | `state` |  |
 | `title` |  |
@@ -362,7 +362,7 @@ Create an instance: `local coffee = client:Coffee(nil)`
 | `description` | `string` |  |
 | `id` | `number` |  |
 | `image` | `string` |  |
-| `ingredient` | `table` |  |
+| `ingredients` | `table` |  |
 | `title` | `string` |  |
 
 #### Example: List
@@ -389,7 +389,7 @@ Create an instance: `local coffee_domain = client:CoffeeDomain(nil)`
 | `description` | `string` |  |
 | `id` | `number` |  |
 | `image` | `string` |  |
-| `ingredient` | `table` |  |
+| `ingredients` | `table` |  |
 | `title` | `string` |  |
 
 #### Example: List
@@ -448,13 +448,13 @@ Create an instance: `local repository_detail_domain = client:RepositoryDetailDom
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `app_home` | `string` |  |
+| `appHome` | `string` |  |
 | `description` | `string` |  |
-| `full_name` | `string` |  |
-| `issue_count` | `number` |  |
+| `fullName` | `string` |  |
+| `issueCount` | `number` |  |
 | `name` | `string` |  |
-| `repo_url` | `string` |  |
-| `topic` | `string` |  |
+| `repoUrl` | `string` |  |
+| `topics` | `string` |  |
 
 #### Example: Load
 
@@ -484,7 +484,7 @@ Create an instance: `local repository_issue_domain = client:RepositoryIssueDomai
 | Field | Type | Description |
 | --- | --- | --- |
 | `body` | `string` |  |
-| `label` | `table` |  |
+| `labels` | `table` |  |
 | `number` | `string` |  |
 | `state` | `string` |  |
 | `title` | `string` |  |
@@ -589,11 +589,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local coffee = client:Coffee()
-coffee:list()
+local repositoryissuedomain = client:RepositoryIssueDomain()
+repositoryissuedomain:list()
 
--- coffee:data_get() now returns the coffee data from the last list
--- coffee:match_get() returns the last match criteria
+-- repositoryissuedomain:data_get() now returns the repositoryissuedomain data from the last list
+-- repositoryissuedomain:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

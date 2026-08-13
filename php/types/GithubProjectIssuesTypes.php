@@ -18,7 +18,7 @@ class Coffee
     public ?string $description = null;
     public ?int $id = null;
     public string $image;
-    public array $ingredient;
+    public array $ingredients;
     public string $title;
 }
 
@@ -28,7 +28,7 @@ class CoffeeListMatch
     public ?string $description = null;
     public ?int $id = null;
     public ?string $image = null;
-    public ?array $ingredient = null;
+    public ?array $ingredients = null;
     public ?string $title = null;
 }
 
@@ -38,7 +38,7 @@ class CoffeeUpdateData
     public ?string $description = null;
     public ?int $id = null;
     public ?string $image = null;
-    public ?array $ingredient = null;
+    public ?array $ingredients = null;
     public ?string $title = null;
 }
 
@@ -48,7 +48,7 @@ class CoffeeDomain
     public ?string $description = null;
     public ?int $id = null;
     public string $image;
-    public array $ingredient;
+    public array $ingredients;
     public string $title;
 }
 
@@ -58,7 +58,7 @@ class CoffeeDomainListMatch
     public ?string $description = null;
     public ?int $id = null;
     public ?string $image = null;
-    public ?array $ingredient = null;
+    public ?array $ingredients = null;
     public ?string $title = null;
 }
 
@@ -85,13 +85,13 @@ class PortfolioControllerListMatch
 /** RepositoryDetailDomain entity data model. */
 class RepositoryDetailDomain
 {
-    public ?string $app_home = null;
+    public ?string $appHome = null;
     public ?string $description = null;
-    public string $full_name;
-    public ?int $issue_count = null;
+    public string $fullName;
+    public ?int $issueCount = null;
     public string $name;
-    public string $repo_url;
-    public ?string $topic = null;
+    public string $repoUrl;
+    public ?string $topics = null;
 }
 
 /** Request payload for RepositoryDetailDomain#load. */
@@ -103,20 +103,20 @@ class RepositoryDetailDomainLoadMatch
 /** Request payload for RepositoryDetailDomain#list. */
 class RepositoryDetailDomainListMatch
 {
-    public ?string $app_home = null;
+    public ?string $appHome = null;
     public ?string $description = null;
-    public ?string $full_name = null;
-    public ?int $issue_count = null;
+    public ?string $fullName = null;
+    public ?int $issueCount = null;
     public ?string $name = null;
-    public ?string $repo_url = null;
-    public ?string $topic = null;
+    public ?string $repoUrl = null;
+    public ?string $topics = null;
 }
 
 /** RepositoryIssueDomain entity data model. */
 class RepositoryIssueDomain
 {
     public ?string $body = null;
-    public ?array $label = null;
+    public ?array $labels = null;
     public string $number;
     public ?string $state = null;
     public string $title;

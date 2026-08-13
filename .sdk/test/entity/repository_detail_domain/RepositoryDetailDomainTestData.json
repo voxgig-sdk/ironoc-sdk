@@ -2,35 +2,35 @@
   "existing": {
     "repository_detail_domain": {
       "REPOSITORY_DETAIL_DOMAIN00": {
-        "app_home": "s46",
+        "appHome": "s46",
         "description": "s47",
-        "full_name": "s48",
-        "issue_count": "s49",
+        "fullName": "s48",
+        "issueCount": "s49",
         "name": "s4a",
-        "repo_url": "s4b",
-        "topic": "s4c",
+        "repoUrl": "s4b",
+        "topics": "s4c",
         "username": "USERNAME01",
         "id": "REPOSITORY_DETAIL_DOMAIN00"
       },
       "REPOSITORY_DETAIL_DOMAIN01": {
-        "app_home": "s8c",
+        "appHome": "s8c",
         "description": "s8d",
-        "full_name": "s8e",
-        "issue_count": "s8f",
+        "fullName": "s8e",
+        "issueCount": "s8f",
         "name": "s90",
-        "repo_url": "s91",
-        "topic": "s92",
+        "repoUrl": "s91",
+        "topics": "s92",
         "username": "USERNAME01",
         "id": "REPOSITORY_DETAIL_DOMAIN01"
       },
       "REPOSITORY_DETAIL_DOMAIN02": {
-        "app_home": "sd2",
+        "appHome": "sd2",
         "description": "sd3",
-        "full_name": "sd4",
-        "issue_count": "sd5",
+        "fullName": "sd4",
+        "issueCount": "sd5",
         "name": "sd6",
-        "repo_url": "sd7",
-        "topic": "sd8",
+        "repoUrl": "sd7",
+        "topics": "sd8",
         "username": "USERNAME01",
         "id": "REPOSITORY_DETAIL_DOMAIN02"
       }
@@ -39,13 +39,13 @@
   "new": {
     "repository_detail_domain": {
       "repository_detail_domain_ref01": {
-        "app_home": "s118",
+        "appHome": "s118",
         "description": "s119",
-        "full_name": "s11a",
-        "issue_count": "s11b",
+        "fullName": "s11a",
+        "issueCount": "s11b",
         "name": "s11c",
-        "repo_url": "s11d",
-        "topic": "s11e"
+        "repoUrl": "s11d",
+        "topics": "s11e"
       }
     }
   }

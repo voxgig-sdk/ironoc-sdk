@@ -26,8 +26,8 @@ import {
 describe('RepositoryIssueDomainEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBPROJECTISSUES_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBPROJECTISSUES_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_PROJECT_ISSUES_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_PROJECT_ISSUES_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = GithubProjectIssuesSDK.test()
@@ -65,7 +65,7 @@ describe('RepositoryIssueDomainEntity', async () => {
     repository_issue_domain_ref01_match['repository'] = setup.idmap['repository01']
     repository_issue_domain_ref01_match['username'] = setup.idmap['username01']
 
-    const repository_issue_domain_ref01_list = await repository_issue_domain_ref01_ent.list(repository_issue_domain_ref01_match)
+    const repository_issue_domain_ref01_list = (await repository_issue_domain_ref01_ent.list(repository_issue_domain_ref01_match)).map((e: any) => e.data())
 
 
   })

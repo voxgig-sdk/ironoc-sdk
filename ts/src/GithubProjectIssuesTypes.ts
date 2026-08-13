@@ -9,7 +9,7 @@ export interface Coffee {
   description?: string
   id?: number
   image: string
-  ingredient: any[]
+  ingredients: any[]
   title: string
 }
 
@@ -17,7 +17,7 @@ export interface CoffeeListMatch {
   description?: string
   id?: number
   image?: string
-  ingredient?: any[]
+  ingredients?: any[]
   title?: string
 }
 
@@ -25,7 +25,7 @@ export interface CoffeeUpdateData {
   description?: string
   id?: number
   image?: string
-  ingredient?: any[]
+  ingredients?: any[]
   title?: string
 }
 
@@ -33,7 +33,7 @@ export interface CoffeeDomain {
   description?: string
   id?: number
   image: string
-  ingredient: any[]
+  ingredients: any[]
   title: string
 }
 
@@ -41,7 +41,7 @@ export interface CoffeeDomainListMatch {
   description?: string
   id?: number
   image?: string
-  ingredient?: any[]
+  ingredients?: any[]
   title?: string
 }
 
@@ -58,13 +58,13 @@ export interface PortfolioControllerListMatch {
 }
 
 export interface RepositoryDetailDomain {
-  app_home?: string
+  appHome?: string
   description?: string
-  full_name: string
-  issue_count?: number
+  fullName: string
+  issueCount?: number
   name: string
-  repo_url: string
-  topic?: string
+  repoUrl: string
+  topics?: string
 }
 
 export interface RepositoryDetailDomainLoadMatch {
@@ -72,18 +72,18 @@ export interface RepositoryDetailDomainLoadMatch {
 }
 
 export interface RepositoryDetailDomainListMatch {
-  app_home?: string
+  appHome?: string
   description?: string
-  full_name?: string
-  issue_count?: number
+  fullName?: string
+  issueCount?: number
   name?: string
-  repo_url?: string
-  topic?: string
+  repoUrl?: string
+  topics?: string
 }
 
 export interface RepositoryIssueDomain {
   body?: string
-  label?: any[]
+  labels?: any[]
   number: string
   state?: string
   title: string

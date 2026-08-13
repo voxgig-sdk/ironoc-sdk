@@ -53,7 +53,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "ingredient",
+						"name": "ingredients",
 						"req": true,
 						"type": "`$ARRAY`",
 						"index$": 3,
@@ -75,6 +75,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/api/coffees",
 								"parts": []any{
@@ -89,7 +90,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 					"update": map[string]any{
 						"input": "data",
@@ -98,6 +98,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "PUT",
 								"orig": "/api/coffees",
 								"parts": []any{
@@ -112,7 +113,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "update",
 					},
 				},
 				"relations": map[string]any{
@@ -144,7 +144,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "ingredient",
+						"name": "ingredients",
 						"req": true,
 						"type": "`$ARRAY`",
 						"index$": 3,
@@ -166,6 +166,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/api/coffees-graph-ql",
 								"parts": []any{
@@ -180,7 +181,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{
@@ -198,6 +198,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/api/donate-items",
 								"parts": []any{
@@ -212,7 +213,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{
@@ -230,6 +230,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/api/portfolio-items",
 								"parts": []any{
@@ -244,7 +245,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{
@@ -255,7 +255,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "app_home",
+						"name": "appHome",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 0,
@@ -269,14 +269,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "full_name",
+						"name": "fullName",
 						"req": true,
 						"type": "`$STRING`",
 						"index$": 2,
 					},
 					map[string]any{
 						"active": true,
-						"name": "issue_count",
+						"name": "issueCount",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 3,
@@ -290,14 +290,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "repo_url",
+						"name": "repoUrl",
 						"req": true,
 						"type": "`$STRING`",
 						"index$": 5,
 					},
 					map[string]any{
 						"active": true,
-						"name": "topic",
+						"name": "topics",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 6,
@@ -323,6 +323,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/api/get-repo-detail",
 								"parts": []any{
@@ -341,7 +342,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 					"load": map[string]any{
 						"input": "data",
@@ -362,6 +362,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/api/get-repo-detail/{username}/",
 								"parts": []any{
@@ -381,7 +382,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
@@ -403,7 +403,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "label",
+						"name": "labels",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 1,
@@ -460,6 +460,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/api/get-repo-issue/{username}/{repository}/",
 								"parts": []any{
@@ -481,7 +482,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{
@@ -503,6 +503,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/api/application/version",
 								"parts": []any{
@@ -518,7 +519,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{

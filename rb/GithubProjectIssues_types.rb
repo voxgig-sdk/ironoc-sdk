@@ -19,7 +19,7 @@
 # @!attribute [rw] image
 #   @return [String]
 #
-# @!attribute [rw] ingredient
+# @!attribute [rw] ingredients
 #   @return [Array]
 #
 # @!attribute [rw] title
@@ -28,7 +28,7 @@ Coffee = Struct.new(
   :description,
   :id,
   :image,
-  :ingredient,
+  :ingredients,
   :title,
   keyword_init: true
 )
@@ -44,7 +44,7 @@ Coffee = Struct.new(
 # @!attribute [rw] image
 #   @return [String, nil]
 #
-# @!attribute [rw] ingredient
+# @!attribute [rw] ingredients
 #   @return [Array, nil]
 #
 # @!attribute [rw] title
@@ -53,7 +53,7 @@ CoffeeListMatch = Struct.new(
   :description,
   :id,
   :image,
-  :ingredient,
+  :ingredients,
   :title,
   keyword_init: true
 )
@@ -69,7 +69,7 @@ CoffeeListMatch = Struct.new(
 # @!attribute [rw] image
 #   @return [String, nil]
 #
-# @!attribute [rw] ingredient
+# @!attribute [rw] ingredients
 #   @return [Array, nil]
 #
 # @!attribute [rw] title
@@ -78,7 +78,7 @@ CoffeeUpdateData = Struct.new(
   :description,
   :id,
   :image,
-  :ingredient,
+  :ingredients,
   :title,
   keyword_init: true
 )
@@ -94,7 +94,7 @@ CoffeeUpdateData = Struct.new(
 # @!attribute [rw] image
 #   @return [String]
 #
-# @!attribute [rw] ingredient
+# @!attribute [rw] ingredients
 #   @return [Array]
 #
 # @!attribute [rw] title
@@ -103,7 +103,7 @@ CoffeeDomain = Struct.new(
   :description,
   :id,
   :image,
-  :ingredient,
+  :ingredients,
   :title,
   keyword_init: true
 )
@@ -119,7 +119,7 @@ CoffeeDomain = Struct.new(
 # @!attribute [rw] image
 #   @return [String, nil]
 #
-# @!attribute [rw] ingredient
+# @!attribute [rw] ingredients
 #   @return [Array, nil]
 #
 # @!attribute [rw] title
@@ -128,7 +128,7 @@ CoffeeDomainListMatch = Struct.new(
   :description,
   :id,
   :image,
-  :ingredient,
+  :ingredients,
   :title,
   keyword_init: true
 )
@@ -151,34 +151,34 @@ end
 
 # RepositoryDetailDomain entity data model.
 #
-# @!attribute [rw] app_home
+# @!attribute [rw] appHome
 #   @return [String, nil]
 #
 # @!attribute [rw] description
 #   @return [String, nil]
 #
-# @!attribute [rw] full_name
+# @!attribute [rw] fullName
 #   @return [String]
 #
-# @!attribute [rw] issue_count
+# @!attribute [rw] issueCount
 #   @return [Integer, nil]
 #
 # @!attribute [rw] name
 #   @return [String]
 #
-# @!attribute [rw] repo_url
+# @!attribute [rw] repoUrl
 #   @return [String]
 #
-# @!attribute [rw] topic
+# @!attribute [rw] topics
 #   @return [String, nil]
 RepositoryDetailDomain = Struct.new(
-  :app_home,
+  :appHome,
   :description,
-  :full_name,
-  :issue_count,
+  :fullName,
+  :issueCount,
   :name,
-  :repo_url,
-  :topic,
+  :repoUrl,
+  :topics,
   keyword_init: true
 )
 
@@ -193,34 +193,34 @@ RepositoryDetailDomainLoadMatch = Struct.new(
 
 # Request payload for RepositoryDetailDomain#list.
 #
-# @!attribute [rw] app_home
+# @!attribute [rw] appHome
 #   @return [String, nil]
 #
 # @!attribute [rw] description
 #   @return [String, nil]
 #
-# @!attribute [rw] full_name
+# @!attribute [rw] fullName
 #   @return [String, nil]
 #
-# @!attribute [rw] issue_count
+# @!attribute [rw] issueCount
 #   @return [Integer, nil]
 #
 # @!attribute [rw] name
 #   @return [String, nil]
 #
-# @!attribute [rw] repo_url
+# @!attribute [rw] repoUrl
 #   @return [String, nil]
 #
-# @!attribute [rw] topic
+# @!attribute [rw] topics
 #   @return [String, nil]
 RepositoryDetailDomainListMatch = Struct.new(
-  :app_home,
+  :appHome,
   :description,
-  :full_name,
-  :issue_count,
+  :fullName,
+  :issueCount,
   :name,
-  :repo_url,
-  :topic,
+  :repoUrl,
+  :topics,
   keyword_init: true
 )
 
@@ -229,7 +229,7 @@ RepositoryDetailDomainListMatch = Struct.new(
 # @!attribute [rw] body
 #   @return [String, nil]
 #
-# @!attribute [rw] label
+# @!attribute [rw] labels
 #   @return [Array, nil]
 #
 # @!attribute [rw] number
@@ -242,7 +242,7 @@ RepositoryDetailDomainListMatch = Struct.new(
 #   @return [String]
 RepositoryIssueDomain = Struct.new(
   :body,
-  :label,
+  :labels,
   :number,
   :state,
   :title,

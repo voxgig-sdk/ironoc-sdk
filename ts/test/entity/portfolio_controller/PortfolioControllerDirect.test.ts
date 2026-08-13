@@ -19,11 +19,15 @@ import {
 describe('PortfolioControllerDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBPROJECTISSUES_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBPROJECTISSUES_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_PROJECT_ISSUES_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_PROJECT_ISSUES_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new GithubProjectIssuesSDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -77,17 +81,17 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'GITHUBPROJECTISSUES_TEST_PORTFOLIO_CONTROLLER_ENTID': {},
-    'GITHUBPROJECTISSUES_TEST_LIVE': 'FALSE',
+    'GITHUB_PROJECT_ISSUES_TEST_PORTFOLIO_CONTROLLER_ENTID': {},
+    'GITHUB_PROJECT_ISSUES_TEST_LIVE': 'FALSE',
   })
 
-  const live = 'TRUE' === env.GITHUBPROJECTISSUES_TEST_LIVE
+  const live = 'TRUE' === env.GITHUB_PROJECT_ISSUES_TEST_LIVE
 
   if (live) {
     const client = new GithubProjectIssuesSDK({
     })
 
-    let idmap: any = env['GITHUBPROJECTISSUES_TEST_PORTFOLIO_CONTROLLER_ENTID']
+    let idmap: any = env['GITHUB_PROJECT_ISSUES_TEST_PORTFOLIO_CONTROLLER_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

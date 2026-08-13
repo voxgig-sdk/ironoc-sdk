@@ -152,8 +152,29 @@ class GithubProjectIssuesSDK {
   }
 
 
+  // Raw endpoint access is operator-controllable, like every entity op.
+  // Blocking it means denying BOTH the 'direct' and 'graphql' tokens, since
+  // either one reaches the same endpoint.
   async direct(fetchargs?: any) {
+    if (!this._options.allow.op.includes('direct')) {
+      return {
+        ok: false,
+        err: new Error('GithubProjectIssuesSDK: direct: operation not allowed by' +
+          ' SDK option allow.op value: "' + this._options.allow.op + '"'),
+      }
+    }
+
+    return this._rawRequest(fetchargs)
+  }
+
+
+  // Ungated request path shared by direct() and graphql(), each of which
+  // checks its own allow.op token first. Private, rather than a flag on
+  // fetchargs: a caller-supplied marker would let anyone opt straight back
+  // out of the gate by passing it.
+  async _rawRequest(fetchargs?: any) {
     const utility = this._utility
+
     const fetcher = utility.fetcher
     const makeContext = utility.makeContext
 
@@ -214,52 +235,120 @@ class GithubProjectIssuesSDK {
 
 
 
+  // Raw GraphQL access: the pressure valve that makes the generated
+  // surface's deliberate omissions (per-call selection sets, typed filter
+  // builders, batching, subscriptions) livable — the whole schema stays
+  // reachable.
+  //
+  // Thin wrapper over the same prepare/fetch path `direct` uses, with the
+  // one thing raw `direct` cannot do for GraphQL: a GraphQL failure rides
+  // HTTP 200 as a top-level `errors` array, so status alone would report a
+  // failed query as ok.
+  //
+  // NOTE: like `direct`, this bypasses the feature pipeline — no retry,
+  // ratelimit or paging features apply.
+  async graphql(query: string, variables?: any, ctrl?: any) {
+    const options = this._options
+
+    if (!options.allow.op.includes('graphql')) {
+      return {
+        ok: false,
+        err: new Error('GithubProjectIssuesSDK: graphql: operation not allowed by' +
+          ' SDK option allow.op value: "' + options.allow.op + '"'),
+      }
+    }
+
+    const res: any = await this._rawRequest({
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: { query, variables: variables || {} },
+      ctrl,
+    })
+
+    if (res instanceof Error) {
+      return res
+    }
+
+    // Errors are read BEFORE any status check: a GraphQL parse or validation
+    // failure comes back as HTTP 400 carrying the standard { errors: [...] }
+    // body, and the raw path represents a non-2xx as { ok: false } with no
+    // err — so returning early on status would discard the server's own
+    // diagnostics, which are the only useful part of that response.
+    const errors = null == res.data ? undefined : res.data.errors
+
+    if (null != errors && Array.isArray(errors) && 0 < errors.length) {
+      const first = errors[0] || {}
+      const err: any = new Error('GithubProjectIssuesSDK: graphql: ' +
+        (first.message || 'graphql error'))
+      err.graphql = errors
+      return { ok: false, status: res.status, headers: res.headers, err, data: res.data }
+    }
+
+    return res
+  }
+
+
+
   // Entity access: `client.Coffee().list()` / `client.Coffee().load({ id })`.
-  Coffee(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Coffee(entopts?: Record<string, any>) {
     const self = this
-    return new CoffeeEntity(self,data)
+    return new CoffeeEntity(self, entopts)
   }
 
 
   // Entity access: `client.CoffeeDomain().list()` / `client.CoffeeDomain().load({ id })`.
-  CoffeeDomain(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  CoffeeDomain(entopts?: Record<string, any>) {
     const self = this
-    return new CoffeeDomainEntity(self,data)
+    return new CoffeeDomainEntity(self, entopts)
   }
 
 
   // Entity access: `client.DonateRestController().list()` / `client.DonateRestController().load({ id })`.
-  DonateRestController(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  DonateRestController(entopts?: Record<string, any>) {
     const self = this
-    return new DonateRestControllerEntity(self,data)
+    return new DonateRestControllerEntity(self, entopts)
   }
 
 
   // Entity access: `client.PortfolioController().list()` / `client.PortfolioController().load({ id })`.
-  PortfolioController(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  PortfolioController(entopts?: Record<string, any>) {
     const self = this
-    return new PortfolioControllerEntity(self,data)
+    return new PortfolioControllerEntity(self, entopts)
   }
 
 
   // Entity access: `client.RepositoryDetailDomain().list()` / `client.RepositoryDetailDomain().load({ id })`.
-  RepositoryDetailDomain(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  RepositoryDetailDomain(entopts?: Record<string, any>) {
     const self = this
-    return new RepositoryDetailDomainEntity(self,data)
+    return new RepositoryDetailDomainEntity(self, entopts)
   }
 
 
   // Entity access: `client.RepositoryIssueDomain().list()` / `client.RepositoryIssueDomain().load({ id })`.
-  RepositoryIssueDomain(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  RepositoryIssueDomain(entopts?: Record<string, any>) {
     const self = this
-    return new RepositoryIssueDomainEntity(self,data)
+    return new RepositoryIssueDomainEntity(self, entopts)
   }
 
 
   // Entity access: `client.Version().list()` / `client.Version().load({ id })`.
-  Version(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Version(entopts?: Record<string, any>) {
     const self = this
-    return new VersionEntity(self,data)
+    return new VersionEntity(self, entopts)
   }
 
 

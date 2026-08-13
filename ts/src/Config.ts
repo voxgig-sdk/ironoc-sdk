@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'GithubProjectIssues',
   }
 
 
@@ -95,7 +95,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "ingredient",
+          "name": "ingredients",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 3
@@ -117,6 +117,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/api/coffees",
               "parts": [
@@ -140,6 +141,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "PUT",
               "orig": "/api/coffees",
               "parts": [
@@ -186,7 +188,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "ingredient",
+          "name": "ingredients",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 3
@@ -208,6 +210,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/api/coffees-graph-ql",
               "parts": [
@@ -240,6 +243,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/api/donate-items",
               "parts": [
@@ -272,6 +276,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/api/portfolio-items",
               "parts": [
@@ -297,7 +302,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "app_home",
+          "name": "appHome",
           "req": false,
           "type": "`$STRING`",
           "index$": 0
@@ -311,14 +316,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "full_name",
+          "name": "fullName",
           "req": true,
           "type": "`$STRING`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "issue_count",
+          "name": "issueCount",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 3
@@ -332,14 +337,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "repo_url",
+          "name": "repoUrl",
           "req": true,
           "type": "`$STRING`",
           "index$": 5
         },
         {
           "active": true,
-          "name": "topic",
+          "name": "topics",
           "req": false,
           "type": "`$STRING`",
           "index$": 6
@@ -365,6 +370,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/api/get-repo-detail",
               "parts": [
@@ -404,6 +410,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/api/get-repo-detail/{username}/",
               "parts": [
@@ -445,7 +452,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "label",
+          "name": "labels",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 1
@@ -502,6 +509,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/api/get-repo-issue/{username}/{repository}/",
               "parts": [
@@ -545,6 +553,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/api/application/version",
               "parts": [

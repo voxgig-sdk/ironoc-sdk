@@ -37,7 +37,7 @@ class RepositoryIssueDomainEntity extends GithubProjectIssuesEntityBase<Reposito
 
 
 
-  async list(this: any, reqmatch?: RepositoryIssueDomainListMatch, ctrl?: Control): Promise<RepositoryIssueDomain[]> {
+  async list(this: any, reqmatch?: RepositoryIssueDomainListMatch, ctrl?: Control): Promise<RepositoryIssueDomainEntity[]> {
 
     const utility = this._utility
 

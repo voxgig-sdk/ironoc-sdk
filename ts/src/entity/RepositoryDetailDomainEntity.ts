@@ -37,7 +37,7 @@ class RepositoryDetailDomainEntity extends GithubProjectIssuesEntityBase<Reposit
 
 
 
-  async load(this: any, reqmatch?: RepositoryDetailDomainLoadMatch, ctrl?: Control): Promise<RepositoryDetailDomain> {
+  async load(this: any, reqmatch?: RepositoryDetailDomainLoadMatch, ctrl?: Control): Promise<RepositoryDetailDomainEntity> {
 
     const utility = this._utility
 
@@ -128,7 +128,15 @@ class RepositoryDetailDomainEntity extends GithubProjectIssuesEntityBase<Reposit
         }
       }
 
-      return done(ctx)
+      const out = done(ctx)
+
+      // An operation resolves to the ENTITY, not the raw data — the record
+      // has just been absorbed into this instance and is reached through
+      // data(). `done` still runs: it completes the pipeline and raises on
+      // failure, and when throwing is disabled it hands back the error
+      // payload, which passes through unchanged. See AGENTS.md "Entity
+      // operations return ENTITIES".
+      return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err: any) {
 
@@ -150,7 +158,7 @@ class RepositoryDetailDomainEntity extends GithubProjectIssuesEntityBase<Reposit
 
 
 
-  async list(this: any, reqmatch?: RepositoryDetailDomainListMatch, ctrl?: Control): Promise<RepositoryDetailDomain[]> {
+  async list(this: any, reqmatch?: RepositoryDetailDomainListMatch, ctrl?: Control): Promise<RepositoryDetailDomainEntity[]> {
 
     const utility = this._utility
 

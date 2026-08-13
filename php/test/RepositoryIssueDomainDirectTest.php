@@ -85,11 +85,11 @@ function repository_issue_domain_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "GITHUBPROJECTISSUES_TEST_REPOSITORY_ISSUE_DOMAIN_ENTID" => [],
-        "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
+        "GITHUB_PROJECT_ISSUES_TEST_REPOSITORY_ISSUE_DOMAIN_ENTID" => [],
+        "GITHUB_PROJECT_ISSUES_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["GITHUBPROJECTISSUES_TEST_LIVE"] === "TRUE";
+    $live = $env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

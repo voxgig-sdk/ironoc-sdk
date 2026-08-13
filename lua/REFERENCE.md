@@ -117,7 +117,7 @@ local coffee = client:Coffee(nil)
 | `description` | `string` | No |  |
 | `id` | `number` | No |  |
 | `image` | `string` | Yes |  |
-| `ingredient` | `table` | Yes |  |
+| `ingredients` | `table` | Yes |  |
 | `title` | `string` | Yes |  |
 
 ### Operations
@@ -183,7 +183,7 @@ local coffee_domain = client:CoffeeDomain(nil)
 | `description` | `string` | No |  |
 | `id` | `number` | No |  |
 | `image` | `string` | Yes |  |
-| `ingredient` | `table` | Yes |  |
+| `ingredients` | `table` | Yes |  |
 | `title` | `string` | Yes |  |
 
 ### Operations
@@ -328,13 +328,13 @@ local repository_detail_domain = client:RepositoryDetailDomain(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `app_home` | `string` | No |  |
+| `appHome` | `string` | No |  |
 | `description` | `string` | No |  |
-| `full_name` | `string` | Yes |  |
-| `issue_count` | `number` | No |  |
+| `fullName` | `string` | Yes |  |
+| `issueCount` | `number` | No |  |
 | `name` | `string` | Yes |  |
-| `repo_url` | `string` | Yes |  |
-| `topic` | `string` | No |  |
+| `repoUrl` | `string` | Yes |  |
+| `topics` | `string` | No |  |
 
 ### Operations
 
@@ -395,7 +395,7 @@ local repository_issue_domain = client:RepositoryIssueDomain(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `body` | `string` | No |  |
-| `label` | `table` | No |  |
+| `labels` | `table` | No |  |
 | `number` | `string` | Yes |  |
 | `state` | `string` | No |  |
 | `title` | `string` | Yes |  |

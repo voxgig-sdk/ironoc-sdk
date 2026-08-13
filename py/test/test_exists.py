@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# GithubProjectIssues SDK exists test
 
 import pytest
 from githubprojectissues_sdk import GithubProjectIssuesSDK

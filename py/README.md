@@ -53,7 +53,7 @@ except Exception as err:
 ### 3. Load a repositorydetaildomain
 
 RepositoryDetailDomain is nested under username, so provide the `username`.
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -78,8 +78,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    coffees = client.Coffee().list()
-    print(coffees)
+    repositoryissuedomains = client.RepositoryIssueDomain().list()
+    print(repositoryissuedomains)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -145,9 +145,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = GithubProjectIssuesSDK.test()
 
-# Entity ops return the bare record and raise on error.
-coffee = client.Coffee().list()
-# coffee contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+repositoryissuedomain = client.RepositoryIssueDomain().list()
+# repositoryissuedomain contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -249,7 +250,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -274,7 +275,7 @@ On error, `ok` is `False` and `err` contains the error value.
 | `description` |  |
 | `id` |  |
 | `image` |  |
-| `ingredient` |  |
+| `ingredients` |  |
 | `title` |  |
 
 Operations: List, Update.
@@ -288,7 +289,7 @@ API path: `/api/coffees`
 | `description` |  |
 | `id` |  |
 | `image` |  |
-| `ingredient` |  |
+| `ingredients` |  |
 | `title` |  |
 
 Operations: List.
@@ -317,13 +318,13 @@ API path: `/api/portfolio-items`
 
 | Field | Description |
 | --- | --- |
-| `app_home` |  |
+| `appHome` |  |
 | `description` |  |
-| `full_name` |  |
-| `issue_count` |  |
+| `fullName` |  |
+| `issueCount` |  |
 | `name` |  |
-| `repo_url` |  |
-| `topic` |  |
+| `repoUrl` |  |
+| `topics` |  |
 
 Operations: List, Load.
 
@@ -334,7 +335,7 @@ API path: `/api/get-repo-detail`
 | Field | Description |
 | --- | --- |
 | `body` |  |
-| `label` |  |
+| `labels` |  |
 | `number` |  |
 | `state` |  |
 | `title` |  |
@@ -375,7 +376,7 @@ Create an instance: `coffee = client.Coffee()`
 | `description` | `str` |  |
 | `id` | `int` |  |
 | `image` | `str` |  |
-| `ingredient` | `list` |  |
+| `ingredients` | `list` |  |
 | `title` | `str` |  |
 
 #### Example: List
@@ -402,7 +403,7 @@ Create an instance: `coffee_domain = client.CoffeeDomain()`
 | `description` | `str` |  |
 | `id` | `int` |  |
 | `image` | `str` |  |
-| `ingredient` | `list` |  |
+| `ingredients` | `list` |  |
 | `title` | `str` |  |
 
 #### Example: List
@@ -461,13 +462,13 @@ Create an instance: `repository_detail_domain = client.RepositoryDetailDomain()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `app_home` | `str` |  |
+| `appHome` | `str` |  |
 | `description` | `str` |  |
-| `full_name` | `str` |  |
-| `issue_count` | `int` |  |
+| `fullName` | `str` |  |
+| `issueCount` | `int` |  |
 | `name` | `str` |  |
-| `repo_url` | `str` |  |
-| `topic` | `str` |  |
+| `repoUrl` | `str` |  |
+| `topics` | `str` |  |
 
 #### Example: Load
 
@@ -497,7 +498,7 @@ Create an instance: `repository_issue_domain = client.RepositoryIssueDomain()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `body` | `str` |  |
-| `label` | `list` |  |
+| `labels` | `list` |  |
 | `number` | `str` |  |
 | `state` | `str` |  |
 | `title` | `str` |  |
@@ -505,7 +506,7 @@ Create an instance: `repository_issue_domain = client.RepositoryIssueDomain()`
 #### Example: List
 
 ```python
-repository_issue_domains = client.RepositoryIssueDomain().list()
+repository_issue_domains = client.RepositoryIssueDomain().list({"repository": "example", "username": "example"})
 ```
 
 
@@ -601,11 +602,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-coffee = client.Coffee()
-coffee.list()
+repositoryissuedomain = client.RepositoryIssueDomain()
+repositoryissuedomain.list()
 
-# coffee.data_get() now returns the coffee data from the last list
-# coffee.match_get() returns the last match criteria
+# repositoryissuedomain.data_get() now returns the repositoryissuedomain data from the last list
+# repositoryissuedomain.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

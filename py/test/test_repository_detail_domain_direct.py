@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from githubprojectissues_sdk.utility.voxgig_struct import voxgig_struct as vs
 from githubprojectissues_sdk import GithubProjectIssuesSDK
-from core import helpers
+from githubprojectissues_sdk.core import helpers
 from test import runner
 
 
@@ -105,11 +105,11 @@ def _repository_detail_domain_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "GITHUBPROJECTISSUES_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID": {},
-        "GITHUBPROJECTISSUES_TEST_LIVE": "FALSE",
+        "GITHUB_PROJECT_ISSUES_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID": {},
+        "GITHUB_PROJECT_ISSUES_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("GITHUBPROJECTISSUES_TEST_LIVE") == "TRUE"
+    live = env.get("GITHUB_PROJECT_ISSUES_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

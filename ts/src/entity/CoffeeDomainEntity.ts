@@ -37,7 +37,7 @@ class CoffeeDomainEntity extends GithubProjectIssuesEntityBase<CoffeeDomain> {
 
 
 
-  async list(this: any, reqmatch?: CoffeeDomainListMatch, ctrl?: Control): Promise<CoffeeDomain[]> {
+  async list(this: any, reqmatch?: CoffeeDomainListMatch, ctrl?: Control): Promise<CoffeeDomainEntity[]> {
 
     const utility = this._utility
 

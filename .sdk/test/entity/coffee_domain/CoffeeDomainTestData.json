@@ -5,21 +5,21 @@
         "description": "s32",
         "id": "COFFEE_DOMAIN00",
         "image": "s34",
-        "ingredient": [],
+        "ingredients": [],
         "title": "s36"
       },
       "COFFEE_DOMAIN01": {
         "description": "s64",
         "id": "COFFEE_DOMAIN01",
         "image": "s66",
-        "ingredient": [],
+        "ingredients": [],
         "title": "s68"
       },
       "COFFEE_DOMAIN02": {
         "description": "s96",
         "id": "COFFEE_DOMAIN02",
         "image": "s98",
-        "ingredient": [],
+        "ingredients": [],
         "title": "s9a"
       }
     }
@@ -29,7 +29,7 @@
       "coffee_domain_ref01": {
         "description": "sc8",
         "image": "sca",
-        "ingredient": [],
+        "ingredients": [],
         "title": "scc"
       }
     }

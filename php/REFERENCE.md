@@ -119,7 +119,7 @@ $coffee = $client->Coffee();
 | `description` | `string` | No |  |
 | `id` | `int` | No |  |
 | `image` | `string` | Yes |  |
-| `ingredient` | `array` | Yes |  |
+| `ingredients` | `array` | Yes |  |
 | `title` | `string` | Yes |  |
 
 ### Operations
@@ -185,7 +185,7 @@ $coffee_domain = $client->CoffeeDomain();
 | `description` | `string` | No |  |
 | `id` | `int` | No |  |
 | `image` | `string` | Yes |  |
-| `ingredient` | `array` | Yes |  |
+| `ingredients` | `array` | Yes |  |
 | `title` | `string` | Yes |  |
 
 ### Operations
@@ -330,13 +330,13 @@ $repository_detail_domain = $client->RepositoryDetailDomain();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `app_home` | `string` | No |  |
+| `appHome` | `string` | No |  |
 | `description` | `string` | No |  |
-| `full_name` | `string` | Yes |  |
-| `issue_count` | `int` | No |  |
+| `fullName` | `string` | Yes |  |
+| `issueCount` | `int` | No |  |
 | `name` | `string` | Yes |  |
-| `repo_url` | `string` | Yes |  |
-| `topic` | `string` | No |  |
+| `repoUrl` | `string` | Yes |  |
+| `topics` | `string` | No |  |
 
 ### Operations
 
@@ -397,7 +397,7 @@ $repository_issue_domain = $client->RepositoryIssueDomain();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `body` | `string` | No |  |
-| `label` | `array` | No |  |
+| `labels` | `array` | No |  |
 | `number` | `string` | Yes |  |
 | `state` | `string` | No |  |
 | `title` | `string` | Yes |  |

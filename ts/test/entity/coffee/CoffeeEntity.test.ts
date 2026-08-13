@@ -26,8 +26,8 @@ import {
 describe('CoffeeEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBPROJECTISSUES_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBPROJECTISSUES_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_PROJECT_ISSUES_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_PROJECT_ISSUES_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = GithubProjectIssuesSDK.test()
@@ -63,7 +63,7 @@ describe('CoffeeEntity', async () => {
     const coffee_ref01_ent = client.Coffee()
     const coffee_ref01_match: any = {}
 
-    const coffee_ref01_list = await coffee_ref01_ent.list(coffee_ref01_match)
+    const coffee_ref01_list = (await coffee_ref01_ent.list(coffee_ref01_match)).map((e: any) => e.data())
 
 
     // UPDATE
@@ -73,7 +73,7 @@ describe('CoffeeEntity', async () => {
     const coffee_ref01_markdef_up0 = { name: 'description', value: 'Mark01-coffee_ref01_' + setup.now }
     ;(coffee_ref01_data_up0 as any)[coffee_ref01_markdef_up0.name] = coffee_ref01_markdef_up0.value
 
-    const coffee_ref01_resdata_up0 = await coffee_ref01_ent.update(coffee_ref01_data_up0)
+    const coffee_ref01_resdata_up0 = (await coffee_ref01_ent.update(coffee_ref01_data_up0)).data()
     assert(coffee_ref01_resdata_up0.id === coffee_ref01_data_up0.id)
 
     assert((coffee_ref01_resdata_up0 as any)[coffee_ref01_markdef_up0.name] === coffee_ref01_markdef_up0.value)

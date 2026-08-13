@@ -21,7 +21,7 @@ main: kit: entity: coffee_domain: {
       type: "`$STRING`"
     }
     {
-      name: "ingredient"
+      name: "ingredients"
       req: true
       type: "`$ARRAY`"
     }

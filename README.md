@@ -36,18 +36,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = GithubProjectIssuesSDK.test()
-const coffees = await client.Coffee().list()
-// coffees is an array of bare Coffee records populated with mock data
-console.log(coffees)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = GithubProjectIssuesSDK.test({
+  entity: {
+    repository_issue_domain: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const repositoryissuedomains = await client.RepositoryIssueDomain().list()
+// repositoryissuedomains is an array of RepositoryIssueDomain entities, populated with mock data
+// — call repositoryissuedomains[0].data() for the record itself
+console.log(repositoryissuedomains)
 ```
 
 ### Python
 
 ```python
 client = GithubProjectIssuesSDK.test()
-coffees = client.Coffee().list()
-print(coffees)
+repositoryissuedomains = client.RepositoryIssueDomain().list()
+print(repositoryissuedomains)
 ```
 
 ### PHP
@@ -55,16 +64,16 @@ print(coffees)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = GithubProjectIssuesSDK::test([
-    "entity" => ["coffee" => ["test01" => []]],
+    "entity" => ["repositoryissuedomain" => ["test01" => []]],
 ]);
-$coffees = $client->Coffee()->list();
+$repositoryissuedomains = $client->RepositoryIssueDomain()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Coffee(nil).List(
+result, err := client.RepositoryIssueDomain(nil).List(
     nil, nil,
 )
 ```
@@ -74,16 +83,16 @@ result, err := client.Coffee(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = GithubProjectIssuesSDK.test({
-  "entity" => { "coffee" => { "test01" => {} } },
+  "entity" => { "repositoryissuedomain" => { "test01" => {} } },
 })
-coffees = client.Coffee.list()
+repositoryissuedomains = client.RepositoryIssueDomain.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Coffee():list()
+local results, err = client:RepositoryIssueDomain():list()
 ```
 
 ## Packages
@@ -108,7 +117,7 @@ import { GithubProjectIssuesSDK } from '@voxgig-sdk/github-project-issues'
 
 const client = new GithubProjectIssuesSDK()
 
-// List all coffees (returns Coffee[])
+// List all coffees (returns CoffeeEntity[] — .data() for the record)
 const coffees = await client.Coffee().list()
 for (const coffee of coffees) {
   console.log(coffee)
@@ -362,6 +371,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://ironoc.net](https://ironoc.net)
 

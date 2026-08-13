@@ -75,12 +75,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-coffees, err := client.Coffee(nil).List(nil, nil)
+repositoryissuedomains, err := client.RepositoryIssueDomain(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = coffees
+_ = repositoryissuedomains
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -144,13 +144,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-coffee, err := client.Coffee(nil).List(
+repositoryIssueDomain, err := client.RepositoryIssueDomain(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(coffee) // the returned mock data
+fmt.Println(repositoryIssueDomain) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -279,7 +279,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | `"description"` |  |
 | `"id"` |  |
 | `"image"` |  |
-| `"ingredient"` |  |
+| `"ingredients"` |  |
 | `"title"` |  |
 
 Operations: List, Update.
@@ -293,7 +293,7 @@ API path: `/api/coffees`
 | `"description"` |  |
 | `"id"` |  |
 | `"image"` |  |
-| `"ingredient"` |  |
+| `"ingredients"` |  |
 | `"title"` |  |
 
 Operations: List.
@@ -322,13 +322,13 @@ API path: `/api/portfolio-items`
 
 | Field | Description |
 | --- | --- |
-| `"app_home"` |  |
+| `"appHome"` |  |
 | `"description"` |  |
-| `"full_name"` |  |
-| `"issue_count"` |  |
+| `"fullName"` |  |
+| `"issueCount"` |  |
 | `"name"` |  |
-| `"repo_url"` |  |
-| `"topic"` |  |
+| `"repoUrl"` |  |
+| `"topics"` |  |
 
 Operations: List, Load.
 
@@ -339,7 +339,7 @@ API path: `/api/get-repo-detail`
 | Field | Description |
 | --- | --- |
 | `"body"` |  |
-| `"label"` |  |
+| `"labels"` |  |
 | `"number"` |  |
 | `"state"` |  |
 | `"title"` |  |
@@ -380,7 +380,7 @@ Create an instance: `coffee := client.Coffee(nil)`
 | `description` | `string` |  |
 | `id` | `int` |  |
 | `image` | `string` |  |
-| `ingredient` | `[]any` |  |
+| `ingredients` | `[]any` |  |
 | `title` | `string` |  |
 
 #### Example: List
@@ -411,7 +411,7 @@ Create an instance: `coffeeDomain := client.CoffeeDomain(nil)`
 | `description` | `string` |  |
 | `id` | `int` |  |
 | `image` | `string` |  |
-| `ingredient` | `[]any` |  |
+| `ingredients` | `[]any` |  |
 | `title` | `string` |  |
 
 #### Example: List
@@ -482,13 +482,13 @@ Create an instance: `repositoryDetailDomain := client.RepositoryDetailDomain(nil
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `app_home` | `string` |  |
+| `appHome` | `string` |  |
 | `description` | `string` |  |
-| `full_name` | `string` |  |
-| `issue_count` | `int` |  |
+| `fullName` | `string` |  |
+| `issueCount` | `int` |  |
 | `name` | `string` |  |
-| `repo_url` | `string` |  |
-| `topic` | `string` |  |
+| `repoUrl` | `string` |  |
+| `topics` | `string` |  |
 
 #### Example: Load
 
@@ -526,7 +526,7 @@ Create an instance: `repositoryIssueDomain := client.RepositoryIssueDomain(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `body` | `string` |  |
-| `label` | `[]any` |  |
+| `labels` | `[]any` |  |
 | `number` | `string` |  |
 | `state` | `string` |  |
 | `title` | `string` |  |
@@ -636,11 +636,11 @@ Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-coffee := client.Coffee(nil)
-coffee.List(nil, nil)
+repositoryissuedomain := client.RepositoryIssueDomain(nil)
+repositoryissuedomain.List(nil, nil)
 
-// coffee.Data() now returns the coffee data from the last list
-// coffee.Match() returns the last match criteria
+// repositoryissuedomain.Data() now returns the repositoryissuedomain data from the last list
+// repositoryissuedomain.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

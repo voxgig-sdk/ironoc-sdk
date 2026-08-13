@@ -23,8 +23,8 @@ module GithubProjectIssuesTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("GITHUBPROJECTISSUES_TEST_LIVE")
-    override = getenv("GITHUBPROJECTISSUES_TEST_OVERRIDE")
+    live = getenv("GITHUB_PROJECT_ISSUES_TEST_LIVE")
+    override = getenv("GITHUB_PROJECT_ISSUES_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module GithubProjectIssuesTestRunner
       end
     end
 
-    explain = getenv("GITHUBPROJECTISSUES_TEST_EXPLAIN")
-    m["GITHUBPROJECTISSUES_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("GITHUB_PROJECT_ISSUES_TEST_EXPLAIN")
+    m["GITHUB_PROJECT_ISSUES_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import GithubProjectIssuesControl
-from core.error import GithubProjectIssuesError
-from core.result import GithubProjectIssuesResult
-from core.spec import GithubProjectIssuesSpec
+from projectname_sdk.config import make_config
+from projectname_sdk.features import _make_feature
+from projectname_sdk.core.control import GithubProjectIssuesControl
+from projectname_sdk.core.error import GithubProjectIssuesError
+from projectname_sdk.core.result import GithubProjectIssuesResult
+from projectname_sdk.core.spec import GithubProjectIssuesSpec
 
 
 # True when this SDK was generated with the named feature.

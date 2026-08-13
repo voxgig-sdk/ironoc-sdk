@@ -125,7 +125,7 @@ fmt.Println(coffee.GetName()) // "coffee"
 | `description` | `string` | No |  |
 | `id` | `int` | No |  |
 | `image` | `string` | Yes |  |
-| `ingredient` | `[]any` | Yes |  |
+| `ingredients` | `[]any` | Yes |  |
 | `title` | `string` | Yes |  |
 
 ### Operations
@@ -194,7 +194,7 @@ fmt.Println(coffeeDomain.GetName()) // "coffee_domain"
 | `description` | `string` | No |  |
 | `id` | `int` | No |  |
 | `image` | `string` | Yes |  |
-| `ingredient` | `[]any` | Yes |  |
+| `ingredients` | `[]any` | Yes |  |
 | `title` | `string` | Yes |  |
 
 ### Operations
@@ -336,13 +336,13 @@ fmt.Println(repositoryDetailDomain.GetName()) // "repository_detail_domain"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `app_home` | `string` | No |  |
+| `appHome` | `string` | No |  |
 | `description` | `string` | No |  |
-| `full_name` | `string` | Yes |  |
-| `issue_count` | `int` | No |  |
+| `fullName` | `string` | Yes |  |
+| `issueCount` | `int` | No |  |
 | `name` | `string` | Yes |  |
-| `repo_url` | `string` | Yes |  |
-| `topic` | `string` | No |  |
+| `repoUrl` | `string` | Yes |  |
+| `topics` | `string` | No |  |
 
 ### Operations
 
@@ -406,7 +406,7 @@ fmt.Println(repositoryIssueDomain.GetName()) // "repository_issue_domain"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `body` | `string` | No |  |
-| `label` | `[]any` | No |  |
+| `labels` | `[]any` | No |  |
 | `number` | `string` | Yes |  |
 | `state` | `string` | No |  |
 | `title` | `string` | Yes |  |

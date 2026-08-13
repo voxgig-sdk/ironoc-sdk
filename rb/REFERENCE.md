@@ -120,7 +120,7 @@ coffee = client.Coffee
 | `description` | `String` | No |  |
 | `id` | `Integer` | No |  |
 | `image` | `String` | Yes |  |
-| `ingredient` | `Array` | Yes |  |
+| `ingredients` | `Array` | Yes |  |
 | `title` | `String` | Yes |  |
 
 ### Operations
@@ -186,7 +186,7 @@ coffee_domain = client.CoffeeDomain
 | `description` | `String` | No |  |
 | `id` | `Integer` | No |  |
 | `image` | `String` | Yes |  |
-| `ingredient` | `Array` | Yes |  |
+| `ingredients` | `Array` | Yes |  |
 | `title` | `String` | Yes |  |
 
 ### Operations
@@ -331,13 +331,13 @@ repository_detail_domain = client.RepositoryDetailDomain
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `app_home` | `String` | No |  |
+| `appHome` | `String` | No |  |
 | `description` | `String` | No |  |
-| `full_name` | `String` | Yes |  |
-| `issue_count` | `Integer` | No |  |
+| `fullName` | `String` | Yes |  |
+| `issueCount` | `Integer` | No |  |
 | `name` | `String` | Yes |  |
-| `repo_url` | `String` | Yes |  |
-| `topic` | `String` | No |  |
+| `repoUrl` | `String` | Yes |  |
+| `topics` | `String` | No |  |
 
 ### Operations
 
@@ -398,7 +398,7 @@ repository_issue_domain = client.RepositoryIssueDomain
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `body` | `String` | No |  |
-| `label` | `Array` | No |  |
+| `labels` | `Array` | No |  |
 | `number` | `String` | Yes |  |
 | `state` | `String` | No |  |
 | `title` | `String` | Yes |  |

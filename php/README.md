@@ -51,7 +51,7 @@ RepositoryDetailDomain is nested under username, so provide the `username`.
 
 ```php
 try {
-    // load() returns the bare RepositoryDetailDomain record (throws on error).
+    // load() returns the ENTITY — call data_get() for the RepositoryDetailDomain record (throws on error).
     $repositorydetaildomain = $client->RepositoryDetailDomain()->load(["username" => "example_username"]);
     print_r($repositorydetaildomain);
 } catch (\Throwable $err) {
@@ -75,7 +75,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $coffees = $client->Coffee()->list();
+    $repositoryissuedomains = $client->RepositoryIssueDomain()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -147,9 +147,10 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = GithubProjectIssuesSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$coffee = $client->Coffee()->list();
-print_r($coffee);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$repositoryissuedomain = $client->RepositoryIssueDomain()->list();
+print_r($repositoryissuedomain);
 ```
 
 ### Use a custom fetch function
@@ -254,7 +255,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -279,7 +280,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 | `description` |  |
 | `id` |  |
 | `image` |  |
-| `ingredient` |  |
+| `ingredients` |  |
 | `title` |  |
 
 Operations: List, Update.
@@ -293,7 +294,7 @@ API path: `/api/coffees`
 | `description` |  |
 | `id` |  |
 | `image` |  |
-| `ingredient` |  |
+| `ingredients` |  |
 | `title` |  |
 
 Operations: List.
@@ -322,13 +323,13 @@ API path: `/api/portfolio-items`
 
 | Field | Description |
 | --- | --- |
-| `app_home` |  |
+| `appHome` |  |
 | `description` |  |
-| `full_name` |  |
-| `issue_count` |  |
+| `fullName` |  |
+| `issueCount` |  |
 | `name` |  |
-| `repo_url` |  |
-| `topic` |  |
+| `repoUrl` |  |
+| `topics` |  |
 
 Operations: List, Load.
 
@@ -339,7 +340,7 @@ API path: `/api/get-repo-detail`
 | Field | Description |
 | --- | --- |
 | `body` |  |
-| `label` |  |
+| `labels` |  |
 | `number` |  |
 | `state` |  |
 | `title` |  |
@@ -380,7 +381,7 @@ Create an instance: `$coffee = $client->Coffee();`
 | `description` | `string` |  |
 | `id` | `int` |  |
 | `image` | `string` |  |
-| `ingredient` | `array` |  |
+| `ingredients` | `array` |  |
 | `title` | `string` |  |
 
 #### Example: List
@@ -408,7 +409,7 @@ Create an instance: `$coffee_domain = $client->CoffeeDomain();`
 | `description` | `string` |  |
 | `id` | `int` |  |
 | `image` | `string` |  |
-| `ingredient` | `array` |  |
+| `ingredients` | `array` |  |
 | `title` | `string` |  |
 
 #### Example: List
@@ -470,18 +471,18 @@ Create an instance: `$repository_detail_domain = $client->RepositoryDetailDomain
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `app_home` | `string` |  |
+| `appHome` | `string` |  |
 | `description` | `string` |  |
-| `full_name` | `string` |  |
-| `issue_count` | `int` |  |
+| `fullName` | `string` |  |
+| `issueCount` | `int` |  |
 | `name` | `string` |  |
-| `repo_url` | `string` |  |
-| `topic` | `string` |  |
+| `repoUrl` | `string` |  |
+| `topics` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare RepositoryDetailDomain record (throws on error).
+// load() returns the ENTITY — call data_get() for the RepositoryDetailDomain record (throws on error).
 $repository_detail_domain = $client->RepositoryDetailDomain()->load(["username" => "username"]);
 ```
 
@@ -508,7 +509,7 @@ Create an instance: `$repository_issue_domain = $client->RepositoryIssueDomain()
 | Field | Type | Description |
 | --- | --- | --- |
 | `body` | `string` |  |
-| `label` | `array` |  |
+| `labels` | `array` |  |
 | `number` | `string` |  |
 | `state` | `string` |  |
 | `title` | `string` |  |
@@ -534,7 +535,7 @@ Create an instance: `$version = $client->Version();`
 #### Example: Load
 
 ```php
-// load() returns the bare Version record (throws on error).
+// load() returns the ENTITY — call data_get() for the Version record (throws on error).
 $version = $client->Version()->load();
 ```
 
@@ -615,11 +616,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$coffee = $client->Coffee();
-$coffee->list();
+$repositoryissuedomain = $client->RepositoryIssueDomain();
+$repositoryissuedomain->list();
 
-// $coffee->data_get() now returns the coffee data from the last list
-// $coffee->match_get() returns the last match criteria
+// $repositoryissuedomain->data_get() now returns the repositoryissuedomain data from the last list
+// $repositoryissuedomain->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -50,7 +50,7 @@ RepositoryDetailDomain is nested under username, so provide the `username`.
 
 ```ruby
 begin
-  # load returns the bare RepositoryDetailDomain record (raises on error).
+  # load returns the ENTITY — call data_get for the RepositoryDetailDomain record (raises on error).
   repositorydetaildomain = client.RepositoryDetailDomain.load({ "username" => "example_username" })
   puts repositorydetaildomain
 rescue => err
@@ -73,7 +73,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  coffees = client.Coffee.list()
+  repositoryissuedomains = client.RepositoryIssueDomain.list()
 rescue => err
   warn "list failed: #{err}"
 end
@@ -141,9 +141,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = GithubProjectIssuesSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-coffee = client.Coffee.list()
-puts coffee
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+repositoryissuedomain = client.RepositoryIssueDomain.list()
+puts repositoryissuedomain
 ```
 
 ### Use a custom fetch function
@@ -269,7 +270,7 @@ returns a result `Hash` with these keys:
 | `description` |  |
 | `id` |  |
 | `image` |  |
-| `ingredient` |  |
+| `ingredients` |  |
 | `title` |  |
 
 Operations: List, Update.
@@ -283,7 +284,7 @@ API path: `/api/coffees`
 | `description` |  |
 | `id` |  |
 | `image` |  |
-| `ingredient` |  |
+| `ingredients` |  |
 | `title` |  |
 
 Operations: List.
@@ -312,13 +313,13 @@ API path: `/api/portfolio-items`
 
 | Field | Description |
 | --- | --- |
-| `app_home` |  |
+| `appHome` |  |
 | `description` |  |
-| `full_name` |  |
-| `issue_count` |  |
+| `fullName` |  |
+| `issueCount` |  |
 | `name` |  |
-| `repo_url` |  |
-| `topic` |  |
+| `repoUrl` |  |
+| `topics` |  |
 
 Operations: List, Load.
 
@@ -329,7 +330,7 @@ API path: `/api/get-repo-detail`
 | Field | Description |
 | --- | --- |
 | `body` |  |
-| `label` |  |
+| `labels` |  |
 | `number` |  |
 | `state` |  |
 | `title` |  |
@@ -370,7 +371,7 @@ Create an instance: `coffee = client.Coffee`
 | `description` | `String` |  |
 | `id` | `Integer` |  |
 | `image` | `String` |  |
-| `ingredient` | `Array` |  |
+| `ingredients` | `Array` |  |
 | `title` | `String` |  |
 
 #### Example: List
@@ -398,7 +399,7 @@ Create an instance: `coffee_domain = client.CoffeeDomain`
 | `description` | `String` |  |
 | `id` | `Integer` |  |
 | `image` | `String` |  |
-| `ingredient` | `Array` |  |
+| `ingredients` | `Array` |  |
 | `title` | `String` |  |
 
 #### Example: List
@@ -460,18 +461,18 @@ Create an instance: `repository_detail_domain = client.RepositoryDetailDomain`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `app_home` | `String` |  |
+| `appHome` | `String` |  |
 | `description` | `String` |  |
-| `full_name` | `String` |  |
-| `issue_count` | `Integer` |  |
+| `fullName` | `String` |  |
+| `issueCount` | `Integer` |  |
 | `name` | `String` |  |
-| `repo_url` | `String` |  |
-| `topic` | `String` |  |
+| `repoUrl` | `String` |  |
+| `topics` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare RepositoryDetailDomain record (raises on error).
+# load returns the ENTITY — call data_get for the RepositoryDetailDomain record (raises on error).
 repository_detail_domain = client.RepositoryDetailDomain.load({ "username" => "username" })
 ```
 
@@ -498,7 +499,7 @@ Create an instance: `repository_issue_domain = client.RepositoryIssueDomain`
 | Field | Type | Description |
 | --- | --- | --- |
 | `body` | `String` |  |
-| `label` | `Array` |  |
+| `labels` | `Array` |  |
 | `number` | `String` |  |
 | `state` | `String` |  |
 | `title` | `String` |  |
@@ -524,7 +525,7 @@ Create an instance: `version = client.Version`
 #### Example: Load
 
 ```ruby
-# load returns the bare Version record (raises on error).
+# load returns the ENTITY — call data_get for the Version record (raises on error).
 version = client.Version.load()
 ```
 
@@ -605,11 +606,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-coffee = client.Coffee
-coffee.list()
+repositoryissuedomain = client.RepositoryIssueDomain
+repositoryissuedomain.list()
 
-# coffee.data_get now returns the coffee data from the last list
-# coffee.match_get returns the last match criteria
+# repositoryissuedomain.data_get now returns the repositoryissuedomain data from the last list
+# repositoryissuedomain.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

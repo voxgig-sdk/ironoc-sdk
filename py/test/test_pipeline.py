@@ -16,11 +16,11 @@
 import pytest
 
 from githubprojectissues_sdk import GithubProjectIssuesSDK
-from core.error import GithubProjectIssuesError
-from core.result import GithubProjectIssuesResult
-from core.response import GithubProjectIssuesResponse
-from core.spec import GithubProjectIssuesSpec
-from feature.base_feature import GithubProjectIssuesBaseFeature
+from githubprojectissues_sdk.core.error import GithubProjectIssuesError
+from githubprojectissues_sdk.core.result import GithubProjectIssuesResult
+from githubprojectissues_sdk.core.response import GithubProjectIssuesResponse
+from githubprojectissues_sdk.core.spec import GithubProjectIssuesSpec
+from githubprojectissues_sdk.feature.base_feature import GithubProjectIssuesBaseFeature
 
 
 def _client():

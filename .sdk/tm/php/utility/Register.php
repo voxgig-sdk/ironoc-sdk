@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ GithubProjectIssuesUtility::setRegistrar(function (GithubProjectIssuesUtility $u
     $u->prepare_params = [GithubProjectIssuesPrepareParams::class, 'call'];
     $u->prepare_path = [GithubProjectIssuesPreparePath::class, 'call'];
     $u->prepare_query = [GithubProjectIssuesPrepareQuery::class, 'call'];
+    $u->graphql_body = [GithubProjectIssuesGraphql::class, 'body'];
+    $u->graphql_errors = [GithubProjectIssuesGraphql::class, 'errors'];
     $u->result_basic = [GithubProjectIssuesResultBasic::class, 'call'];
     $u->result_body = [GithubProjectIssuesResultBody::class, 'call'];
     $u->result_headers = [GithubProjectIssuesResultHeaders::class, 'call'];

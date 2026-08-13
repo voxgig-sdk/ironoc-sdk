@@ -11,7 +11,7 @@ main: kit: entity: repository_issue_domain: {
       type: "`$STRING`"
     }
     {
-      name: "label"
+      name: "labels"
       req: false
       type: "`$ARRAY`"
     }

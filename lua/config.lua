@@ -53,7 +53,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "ingredient",
+            ["name"] = "ingredients",
             ["req"] = true,
             ["type"] = "`$ARRAY`",
             ["index$"] = 3,
@@ -75,6 +75,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/coffees",
                 ["parts"] = {
@@ -98,6 +99,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "PUT",
                 ["orig"] = "/api/coffees",
                 ["parts"] = {
@@ -144,7 +146,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "ingredient",
+            ["name"] = "ingredients",
             ["req"] = true,
             ["type"] = "`$ARRAY`",
             ["index$"] = 3,
@@ -166,6 +168,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/coffees-graph-ql",
                 ["parts"] = {
@@ -198,6 +201,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/donate-items",
                 ["parts"] = {
@@ -230,6 +234,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/portfolio-items",
                 ["parts"] = {
@@ -255,7 +260,7 @@ local function make_config()
         ["fields"] = {
           {
             ["active"] = true,
-            ["name"] = "app_home",
+            ["name"] = "appHome",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 0,
@@ -269,14 +274,14 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "full_name",
+            ["name"] = "fullName",
             ["req"] = true,
             ["type"] = "`$STRING`",
             ["index$"] = 2,
           },
           {
             ["active"] = true,
-            ["name"] = "issue_count",
+            ["name"] = "issueCount",
             ["req"] = false,
             ["type"] = "`$INTEGER`",
             ["index$"] = 3,
@@ -290,14 +295,14 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "repo_url",
+            ["name"] = "repoUrl",
             ["req"] = true,
             ["type"] = "`$STRING`",
             ["index$"] = 5,
           },
           {
             ["active"] = true,
-            ["name"] = "topic",
+            ["name"] = "topics",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 6,
@@ -323,6 +328,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/get-repo-detail",
                 ["parts"] = {
@@ -362,6 +368,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/get-repo-detail/{username}/",
                 ["parts"] = {
@@ -403,7 +410,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "label",
+            ["name"] = "labels",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 1,
@@ -460,6 +467,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/get-repo-issue/{username}/{repository}/",
                 ["parts"] = {
@@ -503,6 +511,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/application/version",
                 ["parts"] = {

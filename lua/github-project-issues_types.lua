@@ -10,35 +10,35 @@
 ---@field description? string
 ---@field id? number
 ---@field image string
----@field ingredient table
+---@field ingredients table
 ---@field title string
 
 ---@class CoffeeListMatch
 ---@field description? string
 ---@field id? number
 ---@field image? string
----@field ingredient? table
+---@field ingredients? table
 ---@field title? string
 
 ---@class CoffeeUpdateData
 ---@field description? string
 ---@field id? number
 ---@field image? string
----@field ingredient? table
+---@field ingredients? table
 ---@field title? string
 
 ---@class CoffeeDomain
 ---@field description? string
 ---@field id? number
 ---@field image string
----@field ingredient table
+---@field ingredients table
 ---@field title string
 
 ---@class CoffeeDomainListMatch
 ---@field description? string
 ---@field id? number
 ---@field image? string
----@field ingredient? table
+---@field ingredients? table
 ---@field title? string
 
 ---@class DonateRestController
@@ -50,29 +50,29 @@
 ---@class PortfolioControllerListMatch
 
 ---@class RepositoryDetailDomain
----@field app_home? string
+---@field appHome? string
 ---@field description? string
----@field full_name string
----@field issue_count? number
+---@field fullName string
+---@field issueCount? number
 ---@field name string
----@field repo_url string
----@field topic? string
+---@field repoUrl string
+---@field topics? string
 
 ---@class RepositoryDetailDomainLoadMatch
 ---@field username string
 
 ---@class RepositoryDetailDomainListMatch
----@field app_home? string
+---@field appHome? string
 ---@field description? string
----@field full_name? string
----@field issue_count? number
+---@field fullName? string
+---@field issueCount? number
 ---@field name? string
----@field repo_url? string
----@field topic? string
+---@field repoUrl? string
+---@field topics? string
 
 ---@class RepositoryIssueDomain
 ---@field body? string
----@field label? table
+---@field labels? table
 ---@field number string
 ---@field state? string
 ---@field title string

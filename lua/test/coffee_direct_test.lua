@@ -61,11 +61,11 @@ function coffee_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["GITHUBPROJECTISSUES_TEST_COFFEE_ENTID"] = {},
-    ["GITHUBPROJECTISSUES_TEST_LIVE"] = "FALSE",
+    ["GITHUB_PROJECT_ISSUES_TEST_COFFEE_ENTID"] = {},
+    ["GITHUB_PROJECT_ISSUES_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE"
+  local live = env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

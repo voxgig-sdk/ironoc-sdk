@@ -37,7 +37,7 @@ class PortfolioControllerEntity extends GithubProjectIssuesEntityBase<PortfolioC
 
 
 
-  async list(this: any, reqmatch?: PortfolioControllerListMatch, ctrl?: Control): Promise<PortfolioController[]> {
+  async list(this: any, reqmatch?: PortfolioControllerListMatch, ctrl?: Control): Promise<PortfolioControllerEntity[]> {
 
     const utility = this._utility
 

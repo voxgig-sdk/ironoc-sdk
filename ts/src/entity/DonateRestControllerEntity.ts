@@ -37,7 +37,7 @@ class DonateRestControllerEntity extends GithubProjectIssuesEntityBase<DonateRes
 
 
 
-  async list(this: any, reqmatch?: DonateRestControllerListMatch, ctrl?: Control): Promise<DonateRestController[]> {
+  async list(this: any, reqmatch?: DonateRestControllerListMatch, ctrl?: Control): Promise<DonateRestControllerEntity[]> {
 
     const utility = this._utility
 

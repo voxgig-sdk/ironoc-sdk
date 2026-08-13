@@ -114,7 +114,7 @@ coffee = client.Coffee()
 | `description` | `str` | No |  |
 | `id` | `int` | No |  |
 | `image` | `str` | Yes |  |
-| `ingredient` | `list` | Yes |  |
+| `ingredients` | `list` | Yes |  |
 | `title` | `str` | Yes |  |
 
 ### Operations
@@ -181,7 +181,7 @@ coffee_domain = client.CoffeeDomain()
 | `description` | `str` | No |  |
 | `id` | `int` | No |  |
 | `image` | `str` | Yes |  |
-| `ingredient` | `list` | Yes |  |
+| `ingredients` | `list` | Yes |  |
 | `title` | `str` | Yes |  |
 
 ### Operations
@@ -329,13 +329,13 @@ repository_detail_domain = client.RepositoryDetailDomain()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `app_home` | `str` | No |  |
+| `appHome` | `str` | No |  |
 | `description` | `str` | No |  |
-| `full_name` | `str` | Yes |  |
-| `issue_count` | `int` | No |  |
+| `fullName` | `str` | Yes |  |
+| `issueCount` | `int` | No |  |
 | `name` | `str` | Yes |  |
-| `repo_url` | `str` | Yes |  |
-| `topic` | `str` | No |  |
+| `repoUrl` | `str` | Yes |  |
+| `topics` | `str` | No |  |
 
 ### Operations
 
@@ -397,7 +397,7 @@ repository_issue_domain = client.RepositoryIssueDomain()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `body` | `str` | No |  |
-| `label` | `list` | No |  |
+| `labels` | `list` | No |  |
 | `number` | `str` | Yes |  |
 | `state` | `str` | No |  |
 | `title` | `str` | Yes |  |
@@ -409,7 +409,7 @@ repository_issue_domain = client.RepositoryIssueDomain()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.RepositoryIssueDomain().list()
+results = client.RepositoryIssueDomain().list({"repository": "example", "username": "example"})
 for repository_issue_domain in results:
     print(repository_issue_domain)
 ```

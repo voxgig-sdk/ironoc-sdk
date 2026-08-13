@@ -6,7 +6,7 @@ main: kit: entity: repository_detail_domain: {
 
   fields: [
     {
-      name: "app_home"
+      name: "appHome"
       req: false
       type: "`$STRING`"
     }
@@ -16,12 +16,12 @@ main: kit: entity: repository_detail_domain: {
       type: "`$STRING`"
     }
     {
-      name: "full_name"
+      name: "fullName"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "issue_count"
+      name: "issueCount"
       req: false
       type: "`$INTEGER`"
     }
@@ -31,12 +31,12 @@ main: kit: entity: repository_detail_domain: {
       type: "`$STRING`"
     }
     {
-      name: "repo_url"
+      name: "repoUrl"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "topic"
+      name: "topics"
       req: false
       type: "`$STRING`"
     }

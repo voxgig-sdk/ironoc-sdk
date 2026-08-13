@@ -43,8 +43,8 @@ class GithubProjectIssuesTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('GITHUBPROJECTISSUES_TEST_LIVE');
-        $override = self::getenv('GITHUBPROJECTISSUES_TEST_OVERRIDE');
+        $live = self::getenv('GITHUB_PROJECT_ISSUES_TEST_LIVE');
+        $override = self::getenv('GITHUB_PROJECT_ISSUES_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class GithubProjectIssuesTestRunner
             }
         }
 
-        $explain = self::getenv('GITHUBPROJECTISSUES_TEST_EXPLAIN');
+        $explain = self::getenv('GITHUB_PROJECT_ISSUES_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['GITHUBPROJECTISSUES_TEST_EXPLAIN'] = $explain;
+            $m['GITHUB_PROJECT_ISSUES_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

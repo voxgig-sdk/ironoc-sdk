@@ -60,11 +60,11 @@ def donate_rest_controller_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "GITHUBPROJECTISSUES_TEST_DONATE_REST_CONTROLLER_ENTID" => {},
-    "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
+    "GITHUB_PROJECT_ISSUES_TEST_DONATE_REST_CONTROLLER_ENTID" => {},
+    "GITHUB_PROJECT_ISSUES_TEST_LIVE" => "FALSE",
   })
 
-  live = env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE"
+  live = env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
