@@ -28,7 +28,7 @@ class GithubProjectIssuesSDK
     utility = GithubProjectIssuesUtility.new
     @_utility = utility
 
-    config = GithubProjectIssuesConfig.make_config
+    config = GithubProjectIssuesConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from githubprojectissues_sdk.config import make_config
+from githubprojectissues_sdk.config import shared_config
 from githubprojectissues_sdk.features import _make_feature
 from githubprojectissues_sdk.core.control import GithubProjectIssuesControl
 from githubprojectissues_sdk.core.error import GithubProjectIssuesError
@@ -24,7 +24,7 @@ from githubprojectissues_sdk.core.spec import GithubProjectIssuesSpec
 
 # True when this SDK was generated with the named feature.
 def has_feature(name):
-    feature = make_config().get("feature")
+    feature = shared_config().get("feature")
     return isinstance(feature, dict) and feature.get(name) is not None
 
 

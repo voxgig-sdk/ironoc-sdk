@@ -15,7 +15,7 @@ require_relative "../GithubProjectIssues_sdk"
 module GithubProjectIssuesFeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = GithubProjectIssuesConfig.make_config["feature"]
+    f = GithubProjectIssuesConfig.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 

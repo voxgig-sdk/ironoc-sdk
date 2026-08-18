@@ -40,7 +40,7 @@ class GithubProjectIssuesSDK
         $utility = new GithubProjectIssuesUtility();
         $this->_utility = $utility;
 
-        $config = GithubProjectIssuesConfig::make_config();
+        $config = GithubProjectIssuesConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
