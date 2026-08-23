@@ -117,11 +117,11 @@ coffee = client.Coffee
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `String` | No |  |
-| `id` | `Integer` | No |  |
-| `image` | `String` | Yes |  |
-| `ingredients` | `Array` | Yes |  |
-| `title` | `String` | Yes |  |
+| `description` | `String` | No | Drink Description. |
+| `id` | `Integer` | No | ID of Coffee Details Object. |
+| `image` | `String` | Yes | Image URL. |
+| `ingredients` | `Array` | Yes | Main Ingredients. |
+| `title` | `String` | Yes | Coffee Name/Type. |
 
 ### Operations
 
@@ -183,11 +183,11 @@ coffee_domain = client.CoffeeDomain
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `String` | No |  |
-| `id` | `Integer` | No |  |
-| `image` | `String` | Yes |  |
-| `ingredients` | `Array` | Yes |  |
-| `title` | `String` | Yes |  |
+| `description` | `String` | No | Drink Description. |
+| `id` | `Integer` | No | ID of Coffee Details Object. |
+| `image` | `String` | Yes | Image URL. |
+| `ingredients` | `Array` | Yes | Main Ingredients. |
+| `title` | `String` | Yes | Coffee Name/Type. |
 
 ### Operations
 
@@ -331,13 +331,13 @@ repository_detail_domain = client.RepositoryDetailDomain
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `appHome` | `String` | No |  |
-| `description` | `String` | No |  |
-| `fullName` | `String` | Yes |  |
-| `issueCount` | `Integer` | No |  |
-| `name` | `String` | Yes |  |
-| `repoUrl` | `String` | Yes |  |
-| `topics` | `String` | No |  |
+| `appHome` | `String` | No | Normally this value is the link to the project/app home page. |
+| `description` | `String` | No | Description of GitHub project. |
+| `fullName` | `String` | Yes | Full Name of GitHub Repository (Format is: username/project_name). |
+| `issueCount` | `Integer` | No | Number of associated issues. |
+| `name` | `String` | Yes | Name of GitHub Repository. |
+| `repoUrl` | `String` | Yes | This is the home page URL of the project. |
+| `topics` | `String` | No | Labels or topics associated with the GitHub repository project. |
 
 ### Operations
 
@@ -397,11 +397,11 @@ repository_issue_domain = client.RepositoryIssueDomain
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | `String` | No |  |
-| `labels` | `Array` | No |  |
-| `number` | `String` | Yes |  |
-| `state` | `String` | No |  |
-| `title` | `String` | Yes |  |
+| `body` | `String` | No | Issue Content & Description. |
+| `labels` | `Array` | No | Issue Labels / Tags. |
+| `number` | `String` | Yes | Project Issue Number. |
+| `state` | `String` | No | Issue State. |
+| `title` | `String` | Yes | Issue Title Text. |
 
 ### Operations
 

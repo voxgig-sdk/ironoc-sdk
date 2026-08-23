@@ -1,0 +1,85 @@
+# Entity: coffee
+
+main: kit: entity: coffee: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "description"
+      req: false
+      short: "Drink Description."
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      short: "ID of Coffee Details Object."
+      type: "`$INTEGER`"
+    }
+    {
+      name: "image"
+      req: true
+      short: "Image URL."
+      type: "`$STRING`"
+    }
+    {
+      name: "ingredients"
+      req: true
+      short: "Main Ingredients."
+      type: "`$ARRAY`"
+    }
+    {
+      name: "title"
+      req: true
+      short: "Coffee Name/Type."
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "coffee"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/api/coffees"
+          parts: [
+            "api"
+            "coffees"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          method: "PUT"
+          orig: "/api/coffees"
+          parts: [
+            "api"
+            "coffees"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

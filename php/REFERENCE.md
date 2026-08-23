@@ -116,11 +116,11 @@ $coffee = $client->Coffee();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `string` | No |  |
-| `id` | `int` | No |  |
-| `image` | `string` | Yes |  |
-| `ingredients` | `array` | Yes |  |
-| `title` | `string` | Yes |  |
+| `description` | `string` | No | Drink Description. |
+| `id` | `int` | No | ID of Coffee Details Object. |
+| `image` | `string` | Yes | Image URL. |
+| `ingredients` | `array` | Yes | Main Ingredients. |
+| `title` | `string` | Yes | Coffee Name/Type. |
 
 ### Operations
 
@@ -182,11 +182,11 @@ $coffee_domain = $client->CoffeeDomain();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `string` | No |  |
-| `id` | `int` | No |  |
-| `image` | `string` | Yes |  |
-| `ingredients` | `array` | Yes |  |
-| `title` | `string` | Yes |  |
+| `description` | `string` | No | Drink Description. |
+| `id` | `int` | No | ID of Coffee Details Object. |
+| `image` | `string` | Yes | Image URL. |
+| `ingredients` | `array` | Yes | Main Ingredients. |
+| `title` | `string` | Yes | Coffee Name/Type. |
 
 ### Operations
 
@@ -330,13 +330,13 @@ $repository_detail_domain = $client->RepositoryDetailDomain();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `appHome` | `string` | No |  |
-| `description` | `string` | No |  |
-| `fullName` | `string` | Yes |  |
-| `issueCount` | `int` | No |  |
-| `name` | `string` | Yes |  |
-| `repoUrl` | `string` | Yes |  |
-| `topics` | `string` | No |  |
+| `appHome` | `string` | No | Normally this value is the link to the project/app home page. |
+| `description` | `string` | No | Description of GitHub project. |
+| `fullName` | `string` | Yes | Full Name of GitHub Repository (Format is: username/project_name). |
+| `issueCount` | `int` | No | Number of associated issues. |
+| `name` | `string` | Yes | Name of GitHub Repository. |
+| `repoUrl` | `string` | Yes | This is the home page URL of the project. |
+| `topics` | `string` | No | Labels or topics associated with the GitHub repository project. |
 
 ### Operations
 
@@ -396,11 +396,11 @@ $repository_issue_domain = $client->RepositoryIssueDomain();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | `string` | No |  |
-| `labels` | `array` | No |  |
-| `number` | `string` | Yes |  |
-| `state` | `string` | No |  |
-| `title` | `string` | Yes |  |
+| `body` | `string` | No | Issue Content & Description. |
+| `labels` | `array` | No | Issue Labels / Tags. |
+| `number` | `string` | Yes | Project Issue Number. |
+| `state` | `string` | No | Issue State. |
+| `title` | `string` | Yes | Issue Title Text. |
 
 ### Operations
 

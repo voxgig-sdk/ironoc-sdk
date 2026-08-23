@@ -6,7 +6,7 @@ The Golang SDK for the GithubProjectIssues API — an entity-oriented client usi
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Coffee(nil)` — each with the same small set of operations (`List`, `Load`, `Update`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -276,11 +276,11 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"description"` |  |
-| `"id"` |  |
-| `"image"` |  |
-| `"ingredients"` |  |
-| `"title"` |  |
+| `"description"` | Drink Description. |
+| `"id"` | ID of Coffee Details Object. |
+| `"image"` | Image URL. |
+| `"ingredients"` | Main Ingredients. |
+| `"title"` | Coffee Name/Type. |
 
 Operations: List, Update.
 
@@ -290,11 +290,11 @@ API path: `/api/coffees`
 
 | Field | Description |
 | --- | --- |
-| `"description"` |  |
-| `"id"` |  |
-| `"image"` |  |
-| `"ingredients"` |  |
-| `"title"` |  |
+| `"description"` | Drink Description. |
+| `"id"` | ID of Coffee Details Object. |
+| `"image"` | Image URL. |
+| `"ingredients"` | Main Ingredients. |
+| `"title"` | Coffee Name/Type. |
 
 Operations: List.
 
@@ -322,13 +322,13 @@ API path: `/api/portfolio-items`
 
 | Field | Description |
 | --- | --- |
-| `"appHome"` |  |
-| `"description"` |  |
-| `"fullName"` |  |
-| `"issueCount"` |  |
-| `"name"` |  |
-| `"repoUrl"` |  |
-| `"topics"` |  |
+| `"appHome"` | Normally this value is the link to the project/app home page. |
+| `"description"` | Description of GitHub project. |
+| `"fullName"` | Full Name of GitHub Repository (Format is: username/project_name). |
+| `"issueCount"` | Number of associated issues. |
+| `"name"` | Name of GitHub Repository. |
+| `"repoUrl"` | This is the home page URL of the project. |
+| `"topics"` | Labels or topics associated with the GitHub repository project. |
 
 Operations: List, Load.
 
@@ -338,11 +338,11 @@ API path: `/api/get-repo-detail`
 
 | Field | Description |
 | --- | --- |
-| `"body"` |  |
-| `"labels"` |  |
-| `"number"` |  |
-| `"state"` |  |
-| `"title"` |  |
+| `"body"` | Issue Content & Description. |
+| `"labels"` | Issue Labels / Tags. |
+| `"number"` | Project Issue Number. |
+| `"state"` | Issue State. |
+| `"title"` | Issue Title Text. |
 
 Operations: List.
 
@@ -377,11 +377,11 @@ Create an instance: `coffee := client.Coffee(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `string` |  |
-| `id` | `int` |  |
-| `image` | `string` |  |
-| `ingredients` | `[]any` |  |
-| `title` | `string` |  |
+| `description` | `string` | Drink Description. |
+| `id` | `int` | ID of Coffee Details Object. |
+| `image` | `string` | Image URL. |
+| `ingredients` | `[]any` | Main Ingredients. |
+| `title` | `string` | Coffee Name/Type. |
 
 #### Example: List
 
@@ -408,11 +408,11 @@ Create an instance: `coffeeDomain := client.CoffeeDomain(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `string` |  |
-| `id` | `int` |  |
-| `image` | `string` |  |
-| `ingredients` | `[]any` |  |
-| `title` | `string` |  |
+| `description` | `string` | Drink Description. |
+| `id` | `int` | ID of Coffee Details Object. |
+| `image` | `string` | Image URL. |
+| `ingredients` | `[]any` | Main Ingredients. |
+| `title` | `string` | Coffee Name/Type. |
 
 #### Example: List
 
@@ -482,13 +482,13 @@ Create an instance: `repositoryDetailDomain := client.RepositoryDetailDomain(nil
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `appHome` | `string` |  |
-| `description` | `string` |  |
-| `fullName` | `string` |  |
-| `issueCount` | `int` |  |
-| `name` | `string` |  |
-| `repoUrl` | `string` |  |
-| `topics` | `string` |  |
+| `appHome` | `string` | Normally this value is the link to the project/app home page. |
+| `description` | `string` | Description of GitHub project. |
+| `fullName` | `string` | Full Name of GitHub Repository (Format is: username/project_name). |
+| `issueCount` | `int` | Number of associated issues. |
+| `name` | `string` | Name of GitHub Repository. |
+| `repoUrl` | `string` | This is the home page URL of the project. |
+| `topics` | `string` | Labels or topics associated with the GitHub repository project. |
 
 #### Example: Load
 
@@ -525,11 +525,11 @@ Create an instance: `repositoryIssueDomain := client.RepositoryIssueDomain(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | `string` |  |
-| `labels` | `[]any` |  |
-| `number` | `string` |  |
-| `state` | `string` |  |
-| `title` | `string` |  |
+| `body` | `string` | Issue Content & Description. |
+| `labels` | `[]any` | Issue Labels / Tags. |
+| `number` | `string` | Project Issue Number. |
+| `state` | `string` | Issue State. |
+| `title` | `string` | Issue Title Text. |
 
 #### Example: List
 

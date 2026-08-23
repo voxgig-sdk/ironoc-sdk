@@ -111,11 +111,11 @@ coffee = client.Coffee()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `str` | No |  |
-| `id` | `int` | No |  |
-| `image` | `str` | Yes |  |
-| `ingredients` | `list` | Yes |  |
-| `title` | `str` | Yes |  |
+| `description` | `str` | No | Drink Description. |
+| `id` | `int` | No | ID of Coffee Details Object. |
+| `image` | `str` | Yes | Image URL. |
+| `ingredients` | `list` | Yes | Main Ingredients. |
+| `title` | `str` | Yes | Coffee Name/Type. |
 
 ### Operations
 
@@ -178,11 +178,11 @@ coffee_domain = client.CoffeeDomain()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | `str` | No |  |
-| `id` | `int` | No |  |
-| `image` | `str` | Yes |  |
-| `ingredients` | `list` | Yes |  |
-| `title` | `str` | Yes |  |
+| `description` | `str` | No | Drink Description. |
+| `id` | `int` | No | ID of Coffee Details Object. |
+| `image` | `str` | Yes | Image URL. |
+| `ingredients` | `list` | Yes | Main Ingredients. |
+| `title` | `str` | Yes | Coffee Name/Type. |
 
 ### Operations
 
@@ -329,13 +329,13 @@ repository_detail_domain = client.RepositoryDetailDomain()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `appHome` | `str` | No |  |
-| `description` | `str` | No |  |
-| `fullName` | `str` | Yes |  |
-| `issueCount` | `int` | No |  |
-| `name` | `str` | Yes |  |
-| `repoUrl` | `str` | Yes |  |
-| `topics` | `str` | No |  |
+| `appHome` | `str` | No | Normally this value is the link to the project/app home page. |
+| `description` | `str` | No | Description of GitHub project. |
+| `fullName` | `str` | Yes | Full Name of GitHub Repository (Format is: username/project_name). |
+| `issueCount` | `int` | No | Number of associated issues. |
+| `name` | `str` | Yes | Name of GitHub Repository. |
+| `repoUrl` | `str` | Yes | This is the home page URL of the project. |
+| `topics` | `str` | No | Labels or topics associated with the GitHub repository project. |
 
 ### Operations
 
@@ -396,11 +396,11 @@ repository_issue_domain = client.RepositoryIssueDomain()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | `str` | No |  |
-| `labels` | `list` | No |  |
-| `number` | `str` | Yes |  |
-| `state` | `str` | No |  |
-| `title` | `str` | Yes |  |
+| `body` | `str` | No | Issue Content & Description. |
+| `labels` | `list` | No | Issue Labels / Tags. |
+| `number` | `str` | Yes | Project Issue Number. |
+| `state` | `str` | No | Issue State. |
+| `title` | `str` | Yes | Issue Title Text. |
 
 ### Operations
 

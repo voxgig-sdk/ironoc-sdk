@@ -272,11 +272,11 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `description` |  |
-| `id` |  |
-| `image` |  |
-| `ingredients` |  |
-| `title` |  |
+| `description` | Drink Description. |
+| `id` | ID of Coffee Details Object. |
+| `image` | Image URL. |
+| `ingredients` | Main Ingredients. |
+| `title` | Coffee Name/Type. |
 
 Operations: List, Update.
 
@@ -286,11 +286,11 @@ API path: `/api/coffees`
 
 | Field | Description |
 | --- | --- |
-| `description` |  |
-| `id` |  |
-| `image` |  |
-| `ingredients` |  |
-| `title` |  |
+| `description` | Drink Description. |
+| `id` | ID of Coffee Details Object. |
+| `image` | Image URL. |
+| `ingredients` | Main Ingredients. |
+| `title` | Coffee Name/Type. |
 
 Operations: List.
 
@@ -318,13 +318,13 @@ API path: `/api/portfolio-items`
 
 | Field | Description |
 | --- | --- |
-| `appHome` |  |
-| `description` |  |
-| `fullName` |  |
-| `issueCount` |  |
-| `name` |  |
-| `repoUrl` |  |
-| `topics` |  |
+| `appHome` | Normally this value is the link to the project/app home page. |
+| `description` | Description of GitHub project. |
+| `fullName` | Full Name of GitHub Repository (Format is: username/project_name). |
+| `issueCount` | Number of associated issues. |
+| `name` | Name of GitHub Repository. |
+| `repoUrl` | This is the home page URL of the project. |
+| `topics` | Labels or topics associated with the GitHub repository project. |
 
 Operations: List, Load.
 
@@ -334,11 +334,11 @@ API path: `/api/get-repo-detail`
 
 | Field | Description |
 | --- | --- |
-| `body` |  |
-| `labels` |  |
-| `number` |  |
-| `state` |  |
-| `title` |  |
+| `body` | Issue Content & Description. |
+| `labels` | Issue Labels / Tags. |
+| `number` | Project Issue Number. |
+| `state` | Issue State. |
+| `title` | Issue Title Text. |
 
 Operations: List.
 
@@ -373,11 +373,11 @@ Create an instance: `coffee = client.Coffee()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `str` |  |
-| `id` | `int` |  |
-| `image` | `str` |  |
-| `ingredients` | `list` |  |
-| `title` | `str` |  |
+| `description` | `str` | Drink Description. |
+| `id` | `int` | ID of Coffee Details Object. |
+| `image` | `str` | Image URL. |
+| `ingredients` | `list` | Main Ingredients. |
+| `title` | `str` | Coffee Name/Type. |
 
 #### Example: List
 
@@ -400,11 +400,11 @@ Create an instance: `coffee_domain = client.CoffeeDomain()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | `str` |  |
-| `id` | `int` |  |
-| `image` | `str` |  |
-| `ingredients` | `list` |  |
-| `title` | `str` |  |
+| `description` | `str` | Drink Description. |
+| `id` | `int` | ID of Coffee Details Object. |
+| `image` | `str` | Image URL. |
+| `ingredients` | `list` | Main Ingredients. |
+| `title` | `str` | Coffee Name/Type. |
 
 #### Example: List
 
@@ -462,13 +462,13 @@ Create an instance: `repository_detail_domain = client.RepositoryDetailDomain()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `appHome` | `str` |  |
-| `description` | `str` |  |
-| `fullName` | `str` |  |
-| `issueCount` | `int` |  |
-| `name` | `str` |  |
-| `repoUrl` | `str` |  |
-| `topics` | `str` |  |
+| `appHome` | `str` | Normally this value is the link to the project/app home page. |
+| `description` | `str` | Description of GitHub project. |
+| `fullName` | `str` | Full Name of GitHub Repository (Format is: username/project_name). |
+| `issueCount` | `int` | Number of associated issues. |
+| `name` | `str` | Name of GitHub Repository. |
+| `repoUrl` | `str` | This is the home page URL of the project. |
+| `topics` | `str` | Labels or topics associated with the GitHub repository project. |
 
 #### Example: Load
 
@@ -497,11 +497,11 @@ Create an instance: `repository_issue_domain = client.RepositoryIssueDomain()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | `str` |  |
-| `labels` | `list` |  |
-| `number` | `str` |  |
-| `state` | `str` |  |
-| `title` | `str` |  |
+| `body` | `str` | Issue Content & Description. |
+| `labels` | `list` | Issue Labels / Tags. |
+| `number` | `str` | Project Issue Number. |
+| `state` | `str` | Issue State. |
+| `title` | `str` | Issue Title Text. |
 
 #### Example: List
 

@@ -1,0 +1,133 @@
+# Entity: repository_detail_domain
+
+main: kit: entity: repository_detail_domain: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "appHome"
+      req: false
+      short: "Normally this value is the link to the project/app home page."
+      type: "`$STRING`"
+    }
+    {
+      name: "description"
+      req: false
+      short: "Description of GitHub project."
+      type: "`$STRING`"
+    }
+    {
+      name: "fullName"
+      req: true
+      short: "Full Name of GitHub Repository (Format is: username/project_name)."
+      type: "`$STRING`"
+    }
+    {
+      name: "issueCount"
+      req: false
+      short: "Number of associated issues."
+      type: "`$INTEGER`"
+    }
+    {
+      name: "name"
+      req: true
+      short: "Name of GitHub Repository."
+      type: "`$STRING`"
+    }
+    {
+      name: "repoUrl"
+      req: true
+      short: "This is the home page URL of the project."
+      type: "`$STRING`"
+    }
+    {
+      name: "topics"
+      req: false
+      short: "Labels or topics associated with the GitHub repository project."
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "repository_detail_domain"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "username"
+                orig: "username"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/api/get-repo-detail"
+          parts: [
+            "api"
+            "get-repo-detail"
+          ]
+          select: {
+            exist: [
+              "username"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "username"
+                orig: "username"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/api/get-repo-detail/{username}/"
+          parts: [
+            "api"
+            "get-repo-detail"
+            "{username}"
+          ]
+          select: {
+            exist: [
+              "username"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "get_repo_detail"
+      ]
+    ]
+  }
+
+
+
+}

@@ -28,6 +28,9 @@ def make_config():
     return {
         "main": {
             "name": "GithubProjectIssues",
+            "slug": "github-project-issues",
+            "version": "0.0.1",
+            "target": "py",
         },
         "feature": {
             "test": {
@@ -56,25 +59,30 @@ def make_config():
         "fields": [
           {
             "name": "description",
+            "short": "Drink Description.",
             "type": "`$STRING`",
           },
           {
             "name": "id",
+            "short": "ID of Coffee Details Object.",
             "type": "`$INTEGER`",
           },
           {
             "name": "image",
             "req": True,
+            "short": "Image URL.",
             "type": "`$STRING`",
           },
           {
             "name": "ingredients",
             "req": True,
+            "short": "Main Ingredients.",
             "type": "`$ARRAY`",
           },
           {
             "name": "title",
             "req": True,
+            "short": "Coffee Name/Type.",
             "type": "`$STRING`",
           },
         ],
@@ -131,25 +139,30 @@ def make_config():
         "fields": [
           {
             "name": "description",
+            "short": "Drink Description.",
             "type": "`$STRING`",
           },
           {
             "name": "id",
+            "short": "ID of Coffee Details Object.",
             "type": "`$INTEGER`",
           },
           {
             "name": "image",
             "req": True,
+            "short": "Image URL.",
             "type": "`$STRING`",
           },
           {
             "name": "ingredients",
             "req": True,
+            "short": "Main Ingredients.",
             "type": "`$ARRAY`",
           },
           {
             "name": "title",
             "req": True,
+            "short": "Coffee Name/Type.",
             "type": "`$STRING`",
           },
         ],
@@ -245,33 +258,40 @@ def make_config():
         "fields": [
           {
             "name": "appHome",
+            "short": "Normally this value is the link to the project/app home page.",
             "type": "`$STRING`",
           },
           {
             "name": "description",
+            "short": "Description of GitHub project.",
             "type": "`$STRING`",
           },
           {
             "name": "fullName",
             "req": True,
+            "short": "Full Name of GitHub Repository (Format is: username/project_name).",
             "type": "`$STRING`",
           },
           {
             "name": "issueCount",
+            "short": "Number of associated issues.",
             "type": "`$INTEGER`",
           },
           {
             "name": "name",
             "req": True,
+            "short": "Name of GitHub Repository.",
             "type": "`$STRING`",
           },
           {
             "name": "repoUrl",
             "req": True,
+            "short": "This is the home page URL of the project.",
             "type": "`$STRING`",
           },
           {
             "name": "topics",
+            "short": "Labels or topics associated with the GitHub repository project.",
             "type": "`$STRING`",
           },
         ],
@@ -361,24 +381,29 @@ def make_config():
         "fields": [
           {
             "name": "body",
+            "short": "Issue Content & Description.",
             "type": "`$STRING`",
           },
           {
             "name": "labels",
+            "short": "Issue Labels / Tags.",
             "type": "`$ARRAY`",
           },
           {
             "name": "number",
             "req": True,
+            "short": "Project Issue Number.",
             "type": "`$STRING`",
           },
           {
             "name": "state",
+            "short": "Issue State.",
             "type": "`$STRING`",
           },
           {
             "name": "title",
             "req": True,
+            "short": "Issue Title Text.",
             "type": "`$STRING`",
           },
         ],
