@@ -42,6 +42,7 @@ class GithubProjectIssuesConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
