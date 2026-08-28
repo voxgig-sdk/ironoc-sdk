@@ -91,13 +91,7 @@ type RepositoryDetailDomainLoadMatch struct {
 
 // RepositoryDetailDomainListMatch is the typed request payload for RepositoryDetailDomain.ListTyped.
 type RepositoryDetailDomainListMatch struct {
-	AppHome *string `json:"appHome,omitempty"`
-	Description *string `json:"description,omitempty"`
-	FullName *string `json:"fullName,omitempty"`
-	IssueCount *int `json:"issueCount,omitempty"`
-	Name *string `json:"name,omitempty"`
-	RepoUrl *string `json:"repoUrl,omitempty"`
-	Topics *string `json:"topics,omitempty"`
+	Username string `json:"username"`
 }
 
 // RepositoryIssueDomain is the typed data model for the repository_issue_domain entity.

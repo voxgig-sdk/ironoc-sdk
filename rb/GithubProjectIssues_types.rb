@@ -193,34 +193,10 @@ RepositoryDetailDomainLoadMatch = Struct.new(
 
 # Request payload for RepositoryDetailDomain#list.
 #
-# @!attribute [rw] appHome
-#   @return [String, nil]
-#
-# @!attribute [rw] description
-#   @return [String, nil]
-#
-# @!attribute [rw] fullName
-#   @return [String, nil]
-#
-# @!attribute [rw] issueCount
-#   @return [Integer, nil]
-#
-# @!attribute [rw] name
-#   @return [String, nil]
-#
-# @!attribute [rw] repoUrl
-#   @return [String, nil]
-#
-# @!attribute [rw] topics
-#   @return [String, nil]
+# @!attribute [rw] username
+#   @return [String]
 RepositoryDetailDomainListMatch = Struct.new(
-  :appHome,
-  :description,
-  :fullName,
-  :issueCount,
-  :name,
-  :repoUrl,
-  :topics,
+  :username,
   keyword_init: true
 )
 

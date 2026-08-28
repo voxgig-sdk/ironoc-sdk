@@ -72,13 +72,7 @@ export interface RepositoryDetailDomainLoadMatch {
 }
 
 export interface RepositoryDetailDomainListMatch {
-  appHome?: string
-  description?: string
-  fullName?: string
-  issueCount?: number
-  name?: string
-  repoUrl?: string
-  topics?: string
+  username: string
 }
 
 export interface RepositoryIssueDomain {

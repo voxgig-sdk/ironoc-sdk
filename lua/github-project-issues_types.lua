@@ -62,13 +62,7 @@
 ---@field username string
 
 ---@class RepositoryDetailDomainListMatch
----@field appHome? string
----@field description? string
----@field fullName? string
----@field issueCount? number
----@field name? string
----@field repoUrl? string
----@field topics? string
+---@field username string
 
 ---@class RepositoryIssueDomain
 ---@field body? string

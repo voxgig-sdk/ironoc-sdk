@@ -103,13 +103,7 @@ class RepositoryDetailDomainLoadMatch
 /** Request payload for RepositoryDetailDomain#list. */
 class RepositoryDetailDomainListMatch
 {
-    public ?string $appHome = null;
-    public ?string $description = null;
-    public ?string $fullName = null;
-    public ?int $issueCount = null;
-    public ?string $name = null;
-    public ?string $repoUrl = null;
-    public ?string $topics = null;
+    public string $username;
 }
 
 /** RepositoryIssueDomain entity data model. */

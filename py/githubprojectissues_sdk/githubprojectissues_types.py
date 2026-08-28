@@ -95,14 +95,8 @@ class RepositoryDetailDomainLoadMatch(TypedDict):
     username: str
 
 
-class RepositoryDetailDomainListMatch(TypedDict, total=False):
-    appHome: str
-    description: str
-    fullName: str
-    issueCount: int
-    name: str
-    repoUrl: str
-    topics: str
+class RepositoryDetailDomainListMatch(TypedDict):
+    username: str
 
 
 class RepositoryIssueDomainRequired(TypedDict):
