@@ -1,7 +1,7 @@
-# GithubProjectIssues SDK utility: param
+# Ironoc SDK utility: param
 require_relative 'struct/voxgig_struct'
 require_relative '../core/helpers'
-module GithubProjectIssuesUtilities
+module IronocUtilities
   Param = ->(ctx, paramdef) {
     point = ctx.point
     spec = ctx.spec
@@ -20,7 +20,7 @@ module GithubProjectIssuesUtilities
 
     akey = ""
     if point
-      alias_map = GithubProjectIssuesHelpers.to_map(VoxgigStruct.getprop(point, "alias"))
+      alias_map = IronocHelpers.to_map(VoxgigStruct.getprop(point, "alias"))
       if alias_map
         ak = VoxgigStruct.getprop(alias_map, key)
         akey = ak if ak.is_a?(String)

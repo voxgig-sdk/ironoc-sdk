@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: result_basic
+-- Ironoc SDK utility: result_basic
 
 local function result_basic_util(ctx)
   local response = ctx.response

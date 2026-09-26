@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/github-project-issues-sdk/go"
-	"github.com/voxgig-sdk/github-project-issues-sdk/go/core"
+	sdk "github.com/voxgig-sdk/ironoc-sdk/go"
+	"github.com/voxgig-sdk/ironoc-sdk/go/core"
 )
 
 func TestCoffeeDirect(t *testing.T) {
@@ -41,14 +41,14 @@ func TestCoffeeDirect(t *testing.T) {
 			// against an arbitrary public API, so the default SKIPS here.
 			// A project that owns its test server sets strict and FAILS.
 			if err != nil {
-				t.Skipf("list call failed (likely synthetic IDs against live API): %v", err)
+				t.Fatalf("list call failed (likely synthetic IDs against live API): %v", err)
 			}
 			if result["ok"] != true {
-				t.Skipf("list call not ok (likely synthetic IDs against live API): %v", result)
+				t.Fatalf("list call not ok (likely synthetic IDs against live API): %v", result)
 			}
 			status := core.ToInt(result["status"])
 			if status < 200 || status >= 300 {
-				t.Skipf("expected 2xx status, got %v", result["status"])
+				t.Fatalf("expected 2xx status, got %v", result["status"])
 			}
 		} else {
 			if err != nil {
@@ -80,7 +80,7 @@ func TestCoffeeDirect(t *testing.T) {
 }
 
 type coffeeDirectSetupResult struct {
-	client *sdk.GithubProjectIssuesSDK
+	client *sdk.IronocSDK
 	calls  *[]map[string]any
 	live   bool
 	idmap  map[string]any
@@ -92,19 +92,27 @@ func coffeeDirectSetup(mockres any) *coffeeDirectSetupResult {
 	calls := &[]map[string]any{}
 
 	env := envOverride(map[string]any{
-		"GITHUB_PROJECT_ISSUES_TEST_COFFEE_ENTID": map[string]any{},
-		"GITHUB_PROJECT_ISSUES_TEST_LIVE":    "FALSE",
+		"IRONOC_TEST_COFFEE_ENTID": map[string]any{},
+		"IRONOC_TEST_LIVE":    "FALSE",
 	})
 
-	live := env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] == "TRUE"
+	live := env["IRONOC_TEST_LIVE"] == "TRUE"
 
 	if live {
-		mergedOpts := map[string]any{
+		// sdk-test-control.json's test.client.options seeds the live
+		// client; the generated fields below overwrite anything they name.
+		mergedOpts := map[string]any{}
+		for k, v := range liveClientOptions() {
+			mergedOpts[k] = v
 		}
-		client := sdk.NewGithubProjectIssuesSDK(mergedOpts)
+		for k, v := range map[string]any{
+		} {
+			mergedOpts[k] = v
+		}
+		client := sdk.NewIronocSDK(mergedOpts)
 
 		idmap := map[string]any{}
-		if entidRaw, ok := env["GITHUB_PROJECT_ISSUES_TEST_COFFEE_ENTID"]; ok {
+		if entidRaw, ok := env["IRONOC_TEST_COFFEE_ENTID"]; ok {
 			if entidStr, ok := entidRaw.(string); ok && strings.HasPrefix(entidStr, "{") {
 				json.Unmarshal([]byte(entidStr), &idmap)
 			} else if entidMap, ok := entidRaw.(map[string]any); ok {
@@ -130,7 +138,7 @@ func coffeeDirectSetup(mockres any) *coffeeDirectSetupResult {
 		}, nil
 	}
 
-	client := sdk.NewGithubProjectIssuesSDK(map[string]any{
+	client := sdk.NewIronocSDK(map[string]any{
 		"base": "http://localhost:8080",
 		"system": map[string]any{
 			"fetch": (func(string, map[string]any) (map[string]any, error))(mockFetch),

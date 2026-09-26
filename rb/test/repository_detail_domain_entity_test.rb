@@ -2,12 +2,12 @@
 
 require "minitest/autorun"
 require "json"
-require_relative "../GithubProjectIssues_sdk"
+require_relative "../Ironoc_sdk"
 require_relative "runner"
 
 class RepositoryDetailDomainEntityTest < Minitest::Test
   def test_create_instance
-    testsdk = GithubProjectIssuesSDK.test(nil, nil)
+    testsdk = IronocSDK.test(nil, nil)
     ent = testsdk.RepositoryDetailDomain(nil)
     assert !ent.nil?
   end
@@ -28,14 +28,14 @@ class RepositoryDetailDomainEntityTest < Minitest::Test
     }
 
     # Fallback: streaming inactive -> yields the materialised list items.
-    base = GithubProjectIssuesSDK.test(seed, nil)
+    base = IronocSDK.test(seed, nil)
     seen = base.RepositoryDetailDomain(nil).stream("list", nil, nil).to_a
     assert_equal 3, seen.length
 
     # Inbound: streaming active -> yields each item from the feature.
-    cfg = GithubProjectIssuesConfig.shared_config
+    cfg = IronocConfig.shared_config
     if cfg["feature"].is_a?(Hash) && cfg["feature"].key?("streaming")
-      sdk = GithubProjectIssuesSDK.test(seed, { "feature" => { "streaming" => { "active" => true } } })
+      sdk = IronocSDK.test(seed, { "feature" => { "streaming" => { "active" => true } } })
       got = []
       sdk.RepositoryDetailDomain(nil).stream("list", nil, nil).each do |item|
         if item.is_a?(Array)
@@ -62,7 +62,7 @@ class RepositoryDetailDomainEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set GITHUB_PROJECT_ISSUES_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set IRONOC_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -100,11 +100,11 @@ def repository_detail_domain_basic_setup(extra)
   options = {}
   options["entity"] = entity_data["existing"]
 
-  client = GithubProjectIssuesSDK.test(options, extra)
+  client = IronocSDK.test(options, extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
-    ["repository_detail_domain01", "repository_detail_domain02", "repository_detail_domain03", "get_repo_detail01", "get_repo_detail02", "get_repo_detail03"],
+    ["repository_detail_domain01", "repository_detail_domain02", "repository_detail_domain03"],
     {
       "`$PACK`" => ["", {
         "`$KEY`" => "`$COPY`",
@@ -116,37 +116,40 @@ def repository_detail_domain_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["GITHUB_PROJECT_ISSUES_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID"]
+  entid_env_raw = ENV["IRONOC_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "GITHUB_PROJECT_ISSUES_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID" => idmap,
-    "GITHUB_PROJECT_ISSUES_TEST_LIVE" => "FALSE",
-    "GITHUB_PROJECT_ISSUES_TEST_EXPLAIN" => "FALSE",
+    "IRONOC_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID" => idmap,
+    "IRONOC_TEST_LIVE" => "FALSE",
+    "IRONOC_TEST_EXPLAIN" => "FALSE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["GITHUB_PROJECT_ISSUES_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID"])
+    env["IRONOC_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] == "TRUE"
+  if env["IRONOC_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
       },
       extra || {},
     ])
-    client = GithubProjectIssuesSDK.new(Helpers.to_map(merged_opts))
+    client = IronocSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] == "TRUE"
+  live = env["IRONOC_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["GITHUB_PROJECT_ISSUES_TEST_EXPLAIN"] == "TRUE",
+    explain: env["IRONOC_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

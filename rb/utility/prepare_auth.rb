@@ -1,6 +1,6 @@
-# GithubProjectIssues SDK utility: prepare_auth
+# Ironoc SDK utility: prepare_auth
 require_relative 'struct/voxgig_struct'
-module GithubProjectIssuesUtilities
+module IronocUtilities
   HEADER_AUTH = "authorization"
   OPTION_APIKEY = "apikey"
   NOT_FOUND = "__NOTFOUND__"

@@ -1,8 +1,8 @@
--- GithubProjectIssues SDK exists test
+-- Ironoc SDK exists test
 
-local sdk = require("github-project-issues_sdk")
+local sdk = require("ironoc_sdk")
 
-describe("GithubProjectIssuesSDK", function()
+describe("IronocSDK", function()
   it("should create test SDK", function()
     local testsdk = sdk.test(nil, nil)
     assert.is_not_nil(testsdk)

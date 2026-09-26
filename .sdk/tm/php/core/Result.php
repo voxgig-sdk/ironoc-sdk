@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK result
+// Ironoc SDK result
 
-class GithubProjectIssuesResult
+class IronocResult
 {
     public bool $ok;
     public int $status;

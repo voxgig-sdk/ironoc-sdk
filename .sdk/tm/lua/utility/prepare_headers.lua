@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: prepare_headers
+-- Ironoc SDK utility: prepare_headers
 
 local vs = require("utility.struct.struct")
 

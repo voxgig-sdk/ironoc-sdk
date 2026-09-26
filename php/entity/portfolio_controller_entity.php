@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK PortfolioController entity
+// Ironoc SDK PortfolioController entity
 
 require_once __DIR__ . '/../utility/struct/Struct.php';
 require_once __DIR__ . '/../core/Helpers.php';
@@ -83,7 +83,7 @@ class PortfolioControllerEntity
     public function data_set($args): void
     {
         if ($args) {
-            $this->_data = GithubProjectIssuesHelpers::to_map(Struct::clone($args)) ?? [];
+            $this->_data = IronocHelpers::to_map(Struct::clone($args)) ?? [];
             ($this->_utility->feature_hook)($this->_entctx, "SetData");
         }
     }
@@ -103,7 +103,7 @@ class PortfolioControllerEntity
     public function match_set($args): void
     {
         if ($args) {
-            $this->_match = GithubProjectIssuesHelpers::to_map(Struct::clone($args)) ?? [];
+            $this->_match = IronocHelpers::to_map(Struct::clone($args)) ?? [];
             ($this->_utility->feature_hook)($this->_entctx, "SetMatch");
         }
     }
@@ -251,7 +251,7 @@ class PortfolioControllerEntity
      *   of PortfolioController fields) as an assoc-array; PortfolioControllerListMatch names the shape.
      * @param mixed $ctrl Optional per-call control overrides.
      * @return PortfolioController[]|array A list of PortfolioController items as assoc-arrays at
-     *   the SDK boundary; throws GithubProjectIssuesError on failure (item-5 convention).
+     *   the SDK boundary; throws IronocError on failure (item-5 convention).
      */
     public function list(?array $reqmatch = null, $ctrl = null): mixed
     {

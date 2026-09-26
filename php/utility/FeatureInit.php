@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: feature_init
+// Ironoc SDK utility: feature_init
 
-class GithubProjectIssuesFeatureInit
+class IronocFeatureInit
 {
-    public static function call(GithubProjectIssuesContext $ctx, mixed $f): void
+    public static function call(IronocContext $ctx, mixed $f): void
     {
         $fname = $f->get_name();
         $fopts = [];

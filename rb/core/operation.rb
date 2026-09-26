@@ -1,8 +1,8 @@
-# GithubProjectIssues SDK operation
+# Ironoc SDK operation
 
 require_relative '../utility/struct/voxgig_struct'
 
-class GithubProjectIssuesOperation
+class IronocOperation
   attr_accessor :entity, :name, :input, :points, :alias_map
 
   def initialize(opmap = {})

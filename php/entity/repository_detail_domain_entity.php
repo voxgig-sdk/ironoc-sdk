@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK RepositoryDetailDomain entity
+// Ironoc SDK RepositoryDetailDomain entity
 
 require_once __DIR__ . '/../utility/struct/Struct.php';
 require_once __DIR__ . '/../core/Helpers.php';
@@ -83,7 +83,7 @@ class RepositoryDetailDomainEntity
     public function data_set($args): void
     {
         if ($args) {
-            $this->_data = GithubProjectIssuesHelpers::to_map(Struct::clone($args)) ?? [];
+            $this->_data = IronocHelpers::to_map(Struct::clone($args)) ?? [];
             ($this->_utility->feature_hook)($this->_entctx, "SetData");
         }
     }
@@ -103,7 +103,7 @@ class RepositoryDetailDomainEntity
     public function match_set($args): void
     {
         if ($args) {
-            $this->_match = GithubProjectIssuesHelpers::to_map(Struct::clone($args)) ?? [];
+            $this->_match = IronocHelpers::to_map(Struct::clone($args)) ?? [];
             ($this->_utility->feature_hook)($this->_entctx, "SetMatch");
         }
     }
@@ -249,7 +249,7 @@ class RepositoryDetailDomainEntity
      *   fields) as an assoc-array; a typed RepositoryDetailDomainLoadMatch names the shape.
      * @param mixed $ctrl Optional per-call control overrides.
      * @return RepositoryDetailDomain|array The loaded RepositoryDetailDomain as an assoc-array at the
-     *   SDK boundary; throws GithubProjectIssuesError on failure (item-5 convention).
+     *   SDK boundary; throws IronocError on failure (item-5 convention).
      */
     public function load(?array $reqmatch = null, $ctrl = null): mixed
     {
@@ -268,7 +268,7 @@ class RepositoryDetailDomainEntity
                     $this->_match = $ctx->result->resmatch;
                 }
                 if ($ctx->result->resdata) {
-                    $this->_data = GithubProjectIssuesHelpers::to_map(Struct::clone($ctx->result->resdata)) ?? [];
+                    $this->_data = IronocHelpers::to_map(Struct::clone($ctx->result->resdata)) ?? [];
                 }
             }
         });
@@ -284,7 +284,7 @@ class RepositoryDetailDomainEntity
      *   of RepositoryDetailDomain fields) as an assoc-array; RepositoryDetailDomainListMatch names the shape.
      * @param mixed $ctrl Optional per-call control overrides.
      * @return RepositoryDetailDomain[]|array A list of RepositoryDetailDomain items as assoc-arrays at
-     *   the SDK boundary; throws GithubProjectIssuesError on failure (item-5 convention).
+     *   the SDK boundary; throws IronocError on failure (item-5 convention).
      */
     public function list(?array $reqmatch = null, $ctrl = null): mixed
     {

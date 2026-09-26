@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK netsim test
+-- Ironoc SDK netsim test
 --
 -- Network-behaviour simulation over the offline mock transport. The
 -- `test` feature accepts an optional `net` config so unit tests can
@@ -7,7 +7,7 @@
 -- entity, so they run for every generated SDK regardless of its API
 -- shape.
 
-local sdk = require("github-project-issues_sdk")
+local sdk = require("ironoc_sdk")
 
 
 describe("netsim", function()

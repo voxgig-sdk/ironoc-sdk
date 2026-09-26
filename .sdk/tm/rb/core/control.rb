@@ -1,6 +1,6 @@
-# GithubProjectIssues SDK control
+# Ironoc SDK control
 
-class GithubProjectIssuesControl
+class IronocControl
   attr_accessor :throw_err, :err, :explain, :actor, :paging
 
   def initialize(opts = {})

@@ -30,10 +30,10 @@ import * as Path from 'node:path'
 import { createRequire } from 'node:module'
 import { spawnSync } from 'node:child_process'
 
-import { GithubProjectIssuesSDK } from '..'
+import { IronocSDK } from '..'
 
 
-const SDK_NAME = 'GithubProjectIssuesSDK'
+const SDK_NAME = 'IronocSDK'
 
 // A fixture for every entity, so list()/load() resolve offline with no
 // network. Snippet client construction is rewritten to seed this.
@@ -104,8 +104,8 @@ function isIllustrationShape(code: string): boolean {
 // gate rewrites to seeded test mode and runs.
 function isRunnable(code: string): boolean {
   return (
-    /new\s+GithubProjectIssuesSDK\b/.test(code) ||
-    /\bGithubProjectIssuesSDK\.test\b/.test(code) ||
+    /new\s+IronocSDK\b/.test(code) ||
+    /\bIronocSDK\.test\b/.test(code) ||
     /\bclient\s*\./.test(code)
   )
 }
@@ -242,8 +242,8 @@ function typeCheckBlocks(blocks: string[], key: string): {
 // that reference `client` without constructing one a shared seeded client.
 function rewriteForRun(code: string): string {
   let out = stripImports(code)
-  out = out.replace(/new\s+GithubProjectIssuesSDK\s*\([^)]*\)/g, () => SEEDED_CTOR)
-  out = out.replace(/GithubProjectIssuesSDK\.test\s*\([^)]*\)/g, () => SEEDED_CTOR)
+  out = out.replace(/new\s+IronocSDK\s*\([^)]*\)/g, () => SEEDED_CTOR)
+  out = out.replace(/IronocSDK\.test\s*\([^)]*\)/g, () => SEEDED_CTOR)
   if (/\bclient\b/.test(out) && !/\b(?:const|let|var)\s+client\b/.test(out)) {
     out = 'const client = ' + SEEDED_CTOR + '\n' + out
   }
@@ -292,7 +292,7 @@ async function executeBlocks(blocks: string[]): Promise<string[]> {
     }
 
     try {
-      await runner(GithubProjectIssuesSDK, silentConsole)
+      await runner(IronocSDK, silentConsole)
     } catch (err: any) {
       const msg = String((err && err.message) || err)
       // Tolerate the one expected domain error: no fixture seeded for the

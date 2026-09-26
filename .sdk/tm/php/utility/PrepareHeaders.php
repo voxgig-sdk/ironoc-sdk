@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: prepare_headers
+// Ironoc SDK utility: prepare_headers
 
-class GithubProjectIssuesPrepareHeaders
+class IronocPrepareHeaders
 {
-    public static function call(GithubProjectIssuesContext $ctx): array
+    public static function call(IronocContext $ctx): array
     {
         $options = $ctx->client->options_map();
         $headers = \Voxgig\Struct\Struct::getprop($options, 'headers');

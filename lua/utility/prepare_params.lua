@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: prepare_params
+-- Ironoc SDK utility: prepare_params
 
 local vs = require("utility.struct.struct")
 

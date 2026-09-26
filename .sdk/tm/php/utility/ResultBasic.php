@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: result_basic
+// Ironoc SDK utility: result_basic
 
-class GithubProjectIssuesResultBasic
+class IronocResultBasic
 {
-    public static function call(GithubProjectIssuesContext $ctx): ?GithubProjectIssuesResult
+    public static function call(IronocContext $ctx): ?IronocResult
     {
         $response = $ctx->response;
         $result = $ctx->result;
@@ -15,7 +15,7 @@ class GithubProjectIssuesResultBasic
             if ($result->status >= 400) {
                 $msg = "request: {$result->status}: {$result->status_text}";
                 if ($result->err) {
-                    $prev = ($result->err instanceof GithubProjectIssuesError) ? $result->err->msg : (string)$result->err;
+                    $prev = ($result->err instanceof IronocError) ? $result->err->msg : (string)$result->err;
                     $result->err = $ctx->make_error('request_status', "{$prev}: {$msg}");
                 } else {
                     $result->err = $ctx->make_error('request_status', $msg);

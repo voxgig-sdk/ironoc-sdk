@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: make_point
+-- Ironoc SDK utility: make_point
 
 local vs = require("utility.struct.struct")
 local helpers = require("core.helpers")

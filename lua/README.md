@@ -1,8 +1,8 @@
-# GithubProjectIssues Lua SDK
+# Ironoc Lua SDK
 
 
 
-The Lua SDK for the GithubProjectIssues API — an entity-oriented client using Lua conventions.
+The Lua SDK for the Ironoc API — an entity-oriented client using Lua conventions.
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client:Coffee()` — each with the same small set of operations (`list`, `load`, `update`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
@@ -12,7 +12,7 @@ It exposes the API as capitalised, semantic **Entities** — e.g. `client:Coffee
 
 ## Install
 This package is not yet published to LuaRocks. Install it from the
-GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/github-project-issues-sdk/releases)),
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/ironoc-sdk/releases)),
 or add the source directory to your `LUA_PATH`:
 
 ```bash
@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```lua
-local sdk = require("github-project-issues_sdk")
+local sdk = require("ironoc_sdk")
 
 local client = sdk.new()
 ```
@@ -43,18 +43,8 @@ local coffees, err = client:Coffee():list()
 if err then error(err) end
 
 for _, item in ipairs(coffees) do
-  print(item["id"], item["description"])
+  print(item["id"])
 end
-```
-
-### 3. Load a repositorydetaildomain
-
-RepositoryDetailDomain is nested under username, so provide the `username`.
-
-```lua
-local repositorydetaildomain, err = client:RepositoryDetailDomain():load({ username = "example_username" })
-if err then error(err) end
-print(repositorydetaildomain)
 ```
 
 ### 4. Create, update, and remove
@@ -163,7 +153,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-GITHUB_PROJECT_ISSUES_TEST_LIVE=TRUE
+IRONOC_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -175,10 +165,10 @@ cd lua && busted test/
 
 ## Reference
 
-### GithubProjectIssuesSDK
+### IronocSDK
 
 ```lua
-local sdk = require("github-project-issues_sdk")
+local sdk = require("ironoc_sdk")
 local client = sdk.new(options)
 ```
 
@@ -201,7 +191,7 @@ local client = sdk.test(testopts, sdkopts)
 
 Creates a test-mode client with mock transport. Both arguments may be `nil`.
 
-### GithubProjectIssuesSDK methods
+### IronocSDK methods
 
 | Method | Signature | Description |
 | --- | --- | --- |
@@ -514,7 +504,7 @@ local version, err = client:Version():load()
 
 ## Features
 
-This SDK ships 1 optional features. Each is **inactive until you
+This SDK ships 4 optional features. Each is **inactive until you
 switch it on**, so an SDK you have not configured behaves exactly as if none of
 them existed — no retries, no cache, no logging, no measurable overhead.
 
@@ -523,17 +513,75 @@ above:
 
 | Feature | What it does |
 |---|---|
-| [`test`](#test) | In-memory mock transport for testing without a live server |
+| [`ratelimit`](#ratelimit) | Rate limiting |
+| [`retry`](#retry) | Retry |
+| [`test`](#test) | Test transport |
+| [`timeout`](#timeout) | Timeout |
+
+> **Order matters for `ratelimit`, `retry`, `timeout`.** These wrap the
+> transport, so each one wraps whatever is already installed: the order you
+> activate them in IS the nesting order. Activating them as an ordered list
+> rather than a map is what fixes that order.
+
+### ratelimit
+
+Rate limiting.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `burst` | `5` |
+| `rate` | `5` |
+
+Set `feature.ratelimit.active` to enable it, then override any of the options above.
+
+`ratelimit` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
+
+### retry
+
+Retry.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `factor` | `2` |
+| `maxDelay` | `2000` |
+| `minDelay` | `50` |
+| `retries` | `2` |
+| `statuses` | `[408, 425, 429, 500, 502, 503, 504]` |
+
+Set `feature.retry.active` to enable it, then override any of the options above.
+
+`retry` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 ### test
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 | Option | Default |
 |---|---|
 | `active` | `false` |
 
 Set `feature.test.active` to enable it, then override any of the options above.
+
+### timeout
+
+Timeout.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `ms` | `30000` |
+
+Set `feature.timeout.active` to enable it, then override any of the options above.
+
+`timeout` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 
 ## Advanced
@@ -574,7 +622,10 @@ with hook methods named after pipeline stages (e.g. `PrePoint`,
 
 The SDK ships with built-in features:
 
-- **TestFeature**: In-memory mock transport for testing without a live server
+- **RatelimitFeature**: Rate limiting
+- **RetryFeature**: Retry
+- **TestFeature**: Test transport
+- **TimeoutFeature**: Timeout
 
 Features are initialized in order. Hooks fire in the order features
 were added, so later features can override earlier ones.
@@ -592,8 +643,9 @@ Use `helpers.to_map()` to safely validate that a value is a table.
 
 ```
 lua/
-├── github-project-issues_sdk.lua    -- Main SDK module
+├── ironoc_sdk.lua    -- Main SDK module
 ├── config.lua               -- Configuration
+├── schema.lua               -- Generated option + entity specs
 ├── features.lua             -- Feature factory
 ├── core/                    -- Core types and context
 ├── entity/                  -- Entity implementations
@@ -602,7 +654,7 @@ lua/
 └── test/                    -- Test suites
 ```
 
-The main module (`github-project-issues_sdk`) exports the SDK constructor
+The main module (`ironoc_sdk`) exports the SDK constructor
 and test helper. Import entity or utility modules directly only
 when needed.
 

@@ -1,0 +1,153 @@
+# Entity: repository_detail_domain
+
+main: kit: entity: repository_detail_domain: {
+
+  alias: field: {}
+
+  fields: {
+    appHome: {
+      h: "App Home"
+      n: "appHome"
+      r: false
+      sh: "Normally this value is the link to the project/app home page."
+      t: "`$STRING`"
+    }
+    description: {
+      h: "Description"
+      n: "description"
+      r: false
+      sh: "Description of GitHub project."
+      t: "`$STRING`"
+    }
+    fullName: {
+      h: "Full Name"
+      n: "fullName"
+      r: true
+      sh: "Full Name of GitHub Repository (Format is: username/project_name)."
+      t: "`$STRING`"
+    }
+    issueCount: {
+      fo: "int32"
+      h: "Issue Count"
+      n: "issueCount"
+      r: false
+      sh: "Number of associated issues."
+      t: "`$INTEGER`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: true
+      sh: "Name of GitHub Repository."
+      t: "`$STRING`"
+    }
+    repoUrl: {
+      h: "Repo Url"
+      n: "repoUrl"
+      r: true
+      sh: "This is the home page URL of the project."
+      t: "`$STRING`"
+    }
+    topics: {
+      h: "Topics"
+      n: "topics"
+      r: false
+      sh: "Labels or topics associated with the GitHub repository project."
+      t: "`$STRING`"
+    }
+  }
+
+  name: "repository_detail_domain"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /api/get-repo-detail"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "username"
+                or: "username"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/get-repo-detail"
+          q: {
+            exist: [
+              "username"
+            ]
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "get-repo-detail"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /api/get-repo-detail/{username}/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "username"
+                or: "username"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/get-repo-detail/{username}/"
+          q: {
+            exist: [
+              "username"
+            ]
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "get-repo-detail"
+            }
+            {
+              var: "username"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

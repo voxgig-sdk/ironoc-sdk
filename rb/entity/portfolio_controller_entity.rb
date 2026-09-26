@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK PortfolioController entity
+# Ironoc SDK PortfolioController entity
 
 require_relative '../utility/struct/voxgig_struct'
 require_relative '../core/helpers'
@@ -53,7 +53,7 @@ class PortfolioControllerEntity
 
   def data_set(args)
     if args
-      @_data = GithubProjectIssuesHelpers.to_map(VoxgigStruct.clone(args)) || {}
+      @_data = IronocHelpers.to_map(VoxgigStruct.clone(args)) || {}
       @_utility.feature_hook.call(@_entctx, "SetData")
     end
   end
@@ -66,7 +66,7 @@ class PortfolioControllerEntity
 
   def match_set(args)
     if args
-      @_match = GithubProjectIssuesHelpers.to_map(VoxgigStruct.clone(args)) || {}
+      @_match = IronocHelpers.to_map(VoxgigStruct.clone(args)) || {}
       @_utility.feature_hook.call(@_entctx, "SetMatch")
     end
   end
@@ -178,7 +178,7 @@ class PortfolioControllerEntity
   # @param reqmatch [PortfolioControllerListMatch, Hash, nil] match filter (any subset of
   #   PortfolioController fields); defaults to nil, treated as an empty match that lists all.
   # @param ctrl [Object, nil] optional per-call control
-  # @return [Array<PortfolioController>, Array] the matching PortfolioController items; raises GithubProjectIssuesError on failure
+  # @return [Array<PortfolioController>, Array] the matching PortfolioController items; raises IronocError on failure
   def list(reqmatch = nil, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

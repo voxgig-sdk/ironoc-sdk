@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK Version entity
+# Ironoc SDK Version entity
 
 require_relative '../utility/struct/voxgig_struct'
 require_relative '../core/helpers'
@@ -53,7 +53,7 @@ class VersionEntity
 
   def data_set(args)
     if args
-      @_data = GithubProjectIssuesHelpers.to_map(VoxgigStruct.clone(args)) || {}
+      @_data = IronocHelpers.to_map(VoxgigStruct.clone(args)) || {}
       @_utility.feature_hook.call(@_entctx, "SetData")
     end
   end
@@ -66,7 +66,7 @@ class VersionEntity
 
   def match_set(args)
     if args
-      @_match = GithubProjectIssuesHelpers.to_map(VoxgigStruct.clone(args)) || {}
+      @_match = IronocHelpers.to_map(VoxgigStruct.clone(args)) || {}
       @_utility.feature_hook.call(@_entctx, "SetMatch")
     end
   end
@@ -177,7 +177,7 @@ class VersionEntity
   #   optional — an entity with no id-like key loads with no match (nil is treated
   #   as an empty match, so client.Version.load works with no args).
   # @param ctrl [Object, nil] optional per-call control
-  # @return [Version, Hash] the loaded Version; raises GithubProjectIssuesError on failure
+  # @return [Version, Hash] the loaded Version; raises IronocError on failure
   def load(reqmatch = nil, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -192,7 +192,7 @@ class VersionEntity
       if ctx.result
         @_match = ctx.result.resmatch if ctx.result.resmatch
         if ctx.result.resdata
-          @_data = GithubProjectIssuesHelpers.to_map(VoxgigStruct.clone(ctx.result.resdata)) || {}
+          @_data = IronocHelpers.to_map(VoxgigStruct.clone(ctx.result.resdata)) || {}
         end
       end
     end

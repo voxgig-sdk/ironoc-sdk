@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: done
+// Ironoc SDK utility: done
 
-class GithubProjectIssuesDone
+class IronocDone
 {
-    public static function call(GithubProjectIssuesContext $ctx): mixed
+    public static function call(IronocContext $ctx): mixed
     {
         if ($ctx->ctrl->explain) {
             $ctx->ctrl->explain = ($ctx->utility->clean)($ctx, $ctx->ctrl->explain);

@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK utility registration
+# Ironoc SDK utility registration
 require_relative '../core/utility_type'
 require_relative 'clean'
 require_relative 'done'
@@ -31,36 +31,36 @@ require_relative 'result_headers'
 require_relative 'transform_request'
 require_relative 'transform_response'
 
-GithubProjectIssuesUtility.registrar = ->(u) {
-  u.clean = GithubProjectIssuesUtilities::Clean
-  u.done = GithubProjectIssuesUtilities::Done
-  u.make_error = GithubProjectIssuesUtilities::MakeError
-  u.feature_add = GithubProjectIssuesUtilities::FeatureAdd
-  u.feature_hook = GithubProjectIssuesUtilities::FeatureHook
-  u.feature_init = GithubProjectIssuesUtilities::FeatureInit
-  u.fetcher = GithubProjectIssuesUtilities::Fetcher
-  u.make_fetch_def = GithubProjectIssuesUtilities::MakeFetchDef
-  u.make_context = GithubProjectIssuesUtilities::MakeContext
-  u.make_options = GithubProjectIssuesUtilities::MakeOptions
-  u.make_request = GithubProjectIssuesUtilities::MakeRequest
-  u.make_response = GithubProjectIssuesUtilities::MakeResponse
-  u.make_result = GithubProjectIssuesUtilities::MakeResult
-  u.make_point = GithubProjectIssuesUtilities::MakePoint
-  u.make_spec = GithubProjectIssuesUtilities::MakeSpec
-  u.make_url = GithubProjectIssuesUtilities::MakeUrl
-  u.param = GithubProjectIssuesUtilities::Param
-  u.prepare_auth = GithubProjectIssuesUtilities::PrepareAuth
-  u.prepare_body = GithubProjectIssuesUtilities::PrepareBody
-  u.prepare_headers = GithubProjectIssuesUtilities::PrepareHeaders
-  u.prepare_method = GithubProjectIssuesUtilities::PrepareMethod
-  u.prepare_params = GithubProjectIssuesUtilities::PrepareParams
-  u.prepare_path = GithubProjectIssuesUtilities::PreparePath
-  u.prepare_query = GithubProjectIssuesUtilities::PrepareQuery
-  u.graphql_body = GithubProjectIssuesUtilities::GraphqlBody
-  u.graphql_errors = GithubProjectIssuesUtilities::GraphqlErrors
-  u.result_basic = GithubProjectIssuesUtilities::ResultBasic
-  u.result_body = GithubProjectIssuesUtilities::ResultBody
-  u.result_headers = GithubProjectIssuesUtilities::ResultHeaders
-  u.transform_request = GithubProjectIssuesUtilities::TransformRequest
-  u.transform_response = GithubProjectIssuesUtilities::TransformResponse
+IronocUtility.registrar = ->(u) {
+  u.clean = IronocUtilities::Clean
+  u.done = IronocUtilities::Done
+  u.make_error = IronocUtilities::MakeError
+  u.feature_add = IronocUtilities::FeatureAdd
+  u.feature_hook = IronocUtilities::FeatureHook
+  u.feature_init = IronocUtilities::FeatureInit
+  u.fetcher = IronocUtilities::Fetcher
+  u.make_fetch_def = IronocUtilities::MakeFetchDef
+  u.make_context = IronocUtilities::MakeContext
+  u.make_options = IronocUtilities::MakeOptions
+  u.make_request = IronocUtilities::MakeRequest
+  u.make_response = IronocUtilities::MakeResponse
+  u.make_result = IronocUtilities::MakeResult
+  u.make_point = IronocUtilities::MakePoint
+  u.make_spec = IronocUtilities::MakeSpec
+  u.make_url = IronocUtilities::MakeUrl
+  u.param = IronocUtilities::Param
+  u.prepare_auth = IronocUtilities::PrepareAuth
+  u.prepare_body = IronocUtilities::PrepareBody
+  u.prepare_headers = IronocUtilities::PrepareHeaders
+  u.prepare_method = IronocUtilities::PrepareMethod
+  u.prepare_params = IronocUtilities::PrepareParams
+  u.prepare_path = IronocUtilities::PreparePath
+  u.prepare_query = IronocUtilities::PrepareQuery
+  u.graphql_body = IronocUtilities::GraphqlBody
+  u.graphql_errors = IronocUtilities::GraphqlErrors
+  u.result_basic = IronocUtilities::ResultBasic
+  u.result_body = IronocUtilities::ResultBody
+  u.result_headers = IronocUtilities::ResultHeaders
+  u.transform_request = IronocUtilities::TransformRequest
+  u.transform_response = IronocUtilities::TransformResponse
 }

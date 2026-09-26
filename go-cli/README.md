@@ -1,6 +1,6 @@
-# github-project-issues-cli
+# ironoc-cli
 
-boru-driven command-line client **and** interactive REPL for the GithubProjectIssues
+boru-driven command-line client **and** interactive REPL for the Ironoc
 SDK. Each command line is parsed as a single [boru](https://github.com/boru-lang/boru)
 expression and evaluated against the live API; run it with no arguments to drop
 into a REPL. Built on `github.com/boru-lang/boru/eng/go` and the sibling Go SDK
@@ -9,27 +9,27 @@ at `../go`.
 ## Examples
 
 ```sh
-# 1. Build a native binary (-> dist/<os>-<arch>/github-project-issues-cli)
+# 1. Build a native binary (-> dist/<os>-<arch>/ironoc-cli)
 make build
 
 # 2. See usage (words, entities, env vars)
-./github-project-issues-cli --help
+./ironoc-cli --help
 
 # 3. Provide credentials once, via the environment
-export GITHUB_PROJECT_ISSUES_APIKEY=sk_live_xxx
+export IRONOC_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
-./github-project-issues-cli list coffee
-./github-project-issues-cli update '{name:"x"}' coffee
-./github-project-issues-cli list coffee_domain
+./ironoc-cli list coffee
+./ironoc-cli update '{name:"x"}' coffee
+./ironoc-cli list coffee_domain
 
 # 5. Override the API base URL for a single call
-GITHUB_PROJECT_ISSUES_BASE=https://api.example.com ./github-project-issues-cli list coffee
+IRONOC_BASE=https://api.example.com ./ironoc-cli list coffee
 
 # 6. No arguments -> interactive REPL
-./github-project-issues-cli
-github-project-issues> list coffee
-github-project-issues> /quit
+./ironoc-cli
+ironoc> list coffee
+ironoc> /quit
 ```
 
 > The rest of this guide follows the [Diátaxis](https://diataxis.fr) framework:
@@ -41,20 +41,20 @@ github-project-issues> /quit
 1. **Build the binary.** From this `go-cli/` directory:
 
    ```sh
-   make build          # -> dist/<os>-<arch>/github-project-issues-cli
+   make build          # -> dist/<os>-<arch>/ironoc-cli
    ```
 
 2. **Set your API key** (read from the environment):
 
    ```sh
-   export GITHUB_PROJECT_ISSUES_APIKEY=sk_live_xxx
+   export IRONOC_APIKEY=sk_live_xxx
    ```
 
 3. **Run a query.** Evaluate an boru expression against the API (or run with no
    arguments to open the REPL):
 
    ```sh
-   ./dist/*/github-project-issues-cli list coffee
+   ./dist/*/ironoc-cli list coffee
    ```
 
 4. **Go interactive.** Run the binary with no arguments to open the REPL, then
@@ -67,7 +67,7 @@ That is the whole loop: *build → set key → evaluate boru expressions*.
 ### List the records of an entity
 
 ```sh
-./github-project-issues-cli list coffee
+./ironoc-cli list coffee
 ```
 
 `list <entity>` returns the first page of records. `<entity>` is a bareword —
@@ -76,7 +76,7 @@ it is auto-quoted as an boru atom, so no quotes are needed.
 ### Update a record
 
 ```sh
-./github-project-issues-cli update '{id:1,name:"new"}' coffee
+./ironoc-cli update '{id:1,name:"new"}' coffee
 ```
 
 The match map carries both the selector and the new field values; the updated
@@ -87,23 +87,23 @@ record is printed back.
 Configuration is read from the environment — nothing is written to disk:
 
 ```sh
-export GITHUB_PROJECT_ISSUES_APIKEY=sk_live_xxx            # API key
-export GITHUB_PROJECT_ISSUES_BASE=https://api.example.com  # optional: override the API base URL
-./github-project-issues-cli list coffee
+export IRONOC_APIKEY=sk_live_xxx            # API key
+export IRONOC_BASE=https://api.example.com  # optional: override the API base URL
+./ironoc-cli list coffee
 ```
 
 Both are injectable by a secrets vault, so the key never has to be typed inline.
 
 ### Explore interactively with the REPL
 
-Run with no arguments to open a REPL (prompt `github-project-issues>`). Each line is
+Run with no arguments to open a REPL (prompt `ironoc>`). Each line is
 evaluated as its own boru expression:
 
 ```text
-$ ./github-project-issues-cli
-github-project-issues> list coffee
-github-project-issues> /help
-github-project-issues> /quit
+$ ./ironoc-cli
+ironoc> list coffee
+ironoc> /help
+ironoc> /quit
 ```
 
 ### Cross-compile release binaries
@@ -138,8 +138,8 @@ The CLI registers these boru words, each bound to the SDK:
 
 | Variable | Purpose |
 |----------|---------|
-| `GITHUB_PROJECT_ISSUES_APIKEY` | API key sent with every request. |
-| `GITHUB_PROJECT_ISSUES_BASE` | Optional override of the API base URL. |
+| `IRONOC_APIKEY` | API key sent with every request. |
+| `IRONOC_BASE` | Optional override of the API base URL. |
 
 Unset variables fall back to the SDK's built-in defaults.
 
@@ -165,7 +165,7 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 | Target | Result |
 |--------|--------|
-| `make build` | Native binary at `dist/<os>-<arch>/github-project-issues-cli`. |
+| `make build` | Native binary at `dist/<os>-<arch>/ironoc-cli`. |
 | `make build-all` | linux/darwin/windows x amd64/arm64, each under its own `dist/<os>-<arch>/`. |
 | `make clean` | Remove `dist/` and any stray binaries. |
 
@@ -181,7 +181,7 @@ coffee coffee_domain donate_rest_controller portfolio_controller repository_deta
 
 The whole command line is one [boru](https://github.com/boru-lang/boru) expression,
 not a fixed `verb --flag` grammar. That means the same binary works one-shot
-(`./github-project-issues-cli <expr>`) and interactively (the REPL), and expressions compose the
+(`./ironoc-cli <expr>`) and interactively (the REPL), and expressions compose the
 same way in both. `list` / `load` / `update` are ordinary boru *words* bound to
 the SDK — adding SDK operations is adding words, not re-parsing flags.
 

@@ -4,19 +4,25 @@ var UtilityRegistrar func(u *Utility)
 
 var NewBaseFeatureFunc func() Feature
 
+var NewRatelimitFeatureFunc func() Feature
+
+var NewRetryFeatureFunc func() Feature
+
 var NewTestFeatureFunc func() Feature
 
-var NewCoffeeEntityFunc func(client *GithubProjectIssuesSDK, entopts map[string]any) GithubProjectIssuesEntity
+var NewTimeoutFeatureFunc func() Feature
 
-var NewCoffeeDomainEntityFunc func(client *GithubProjectIssuesSDK, entopts map[string]any) GithubProjectIssuesEntity
+var NewCoffeeEntityFunc func(client *IronocSDK, entopts map[string]any) IronocEntity
 
-var NewDonateRestControllerEntityFunc func(client *GithubProjectIssuesSDK, entopts map[string]any) GithubProjectIssuesEntity
+var NewCoffeeDomainEntityFunc func(client *IronocSDK, entopts map[string]any) IronocEntity
 
-var NewPortfolioControllerEntityFunc func(client *GithubProjectIssuesSDK, entopts map[string]any) GithubProjectIssuesEntity
+var NewDonateRestControllerEntityFunc func(client *IronocSDK, entopts map[string]any) IronocEntity
 
-var NewRepositoryDetailDomainEntityFunc func(client *GithubProjectIssuesSDK, entopts map[string]any) GithubProjectIssuesEntity
+var NewPortfolioControllerEntityFunc func(client *IronocSDK, entopts map[string]any) IronocEntity
 
-var NewRepositoryIssueDomainEntityFunc func(client *GithubProjectIssuesSDK, entopts map[string]any) GithubProjectIssuesEntity
+var NewRepositoryDetailDomainEntityFunc func(client *IronocSDK, entopts map[string]any) IronocEntity
 
-var NewVersionEntityFunc func(client *GithubProjectIssuesSDK, entopts map[string]any) GithubProjectIssuesEntity
+var NewRepositoryIssueDomainEntityFunc func(client *IronocSDK, entopts map[string]any) IronocEntity
+
+var NewVersionEntityFunc func(client *IronocSDK, entopts map[string]any) IronocEntity
 

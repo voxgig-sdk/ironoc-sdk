@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility registration
+-- Ironoc SDK utility registration
 
 local Utility = require("core.utility_type")
 

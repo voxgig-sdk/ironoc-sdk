@@ -10,5 +10,12 @@
     "portfolio_controller": {
       "portfolio_controller_ref01": {}
     }
+  },
+  "requests": {
+    "GET /api/portfolio-items": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
   }
 }

@@ -1,5 +1,5 @@
-# GithubProjectIssues SDK utility: make_result
-module GithubProjectIssuesUtilities
+# Ironoc SDK utility: make_result
+module IronocUtilities
   MakeResult = ->(ctx) {
     return ctx.out["result"], nil if ctx.out["result"]
     utility = ctx.utility

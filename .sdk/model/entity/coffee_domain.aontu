@@ -1,0 +1,83 @@
+# Entity: coffee_domain
+
+main: kit: entity: coffee_domain: {
+
+  alias: field: {}
+
+  fields: {
+    description: {
+      h: "Description"
+      n: "description"
+      r: false
+      sh: "Drink Description."
+      t: "`$STRING`"
+    }
+    id: {
+      fo: "int32"
+      h: "Id"
+      n: "id"
+      r: false
+      sh: "ID of Coffee Details Object."
+      t: "`$INTEGER`"
+    }
+    image: {
+      h: "Image"
+      n: "image"
+      r: true
+      sh: "Image URL."
+      t: "`$STRING`"
+    }
+    ingredients: {
+      h: "Ingredients"
+      n: "ingredients"
+      r: true
+      sh: "Main Ingredients."
+      t: "`$ARRAY`"
+    }
+    title: {
+      h: "Title"
+      n: "title"
+      r: true
+      sh: "Coffee Name/Type."
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "coffee_domain"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /api/coffees-graph-ql"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/api/coffees-graph-ql"
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "coffees-graph-ql"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -1,16 +1,16 @@
 {
-  "name": "voxgig-sdk/github-project-issues",
+  "name": "voxgig-sdk/ironoc-sdk",
   "description": "Unofficial generated PHP SDK for the iRonoc public API. Not affiliated with or endorsed by the upstream API provider.",
   "type": "library",
-  "keywords": ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "github-project-issues"],
-  "homepage": "https://github.com/voxgig-sdk/github-project-issues-sdk",
+  "keywords": ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "ironoc"],
+  "homepage": "https://github.com/voxgig-sdk/ironoc-sdk",
   "license": "MIT",
   "authors": [
     { "name": "Voxgig", "homepage": "https://voxgig.com" }
   ],
   "support": {
-    "issues": "https://github.com/voxgig-sdk/github-project-issues-sdk/issues",
-    "source": "https://github.com/voxgig-sdk/github-project-issues-sdk"
+    "issues": "https://github.com/voxgig-sdk/ironoc-sdk/issues",
+    "source": "https://github.com/voxgig-sdk/ironoc-sdk"
   },
   "minimum-stability": "stable",
   "require": {
@@ -20,8 +20,8 @@
     "phpunit/phpunit": "^11.0"
   },
   "autoload": {
-    "files": ["githubprojectissues_sdk.php"],
-    "classmap": ["core/", "entity/", "feature/", "types/", "utility/", "config.php", "features.php"]
+    "files": ["ironoc_sdk.php"],
+    "classmap": ["core/", "entity/", "feature/", "types/", "utility/", "config.php", "schema.php", "features.php"]
   },
   "autoload-dev": {
     "classmap": ["test/"]

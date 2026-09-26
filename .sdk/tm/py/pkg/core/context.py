@@ -1,19 +1,19 @@
-# GithubProjectIssues SDK context
+# Ironoc SDK context
 
 from __future__ import annotations
 import random
 
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
-from projectname_sdk.core.control import GithubProjectIssuesControl
-from projectname_sdk.core.operation import GithubProjectIssuesOperation
-from projectname_sdk.core.spec import GithubProjectIssuesSpec
-from projectname_sdk.core.result import GithubProjectIssuesResult
-from projectname_sdk.core.response import GithubProjectIssuesResponse
-from projectname_sdk.core.error import GithubProjectIssuesError
+from projectname_sdk.core.control import IronocControl
+from projectname_sdk.core.operation import IronocOperation
+from projectname_sdk.core.spec import IronocSpec
+from projectname_sdk.core.result import IronocResult
+from projectname_sdk.core.response import IronocResponse
+from projectname_sdk.core.error import IronocError
 from projectname_sdk.core.helpers import get_ctx_prop, to_map
 
 
-class GithubProjectIssuesContext:
+class IronocContext:
     def __init__(self, ctxmap=None, basectx=None):
         self.id = "C" + str(random.randint(10000000, 99999999))
         self.out = {}
@@ -40,7 +40,7 @@ class GithubProjectIssuesContext:
             self.utility = None
 
         # Ctrl
-        self.ctrl = GithubProjectIssuesControl()
+        self.ctrl = IronocControl()
         ctrl_raw = get_ctx_prop(ctxmap, "ctrl")
         if isinstance(ctrl_raw, dict):
             if ctrl_raw.get("throw_err") is not None:
@@ -53,7 +53,8 @@ class GithubProjectIssuesContext:
                 self.ctrl.actor = ctrl_raw["actor"]
             if isinstance(ctrl_raw.get("paging"), dict):
                 self.ctrl.paging = ctrl_raw["paging"]
-        elif basectx is not None and basectx.ctrl is not None:
+        elif (basectx is not None and basectx.ctrl is not None
+              and get_ctx_prop(ctxmap, "opname") is None):
             self.ctrl = basectx.ctrl
 
         # Meta
@@ -137,7 +138,7 @@ class GithubProjectIssuesContext:
 
         # Spec
         sp = get_ctx_prop(ctxmap, "spec")
-        if isinstance(sp, GithubProjectIssuesSpec):
+        if isinstance(sp, IronocSpec):
             self.spec = sp
         elif basectx is not None:
             self.spec = basectx.spec
@@ -146,7 +147,7 @@ class GithubProjectIssuesContext:
 
         # Result
         r = get_ctx_prop(ctxmap, "result")
-        if isinstance(r, GithubProjectIssuesResult):
+        if isinstance(r, IronocResult):
             self.result = r
         elif basectx is not None:
             self.result = basectx.result
@@ -155,7 +156,7 @@ class GithubProjectIssuesContext:
 
         # Response
         rp = get_ctx_prop(ctxmap, "response")
-        if isinstance(rp, GithubProjectIssuesResponse):
+        if isinstance(rp, IronocResponse):
             self.response = rp
         elif basectx is not None:
             self.response = basectx.response
@@ -180,7 +181,7 @@ class GithubProjectIssuesContext:
             return self.opmap[cache_key]
 
         if opname == "":
-            return GithubProjectIssuesOperation({})
+            return IronocOperation({})
 
         opcfg = vs.getpath(self.config, "entity." + entname + ".op." + opname)
 
@@ -194,7 +195,7 @@ class GithubProjectIssuesContext:
             if isinstance(t, list):
                 points = t
 
-        op = GithubProjectIssuesOperation({
+        op = IronocOperation({
             "entity": entname,
             "name": opname,
             "input": inpt,
@@ -205,4 +206,4 @@ class GithubProjectIssuesContext:
         return op
 
     def make_error(self, code, msg):
-        return GithubProjectIssuesError(code, msg, self)
+        return IronocError(code, msg, self)

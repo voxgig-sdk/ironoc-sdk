@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK
+# Ironoc SDK
 
 iRonoc API client, generated from the OpenAPI spec.
 
@@ -12,7 +12,7 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `test` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
@@ -24,7 +24,7 @@ call directly, instead of assembling URL paths and query strings. See the [Entit
 support (`list`, `load`, `update`):
 
 ```ts
-const client = new GithubProjectIssuesSDK()
+const client = new IronocSDK()
 const items = await client.Coffee().list()
 ```
 
@@ -42,7 +42,7 @@ network, and no credentials:
 ```ts
 // The offline mock starts EMPTY — seed it with the records the test needs.
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
-const client = GithubProjectIssuesSDK.test({
+const client = IronocSDK.test({
   entity: {
     repository_issue_domain: {
       test01: { id: 'test01' },
@@ -58,7 +58,7 @@ console.log(repositoryissuedomains)
 ### Python
 
 ```python
-client = GithubProjectIssuesSDK.test()
+client = IronocSDK.test()
 repositoryissuedomains = client.RepositoryIssueDomain().list()
 print(repositoryissuedomains)
 ```
@@ -67,7 +67,7 @@ print(repositoryissuedomains)
 
 ```php
 // Seed fixture data so offline calls resolve without a live server.
-$client = GithubProjectIssuesSDK::test([
+$client = IronocSDK::test([
     "entity" => ["repositoryissuedomain" => ["test01" => []]],
 ]);
 $repositoryissuedomains = $client->RepositoryIssueDomain()->list();
@@ -86,7 +86,7 @@ result, err := client.RepositoryIssueDomain(nil).List(
 
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
-client = GithubProjectIssuesSDK.test({
+client = IronocSDK.test({
   "entity" => { "repositoryissuedomain" => { "test01" => {} } },
 })
 repositoryissuedomains = client.RepositoryIssueDomain.list()
@@ -103,35 +103,29 @@ local results, err = client:RepositoryIssueDomain():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/github-project-issues` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-project-issues-sdk/releases) |
-| Python | `voxgig-sdk-github-project-issues` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-project-issues-sdk/releases) |
-| PHP | `voxgig-sdk/github-project-issues` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-project-issues-sdk/releases) |
-| Golang | `github.com/voxgig-sdk/github-project-issues-sdk/go` | `go get github.com/voxgig-sdk/github-project-issues-sdk/go@latest` |
-| Ruby | `voxgig-sdk-github-project-issues` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-project-issues-sdk/releases) |
-| Lua | `voxgig-sdk-github-project-issues` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-project-issues-sdk/releases) |
-| Go CLI | `github.com/voxgig-sdk/github-project-issues-sdk/go-cli` | `go install github.com/voxgig-sdk/github-project-issues-sdk/go-cli/cmd/github-project-issues@latest` |
-| Go MCP server | `github.com/voxgig-sdk/github-project-issues-sdk/go-mcp` | `go get github.com/voxgig-sdk/github-project-issues-sdk/go-mcp@latest` |
+| TypeScript | `@voxgig-sdk/ironoc-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/ironoc-sdk/tags) |
+| Python | `voxgig-sdk-ironoc-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/ironoc-sdk/tags) |
+| PHP | `voxgig-sdk/ironoc-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/ironoc-sdk/tags) |
+| Golang | `github.com/voxgig-sdk/ironoc-sdk/go` | `go get github.com/voxgig-sdk/ironoc-sdk/go@latest` |
+| Ruby | `voxgig-sdk-ironoc-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/ironoc-sdk/tags) |
+| Lua | `voxgig-sdk-ironoc-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/ironoc-sdk/tags) |
+| Go CLI | `github.com/voxgig-sdk/ironoc-sdk/go-cli` | `go install github.com/voxgig-sdk/ironoc-sdk/go-cli/cmd/ironoc@latest` |
+| Go MCP server | `github.com/voxgig-sdk/ironoc-sdk/go-mcp` | `go get github.com/voxgig-sdk/ironoc-sdk/go-mcp@latest` |
 
 ## Quickstart
 
 ### TypeScript
 
 ```ts
-import { GithubProjectIssuesSDK } from '@voxgig-sdk/github-project-issues'
+import { IronocSDK } from '@voxgig-sdk/ironoc-sdk'
 
-const client = new GithubProjectIssuesSDK()
+const client = new IronocSDK()
 
 // List all coffees (returns CoffeeEntity[] — .data() for the record)
 const coffees = await client.Coffee().list()
 for (const coffee of coffees) {
   console.log(coffee)
 }
-
-// Load a specific repositorydetaildomain (returns a RepositoryDetailDomain)
-const repositorydetaildomain = await client.RepositoryDetailDomain().load({
-  username: 'example_username',
-})
-console.log(repositorydetaildomain)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -151,7 +145,7 @@ The generated MCP server exposes every operation in this SDK as an
 can call directly. Build and register it:
 
 ```bash
-cd go-mcp && go build -o github-project-issues-mcp .
+cd go-mcp && go build -o ironoc-mcp .
 ```
 
 Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
@@ -159,8 +153,8 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 ```json
 {
   "mcpServers": {
-    "github-project-issues": {
-      "command": "/abs/path/to/github-project-issues-mcp"
+    "ironoc": {
+      "command": "/abs/path/to/ironoc-mcp"
     }
   }
 }
@@ -188,9 +182,9 @@ own list above for exactly which it supports.
 ### Python
 
 ```python
-from githubprojectissues_sdk import GithubProjectIssuesSDK
+from ironoc_sdk import IronocSDK
 
-client = GithubProjectIssuesSDK()
+client = IronocSDK()
 
 # List all coffees (returns a list, raises on error)
 coffees = client.Coffee().list()
@@ -202,19 +196,19 @@ for coffee in coffees:
 
 ```php
 <?php
-require_once 'githubprojectissues_sdk.php';
+require_once 'ironoc_sdk.php';
 
-$client = new GithubProjectIssuesSDK();
+$client = new IronocSDK();
 
 // List all coffees (returns an array; throws on error)
 $coffees = $client->Coffee()->list();
-print_r($coffees);
+print_r(array_map(fn($item) => $item->data_get(), $coffees));
 ```
 
 ### Golang
 
 ```go
-import sdk "github.com/voxgig-sdk/github-project-issues-sdk/go"
+import sdk "github.com/voxgig-sdk/ironoc-sdk/go"
 
 client := sdk.New()
 
@@ -224,23 +218,14 @@ if err != nil {
     panic(err)
 }
 fmt.Println(coffees)
-
-// Load a specific repositorydetaildomain
-repositoryDetailDomain, err := client.RepositoryDetailDomain(nil).Load(
-    map[string]any{"username": "example_username"}, nil,
-)
-if err != nil {
-    panic(err)
-}
-fmt.Println(repositoryDetailDomain)
 ```
 
 ### Ruby
 
 ```ruby
-require_relative "GithubProjectIssues_sdk"
+require_relative "Ironoc_sdk"
 
-client = GithubProjectIssuesSDK.new
+client = IronocSDK.new
 
 # List all coffees (returns an Array; raises on error)
 coffees = client.Coffee.list
@@ -250,7 +235,7 @@ puts coffees
 ### Lua
 
 ```lua
-local sdk = require("github-project-issues_sdk")
+local sdk = require("ironoc_sdk")
 
 local client = sdk.new()
 
@@ -358,7 +343,10 @@ forking the SDK.
 
 | Feature | Purpose |
 | --- | --- |
-| **TestFeature** | In-memory mock transport for testing without a live server |
+| **RatelimitFeature** | Rate limiting |
+| **RetryFeature** | Retry |
+| **TestFeature** | Test transport |
+| **TimeoutFeature** | Timeout |
 
 Pass custom features via the `extend` option at construction time.
 
@@ -369,7 +357,7 @@ customizable without forking any upstream tool:
 
 - **The model** (`.sdk/model/`) declares everything this project owns:
   package names, versions, active features, per-target settings. It is
-  written in [aontu](https://github.com/aontu-lang/aontu), a JSON-based
+  written in [aontu](https://aontu.dev), a JSON-based
   specification language designed for building ontologies: easy to edit
   by hand, and files unify rather than override, so small declarations
   compose into one model. Regeneration re-reads it every time.

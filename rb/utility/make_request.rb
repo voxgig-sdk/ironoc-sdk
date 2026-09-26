@@ -1,14 +1,14 @@
-# GithubProjectIssues SDK utility: make_request
+# Ironoc SDK utility: make_request
 require_relative '../core/response'
 require_relative '../core/result'
-module GithubProjectIssuesUtilities
+module IronocUtilities
   MakeRequest = ->(ctx) {
     return ctx.out["request"], nil if ctx.out["request"]
 
     spec = ctx.spec
     utility = ctx.utility
-    response = GithubProjectIssuesResponse.new({})
-    result = GithubProjectIssuesResult.new({})
+    response = IronocResponse.new({})
+    result = IronocResult.new({})
     ctx.result = result
 
     return nil, ctx.make_error("request_no_spec", "Expected context spec property to be defined.") unless spec
@@ -30,9 +30,9 @@ module GithubProjectIssuesUtilities
     if fetch_err
       response.err = fetch_err
     elsif fetched.nil?
-      response = GithubProjectIssuesResponse.new({ "err" => ctx.make_error("request_no_response", "response: undefined") })
+      response = IronocResponse.new({ "err" => ctx.make_error("request_no_response", "response: undefined") })
     elsif fetched.is_a?(Hash)
-      response = GithubProjectIssuesResponse.new(fetched)
+      response = IronocResponse.new(fetched)
     else
       response.err = ctx.make_error("request_invalid_response", "response: invalid type")
     end

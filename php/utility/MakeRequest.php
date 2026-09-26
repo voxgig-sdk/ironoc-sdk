@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: make_request
+// Ironoc SDK utility: make_request
 
 require_once __DIR__ . '/../core/Response.php';
 require_once __DIR__ . '/../core/Result.php';
 
-class GithubProjectIssuesMakeRequest
+class IronocMakeRequest
 {
-    public static function call(GithubProjectIssuesContext $ctx): array
+    public static function call(IronocContext $ctx): array
     {
         if (isset($ctx->out['request'])) {
             return [$ctx->out['request'], null];
@@ -16,8 +16,8 @@ class GithubProjectIssuesMakeRequest
 
         $spec = $ctx->spec;
         $utility = $ctx->utility;
-        $response = new GithubProjectIssuesResponse([]);
-        $result = new GithubProjectIssuesResult([]);
+        $response = new IronocResponse([]);
+        $result = new IronocResult([]);
         $ctx->result = $result;
 
         if (!$spec) {
@@ -43,9 +43,9 @@ class GithubProjectIssuesMakeRequest
         if ($fetch_err) {
             $response->err = $fetch_err;
         } elseif ($fetched === null) {
-            $response = new GithubProjectIssuesResponse(['err' => $ctx->make_error('request_no_response', 'response: undefined')]);
+            $response = new IronocResponse(['err' => $ctx->make_error('request_no_response', 'response: undefined')]);
         } elseif (is_array($fetched)) {
-            $response = new GithubProjectIssuesResponse($fetched);
+            $response = new IronocResponse($fetched);
         } else {
             $response->err = $ctx->make_error('request_invalid_response', 'response: invalid type');
         }

@@ -1,5 +1,5 @@
-# GithubProjectIssues SDK utility: feature_hook
-module GithubProjectIssuesUtilities
+# Ironoc SDK utility: feature_hook
+module IronocUtilities
   FeatureHook = ->(ctx, name) {
     return unless ctx.client
     features = ctx.client.features

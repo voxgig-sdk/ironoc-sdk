@@ -6,22 +6,10 @@ import (
 	"strings"
 
 	eng "github.com/boru-lang/boru/eng/go"
-	sdk "github.com/voxgig-sdk/github-project-issues-sdk/go"
+	sdk "github.com/voxgig-sdk/ironoc-sdk/go"
 )
 
-// registerSDKWords installs three native boru words bound to the SDK:
-// list / load / update. Each is declared with two overloads matching
-// the signature  [query?:(Node or Scalar) entity:atom]:
-//
-//   [entity:Atom]            — no query (e.g. `list book`)
-//   [query:Any entity:Atom]  — query is any Node or Scalar (e.g.
-//                              `load {id:1} book`, `load 1 book`)
-//
-// The entity slot is /q-quoted so a bareword `book` parses as the
-// Atom "book" rather than dispatching as an undefined word. Both
-// overloads are all-forward (BarrierAllForward), so args are collected
-// from the tokens following the word.
-func registerSDKWords(r *eng.Registry, client *sdk.GithubProjectIssuesSDK) {
+func registerSDKWords(r *eng.Registry, client *sdk.IronocSDK) {
 	for _, op := range []string{"list", "load", "update"} {
 		op := op
 		single := eng.Signature{
@@ -50,7 +38,7 @@ func registerSDKWords(r *eng.Registry, client *sdk.GithubProjectIssuesSDK) {
 	}
 }
 
-func runOp(client *sdk.GithubProjectIssuesSDK, op string, query *eng.Value, entityAtom eng.Value) ([]eng.Value, error) {
+func runOp(client *sdk.IronocSDK, op string, query *eng.Value, entityAtom eng.Value) ([]eng.Value, error) {
 	entityName, err := eng.AsAtom(entityAtom)
 	if err != nil {
 		return nil, fmt.Errorf("%s: entity argument is not an atom: %w", op, err)
@@ -87,7 +75,7 @@ func runOp(client *sdk.GithubProjectIssuesSDK, op string, query *eng.Value, enti
 
 // entityFor dispatches on the lowercase entity name. The generator
 // emits one `case "<name>":` per entity defined in the SDK model.
-func entityFor(client *sdk.GithubProjectIssuesSDK, name string) (sdk.GithubProjectIssuesEntity, error) {
+func entityFor(client *sdk.IronocSDK, name string) (sdk.IronocEntity, error) {
 	switch strings.ToLower(name) {
 	case "coffee":
 		return client.Coffee(nil), nil

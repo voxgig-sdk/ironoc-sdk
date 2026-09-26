@@ -1,6 +1,6 @@
-# GithubProjectIssues SDK utility registration
+# Ironoc SDK utility registration
 
-from projectname_sdk.core.utility_type import GithubProjectIssuesUtility
+from projectname_sdk.core.utility_type import IronocUtility
 
 from projectname_sdk.utility.clean import clean_util
 from projectname_sdk.utility.done import done_util
@@ -68,4 +68,4 @@ def register_all(u):
     u.transform_response = transform_response_util
 
 
-GithubProjectIssuesUtility._registrar = register_all
+IronocUtility._registrar = register_all

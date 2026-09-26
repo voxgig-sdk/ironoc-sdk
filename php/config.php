@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK configuration
+// Ironoc SDK configuration
 
-class GithubProjectIssuesConfig
+class IronocConfig
 {
     /** @var array<string,mixed>|null */
     private static ?array $shared_config = null;
@@ -32,17 +32,71 @@ class GithubProjectIssuesConfig
     {
         return [
             "main" => [
-                "name" => "GithubProjectIssues",
-                "slug" => "github-project-issues",
+                "name" => "Ironoc",
+                "slug" => "ironoc",
                 "version" => "0.0.1",
                 "target" => "php",
             ],
             "feature" => [
+                "ratelimit" => [
+          'options' => [
+            'active' => false,
+            'burst' => 5,
+            'rate' => 5,
+          ],
+          'optspec' => [
+            'now' => '`$FUNCTION`',
+            'sleep' => '`$FUNCTION`',
+          ],
+          'strict' => false,
+          'transport' => 'wrap',
+        ],
+                "retry" => [
+          'options' => [
+            'active' => false,
+            'factor' => 2,
+            'maxDelay' => 2000,
+            'minDelay' => 50,
+            'retries' => 2,
+            'statuses' => [
+              408,
+              425,
+              429,
+              500,
+              502,
+              503,
+              504,
+            ],
+          ],
+          'optspec' => [
+            'jitter' => '`$BOOLEAN`',
+            'sleep' => '`$FUNCTION`',
+          ],
+          'strict' => false,
+          'transport' => 'wrap',
+        ],
                 "test" => [
           'options' => [
             'active' => false,
           ],
+          'optspec' => [
+            'entity' => '`$MAP`',
+            'net' => '`$MAP`',
+          ],
+          'strict' => false,
           'transport' => 'base',
+        ],
+                "timeout" => [
+          'options' => [
+            'active' => false,
+            'ms' => 30000,
+          ],
+          'optspec' => [
+            'clearTimer' => '`$FUNCTION`',
+            'setTimer' => '`$FUNCTION`',
+          ],
+          'strict' => false,
+          'transport' => 'wrap',
         ],
             ],
             "options" => [
@@ -65,32 +119,42 @@ class GithubProjectIssuesConfig
           'fields' => [
             [
               'name' => 'description',
-              'short' => 'Drink Description.',
+              'title' => 'Description',
               'type' => '`$STRING`',
+              'short' => 'Drink Description.',
             ],
             [
               'name' => 'id',
-              'short' => 'ID of Coffee Details Object.',
+              'title' => 'Id',
               'type' => '`$INTEGER`',
+              'short' => 'ID of Coffee Details Object.',
+              'format' => 'int32',
             ],
             [
               'name' => 'image',
+              'title' => 'Image',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'Image URL.',
-              'type' => '`$STRING`',
             ],
             [
               'name' => 'ingredients',
+              'title' => 'Ingredients',
+              'type' => '`$ARRAY`',
               'req' => true,
               'short' => 'Main Ingredients.',
-              'type' => '`$ARRAY`',
             ],
             [
               'name' => 'title',
+              'title' => 'Title',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'Coffee Name/Type.',
-              'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'coffee',
           'op' => [
@@ -99,19 +163,28 @@ class GithubProjectIssuesConfig
               'name' => 'list',
               'points' => [
                 [
-                  'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/coffees',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'coffees',
+                    ],
+                  ],
                   'parts' => [
                     'api',
                     'coffees',
                   ],
-                  'select' => [],
+                  'rename' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'args' => [],
+                  'select' => [],
                 ],
               ],
             ],
@@ -120,19 +193,28 @@ class GithubProjectIssuesConfig
               'name' => 'update',
               'points' => [
                 [
-                  'args' => [],
                   'kind' => 'http',
                   'method' => 'PUT',
                   'orig' => '/api/coffees',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'coffees',
+                    ],
+                  ],
                   'parts' => [
                     'api',
                     'coffees',
                   ],
-                  'select' => [],
+                  'rename' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'args' => [],
+                  'select' => [],
                 ],
               ],
             ],
@@ -145,32 +227,42 @@ class GithubProjectIssuesConfig
           'fields' => [
             [
               'name' => 'description',
-              'short' => 'Drink Description.',
+              'title' => 'Description',
               'type' => '`$STRING`',
+              'short' => 'Drink Description.',
             ],
             [
               'name' => 'id',
-              'short' => 'ID of Coffee Details Object.',
+              'title' => 'Id',
               'type' => '`$INTEGER`',
+              'short' => 'ID of Coffee Details Object.',
+              'format' => 'int32',
             ],
             [
               'name' => 'image',
+              'title' => 'Image',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'Image URL.',
-              'type' => '`$STRING`',
             ],
             [
               'name' => 'ingredients',
+              'title' => 'Ingredients',
+              'type' => '`$ARRAY`',
               'req' => true,
               'short' => 'Main Ingredients.',
-              'type' => '`$ARRAY`',
             ],
             [
               'name' => 'title',
+              'title' => 'Title',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'Coffee Name/Type.',
-              'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'coffee_domain',
           'op' => [
@@ -179,19 +271,28 @@ class GithubProjectIssuesConfig
               'name' => 'list',
               'points' => [
                 [
-                  'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/coffees-graph-ql',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'coffees-graph-ql',
+                    ],
+                  ],
                   'parts' => [
                     'api',
                     'coffees-graph-ql',
                   ],
-                  'select' => [],
+                  'rename' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'args' => [],
+                  'select' => [],
                 ],
               ],
             ],
@@ -209,19 +310,28 @@ class GithubProjectIssuesConfig
               'name' => 'list',
               'points' => [
                 [
-                  'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/donate-items',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'donate-items',
+                    ],
+                  ],
                   'parts' => [
                     'api',
                     'donate-items',
                   ],
-                  'select' => [],
+                  'rename' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'args' => [],
+                  'select' => [],
                 ],
               ],
             ],
@@ -239,19 +349,28 @@ class GithubProjectIssuesConfig
               'name' => 'list',
               'points' => [
                 [
-                  'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/portfolio-items',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'portfolio-items',
+                    ],
+                  ],
                   'parts' => [
                     'api',
                     'portfolio-items',
                   ],
-                  'select' => [],
+                  'rename' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'args' => [],
+                  'select' => [],
                 ],
               ],
             ],
@@ -264,41 +383,49 @@ class GithubProjectIssuesConfig
           'fields' => [
             [
               'name' => 'appHome',
-              'short' => 'Normally this value is the link to the project/app home page.',
+              'title' => 'App Home',
               'type' => '`$STRING`',
+              'short' => 'Normally this value is the link to the project/app home page.',
             ],
             [
               'name' => 'description',
-              'short' => 'Description of GitHub project.',
+              'title' => 'Description',
               'type' => '`$STRING`',
+              'short' => 'Description of GitHub project.',
             ],
             [
               'name' => 'fullName',
+              'title' => 'Full Name',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'Full Name of GitHub Repository (Format is: username/project_name).',
-              'type' => '`$STRING`',
             ],
             [
               'name' => 'issueCount',
-              'short' => 'Number of associated issues.',
+              'title' => 'Issue Count',
               'type' => '`$INTEGER`',
+              'short' => 'Number of associated issues.',
+              'format' => 'int32',
             ],
             [
               'name' => 'name',
+              'title' => 'Name',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'Name of GitHub Repository.',
-              'type' => '`$STRING`',
             ],
             [
               'name' => 'repoUrl',
+              'title' => 'Repo Url',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'This is the home page URL of the project.',
-              'type' => '`$STRING`',
             ],
             [
               'name' => 'topics',
-              'short' => 'Labels or topics associated with the GitHub repository project.',
+              'title' => 'Topics',
               'type' => '`$STRING`',
+              'short' => 'Labels or topics associated with the GitHub repository project.',
             ],
           ],
           'name' => 'repository_detail_domain',
@@ -308,32 +435,41 @@ class GithubProjectIssuesConfig
               'name' => 'list',
               'points' => [
                 [
-                  'args' => [
-                    'query' => [
-                      [
-                        'kind' => 'query',
-                        'name' => 'username',
-                        'orig' => 'username',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/get-repo-detail',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'get-repo-detail',
+                    ],
+                  ],
                   'parts' => [
                     'api',
                     'get-repo-detail',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'query' => [
+                      [
+                        'name' => 'username',
+                        'orig' => 'username',
+                        'type' => '`$STRING`',
+                        'kind' => 'query',
+                        'reqd' => true,
+                      ],
+                    ],
                   ],
                   'select' => [
                     'exist' => [
                       'username',
                     ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
                   ],
                 ],
               ],
@@ -343,74 +479,87 @@ class GithubProjectIssuesConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'kind' => 'param',
-                        'name' => 'username',
-                        'orig' => 'username',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/get-repo-detail/{username}/',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'get-repo-detail',
+                    ],
+                    [
+                      'var' => 'username',
+                    ],
+                  ],
                   'parts' => [
                     'api',
                     'get-repo-detail',
                     '{username}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'username',
+                        'orig' => 'username',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
                   ],
                   'select' => [
                     'exist' => [
                       'username',
                     ],
                   ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                 ],
               ],
             ],
           ],
           'relations' => [
-            'ancestors' => [
-              [
-                'get_repo_detail',
-              ],
-            ],
+            'ancestors' => [],
           ],
         ],
         'repository_issue_domain' => [
           'fields' => [
             [
               'name' => 'body',
-              'short' => 'Issue Content & Description.',
+              'title' => 'Body',
               'type' => '`$STRING`',
+              'short' => 'Issue Content & Description.',
             ],
             [
               'name' => 'labels',
-              'short' => 'Issue Labels / Tags.',
+              'title' => 'Labels',
               'type' => '`$ARRAY`',
+              'short' => 'Issue Labels / Tags.',
             ],
             [
               'name' => 'number',
+              'title' => 'Number',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'Project Issue Number.',
-              'type' => '`$STRING`',
             ],
             [
               'name' => 'state',
-              'short' => 'Issue State.',
+              'title' => 'State',
               'type' => '`$STRING`',
+              'short' => 'Issue State.',
             ],
             [
               'name' => 'title',
+              'title' => 'Title',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'Issue Title Text.',
-              'type' => '`$STRING`',
             ],
           ],
           'name' => 'repository_issue_domain',
@@ -420,32 +569,51 @@ class GithubProjectIssuesConfig
               'name' => 'list',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'kind' => 'param',
-                        'name' => 'repository',
-                        'orig' => 'repository',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'kind' => 'param',
-                        'name' => 'username',
-                        'orig' => 'username',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/get-repo-issue/{username}/{repository}/',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'get-repo-issue',
+                    ],
+                    [
+                      'var' => 'username',
+                    ],
+                    [
+                      'var' => 'repository',
+                    ],
+                  ],
                   'parts' => [
                     'api',
                     'get-repo-issue',
                     '{username}',
                     '{repository}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'repository',
+                        'orig' => 'repository',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'username',
+                        'orig' => 'username',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -453,20 +621,12 @@ class GithubProjectIssuesConfig
                       'username',
                     ],
                   ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                 ],
               ],
             ],
           ],
           'relations' => [
-            'ancestors' => [
-              [
-                'get_repo_issue',
-              ],
-            ],
+            'ancestors' => [],
           ],
         ],
         'version' => [
@@ -478,20 +638,32 @@ class GithubProjectIssuesConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/application/version',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'application',
+                    ],
+                    [
+                      'lit' => 'version',
+                    ],
+                  ],
                   'parts' => [
                     'api',
                     'application',
                     'version',
                   ],
-                  'select' => [],
+                  'rename' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'args' => [],
+                  'select' => [],
                 ],
               ],
             ],
@@ -508,6 +680,6 @@ class GithubProjectIssuesConfig
     public static function make_feature(string $name)
     {
         require_once __DIR__ . '/features.php';
-        return GithubProjectIssuesFeatures::make_feature($name);
+        return IronocFeatures::make_feature($name);
     }
 }

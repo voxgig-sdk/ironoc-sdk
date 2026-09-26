@@ -1,0 +1,42 @@
+# Entity: donate_rest_controller
+
+main: kit: entity: donate_rest_controller: {
+
+  alias: field: {}
+
+  name: "donate_rest_controller"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /api/donate-items"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/api/donate-items"
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "donate-items"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+
+}

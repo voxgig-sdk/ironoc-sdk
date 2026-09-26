@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK base feature
+-- Ironoc SDK base feature
 
 local BaseFeature = {}
 BaseFeature.__index = BaseFeature

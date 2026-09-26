@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: make_url
+// Ironoc SDK utility: make_url
 
-class GithubProjectIssuesMakeUrl
+class IronocMakeUrl
 {
-    public static function call(GithubProjectIssuesContext $ctx): array
+    public static function call(IronocContext $ctx): array
     {
         $spec = $ctx->spec;
         $result = $ctx->result;

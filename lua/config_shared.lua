@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK shared configuration
+-- Ironoc SDK shared configuration
 
 local make_config = require("config")
 

@@ -1,18 +1,27 @@
-# GithubProjectIssues SDK feature factory
+# Ironoc SDK feature factory
 
 require_relative 'feature/base_feature'
+require_relative 'feature/ratelimit_feature'
+require_relative 'feature/retry_feature'
 require_relative 'feature/test_feature'
+require_relative 'feature/timeout_feature'
 
 
-module GithubProjectIssuesFeatures
+module IronocFeatures
   def self.make_feature(name)
     case name
     when "base"
-      GithubProjectIssuesBaseFeature.new
+      IronocBaseFeature.new
+    when "ratelimit"
+      IronocRatelimitFeature.new
+    when "retry"
+      IronocRetryFeature.new
     when "test"
-      GithubProjectIssuesTestFeature.new
+      IronocTestFeature.new
+    when "timeout"
+      IronocTimeoutFeature.new
     else
-      GithubProjectIssuesBaseFeature.new
+      IronocBaseFeature.new
     end
   end
 end

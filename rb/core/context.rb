@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK context
+# Ironoc SDK context
 
 require_relative '../utility/struct/voxgig_struct'
 require_relative 'control'
@@ -9,7 +9,7 @@ require_relative 'response'
 require_relative 'error'
 require_relative 'helpers'
 
-class GithubProjectIssuesContext
+class IronocContext
   attr_accessor :id, :out, :client, :utility, :ctrl, :meta, :config,
                 :entopts, :options, :entity, :shared, :opmap,
                 :data, :reqdata, :match, :reqmatch, :point,
@@ -20,59 +20,59 @@ class GithubProjectIssuesContext
     @id = "C#{rand(10000000..99999999)}"
     @out = {}
 
-    @client = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "client") || basectx&.client
-    @utility = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "utility") || basectx&.utility
+    @client = IronocHelpers.get_ctx_prop(ctxmap, "client") || basectx&.client
+    @utility = IronocHelpers.get_ctx_prop(ctxmap, "utility") || basectx&.utility
 
-    @ctrl = GithubProjectIssuesControl.new
-    ctrl_raw = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "ctrl")
+    @ctrl = IronocControl.new
+    ctrl_raw = IronocHelpers.get_ctx_prop(ctxmap, "ctrl")
     if ctrl_raw.is_a?(Hash)
       @ctrl.throw_err = ctrl_raw["throw"] if ctrl_raw.key?("throw")
       @ctrl.explain = ctrl_raw["explain"] if ctrl_raw["explain"].is_a?(Hash)
       @ctrl.actor = ctrl_raw["actor"] if ctrl_raw.key?("actor")
       @ctrl.paging = ctrl_raw["paging"] if ctrl_raw["paging"].is_a?(Hash)
-    elsif basectx&.ctrl
+    elsif basectx&.ctrl && IronocHelpers.get_ctx_prop(ctxmap, "opname").nil?
       @ctrl = basectx.ctrl
     end
 
-    m = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "meta")
+    m = IronocHelpers.get_ctx_prop(ctxmap, "meta")
     @meta = m.is_a?(Hash) ? m : (basectx&.meta || {})
 
-    cfg = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "config")
+    cfg = IronocHelpers.get_ctx_prop(ctxmap, "config")
     @config = cfg.is_a?(Hash) ? cfg : basectx&.config
 
-    eo = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "entopts")
+    eo = IronocHelpers.get_ctx_prop(ctxmap, "entopts")
     @entopts = eo.is_a?(Hash) ? eo : basectx&.entopts
 
-    o = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "options")
+    o = IronocHelpers.get_ctx_prop(ctxmap, "options")
     @options = o.is_a?(Hash) ? o : basectx&.options
 
-    e = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "entity")
+    e = IronocHelpers.get_ctx_prop(ctxmap, "entity")
     @entity = e || basectx&.entity
 
-    s = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "shared")
+    s = IronocHelpers.get_ctx_prop(ctxmap, "shared")
     @shared = s.is_a?(Hash) ? s : basectx&.shared
 
-    om = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "opmap")
+    om = IronocHelpers.get_ctx_prop(ctxmap, "opmap")
     @opmap = om.is_a?(Hash) ? om : (basectx&.opmap || {})
 
-    @data = GithubProjectIssuesHelpers.to_map(GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "data")) || {}
-    @reqdata = GithubProjectIssuesHelpers.to_map(GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "reqdata")) || {}
-    @match = GithubProjectIssuesHelpers.to_map(GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "match")) || {}
-    @reqmatch = GithubProjectIssuesHelpers.to_map(GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "reqmatch")) || {}
+    @data = IronocHelpers.to_map(IronocHelpers.get_ctx_prop(ctxmap, "data")) || {}
+    @reqdata = IronocHelpers.to_map(IronocHelpers.get_ctx_prop(ctxmap, "reqdata")) || {}
+    @match = IronocHelpers.to_map(IronocHelpers.get_ctx_prop(ctxmap, "match")) || {}
+    @reqmatch = IronocHelpers.to_map(IronocHelpers.get_ctx_prop(ctxmap, "reqmatch")) || {}
 
-    pt = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "point")
+    pt = IronocHelpers.get_ctx_prop(ctxmap, "point")
     @point = pt.is_a?(Hash) ? pt : basectx&.point
 
-    sp = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "spec")
-    @spec = sp.is_a?(GithubProjectIssuesSpec) ? sp : basectx&.spec
+    sp = IronocHelpers.get_ctx_prop(ctxmap, "spec")
+    @spec = sp.is_a?(IronocSpec) ? sp : basectx&.spec
 
-    r = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "result")
-    @result = r.is_a?(GithubProjectIssuesResult) ? r : basectx&.result
+    r = IronocHelpers.get_ctx_prop(ctxmap, "result")
+    @result = r.is_a?(IronocResult) ? r : basectx&.result
 
-    rp = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "response")
-    @response = rp.is_a?(GithubProjectIssuesResponse) ? rp : basectx&.response
+    rp = IronocHelpers.get_ctx_prop(ctxmap, "response")
+    @response = rp.is_a?(IronocResponse) ? rp : basectx&.response
 
-    opname = GithubProjectIssuesHelpers.get_ctx_prop(ctxmap, "opname") || ""
+    opname = IronocHelpers.get_ctx_prop(ctxmap, "opname") || ""
     @op = resolve_op(opname)
   end
 
@@ -84,7 +84,7 @@ class GithubProjectIssuesContext
     entname = @entity&.respond_to?(:get_name) ? @entity.get_name : "_"
     cache_key = "#{entname}:#{opname}"
     return @opmap[cache_key] if @opmap[cache_key]
-    return GithubProjectIssuesOperation.new({}) if opname.empty?
+    return IronocOperation.new({}) if opname.empty?
 
     opcfg = VoxgigStruct.getpath(@config, "entity.#{entname}.op.#{opname}")
 
@@ -96,7 +96,7 @@ class GithubProjectIssuesContext
       points = t if t.is_a?(Array)
     end
 
-    op = GithubProjectIssuesOperation.new({
+    op = IronocOperation.new({
       "entity" => entname,
       "name" => opname,
       "input" => input,
@@ -107,6 +107,6 @@ class GithubProjectIssuesContext
   end
 
   def make_error(code, msg)
-    GithubProjectIssuesError.new(code, msg, self)
+    IronocError.new(code, msg, self)
   end
 end

@@ -1,10 +1,10 @@
-# GithubProjectIssues SDK result
+# Ironoc SDK result
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
 
 
-class GithubProjectIssuesResult:
+class IronocResult:
     def __init__(self, resmap=None):
         if resmap is None:
             resmap = {}

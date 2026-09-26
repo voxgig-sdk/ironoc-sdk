@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: prepare_body
+-- Ironoc SDK utility: prepare_body
 
 local function prepare_body_util(ctx)
   local op = ctx.op

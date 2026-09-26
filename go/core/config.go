@@ -10,17 +10,71 @@ import (
 func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
-			"name": "GithubProjectIssues",
-			"slug": "github-project-issues",
+			"name": "Ironoc",
+			"slug": "ironoc",
 			"version": "0.0.1",
 			"target": "go",
 		},
 		"feature": map[string]any{
+			"ratelimit": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"burst": 5,
+					"rate": 5,
+				},
+				"optspec": map[string]any{
+					"now": "`$FUNCTION`",
+					"sleep": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
+			},
+			"retry": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"factor": 2,
+					"maxDelay": 2000,
+					"minDelay": 50,
+					"retries": 2,
+					"statuses": []any{
+						408,
+						425,
+						429,
+						500,
+						502,
+						503,
+						504,
+					},
+				},
+				"optspec": map[string]any{
+					"jitter": "`$BOOLEAN`",
+					"sleep": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
+			},
 			"test": map[string]any{
 				"options": map[string]any{
 					"active": false,
 				},
+				"optspec": map[string]any{
+					"entity": "`$MAP`",
+					"net": "`$MAP`",
+				},
+				"strict": false,
 				"transport": "base",
+			},
+			"timeout": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"ms": 30000,
+				},
+				"optspec": map[string]any{
+					"clearTimer": "`$FUNCTION`",
+					"setTimer": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
 			},
 		},
 		"options": map[string]any{
@@ -43,32 +97,42 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "description",
-						"short": "Drink Description.",
+						"title": "Description",
 						"type": "`$STRING`",
+						"short": "Drink Description.",
 					},
 					map[string]any{
 						"name": "id",
-						"short": "ID of Coffee Details Object.",
+						"title": "Id",
 						"type": "`$INTEGER`",
+						"short": "ID of Coffee Details Object.",
+						"format": "int32",
 					},
 					map[string]any{
 						"name": "image",
+						"title": "Image",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Image URL.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "ingredients",
+						"title": "Ingredients",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "Main Ingredients.",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "title",
+						"title": "Title",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Coffee Name/Type.",
-						"type": "`$STRING`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "coffee",
 				"op": map[string]any{
@@ -77,19 +141,28 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/coffees",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "coffees",
+									},
+								},
 								"parts": []any{
 									"api",
 									"coffees",
 								},
-								"select": map[string]any{},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -98,19 +171,28 @@ func MakeConfig() map[string]any {
 						"name": "update",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "PUT",
 								"orig": "/api/coffees",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "coffees",
+									},
+								},
 								"parts": []any{
 									"api",
 									"coffees",
 								},
-								"select": map[string]any{},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -123,32 +205,42 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "description",
-						"short": "Drink Description.",
+						"title": "Description",
 						"type": "`$STRING`",
+						"short": "Drink Description.",
 					},
 					map[string]any{
 						"name": "id",
-						"short": "ID of Coffee Details Object.",
+						"title": "Id",
 						"type": "`$INTEGER`",
+						"short": "ID of Coffee Details Object.",
+						"format": "int32",
 					},
 					map[string]any{
 						"name": "image",
+						"title": "Image",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Image URL.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "ingredients",
+						"title": "Ingredients",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "Main Ingredients.",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "title",
+						"title": "Title",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Coffee Name/Type.",
-						"type": "`$STRING`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "coffee_domain",
 				"op": map[string]any{
@@ -157,19 +249,28 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/coffees-graph-ql",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "coffees-graph-ql",
+									},
+								},
 								"parts": []any{
 									"api",
 									"coffees-graph-ql",
 								},
-								"select": map[string]any{},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -187,19 +288,28 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/donate-items",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "donate-items",
+									},
+								},
 								"parts": []any{
 									"api",
 									"donate-items",
 								},
-								"select": map[string]any{},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -217,19 +327,28 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/portfolio-items",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "portfolio-items",
+									},
+								},
 								"parts": []any{
 									"api",
 									"portfolio-items",
 								},
-								"select": map[string]any{},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -242,41 +361,49 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "appHome",
-						"short": "Normally this value is the link to the project/app home page.",
+						"title": "App Home",
 						"type": "`$STRING`",
+						"short": "Normally this value is the link to the project/app home page.",
 					},
 					map[string]any{
 						"name": "description",
-						"short": "Description of GitHub project.",
+						"title": "Description",
 						"type": "`$STRING`",
+						"short": "Description of GitHub project.",
 					},
 					map[string]any{
 						"name": "fullName",
+						"title": "Full Name",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Full Name of GitHub Repository (Format is: username/project_name).",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "issueCount",
-						"short": "Number of associated issues.",
+						"title": "Issue Count",
 						"type": "`$INTEGER`",
+						"short": "Number of associated issues.",
+						"format": "int32",
 					},
 					map[string]any{
 						"name": "name",
+						"title": "Name",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Name of GitHub Repository.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "repoUrl",
+						"title": "Repo Url",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "This is the home page URL of the project.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "topics",
-						"short": "Labels or topics associated with the GitHub repository project.",
+						"title": "Topics",
 						"type": "`$STRING`",
+						"short": "Labels or topics associated with the GitHub repository project.",
 					},
 				},
 				"name": "repository_detail_domain",
@@ -286,32 +413,41 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "username",
-											"orig": "username",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/get-repo-detail",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "get-repo-detail",
+									},
+								},
 								"parts": []any{
 									"api",
 									"get-repo-detail",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "username",
+											"orig": "username",
+											"type": "`$STRING`",
+											"kind": "query",
+											"reqd": true,
+										},
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
 										"username",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
 								},
 							},
 						},
@@ -321,74 +457,87 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "username",
-											"orig": "username",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/get-repo-detail/{username}/",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "get-repo-detail",
+									},
+									map[string]any{
+										"var": "username",
+									},
+								},
 								"parts": []any{
 									"api",
 									"get-repo-detail",
 									"{username}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "username",
+											"orig": "username",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
 										"username",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"get_repo_detail",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"repository_issue_domain": map[string]any{
 				"fields": []any{
 					map[string]any{
 						"name": "body",
-						"short": "Issue Content & Description.",
+						"title": "Body",
 						"type": "`$STRING`",
+						"short": "Issue Content & Description.",
 					},
 					map[string]any{
 						"name": "labels",
-						"short": "Issue Labels / Tags.",
+						"title": "Labels",
 						"type": "`$ARRAY`",
+						"short": "Issue Labels / Tags.",
 					},
 					map[string]any{
 						"name": "number",
+						"title": "Number",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Project Issue Number.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "state",
-						"short": "Issue State.",
+						"title": "State",
 						"type": "`$STRING`",
+						"short": "Issue State.",
 					},
 					map[string]any{
 						"name": "title",
+						"title": "Title",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Issue Title Text.",
-						"type": "`$STRING`",
 					},
 				},
 				"name": "repository_issue_domain",
@@ -398,32 +547,51 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "repository",
-											"orig": "repository",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "username",
-											"orig": "username",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/get-repo-issue/{username}/{repository}/",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "get-repo-issue",
+									},
+									map[string]any{
+										"var": "username",
+									},
+									map[string]any{
+										"var": "repository",
+									},
+								},
 								"parts": []any{
 									"api",
 									"get-repo-issue",
 									"{username}",
 									"{repository}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "repository",
+											"orig": "repository",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "username",
+											"orig": "username",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -431,20 +599,12 @@ func MakeConfig() map[string]any {
 										"username",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"get_repo_issue",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"version": map[string]any{
@@ -456,20 +616,32 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/application/version",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "application",
+									},
+									map[string]any{
+										"lit": "version",
+									},
+								},
 								"parts": []any{
 									"api",
 									"application",
 									"version",
 								},
-								"select": map[string]any{},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -480,6 +652,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (
@@ -502,9 +685,21 @@ func SharedConfig() map[string]any {
 
 func makeFeature(name string) Feature {
 	switch name {
+	case "ratelimit":
+		if NewRatelimitFeatureFunc != nil {
+			return NewRatelimitFeatureFunc()
+		}
+	case "retry":
+		if NewRetryFeatureFunc != nil {
+			return NewRetryFeatureFunc()
+		}
 	case "test":
 		if NewTestFeatureFunc != nil {
 			return NewTestFeatureFunc()
+		}
+	case "timeout":
+		if NewTimeoutFeatureFunc != nil {
+			return NewTimeoutFeatureFunc()
 		}
 	default:
 		if NewBaseFeatureFunc != nil {

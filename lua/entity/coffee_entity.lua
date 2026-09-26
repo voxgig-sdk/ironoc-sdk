@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK Coffee entity
+-- Ironoc SDK Coffee entity
 
 local vs = require("utility.struct.struct")
 local helpers = require("core.helpers")

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: make_result
+// Ironoc SDK utility: make_result
 
-class GithubProjectIssuesMakeResult
+class IronocMakeResult
 {
-    public static function call(GithubProjectIssuesContext $ctx): array
+    public static function call(IronocContext $ctx): array
     {
         if (isset($ctx->out['result'])) {
             return [$ctx->out['result'], null];

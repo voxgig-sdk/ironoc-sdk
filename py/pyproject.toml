@@ -3,29 +3,29 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "voxgig-sdk-github-project-issues"
+name = "voxgig-sdk-ironoc-sdk"
 version = "0.0.1"
 description = "Unofficial generated Python SDK for the iRonoc public API. Not affiliated with or endorsed by the upstream API provider."
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.8"
-keywords = ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "github-project-issues"]
+keywords = ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "ironoc"]
 dependencies = [
     "requests>=2.33",
 ]
 
 [project.urls]
-Homepage = "https://github.com/voxgig-sdk/github-project-issues-sdk"
-Repository = "https://github.com/voxgig-sdk/github-project-issues-sdk"
-Issues = "https://github.com/voxgig-sdk/github-project-issues-sdk/issues"
+Homepage = "https://github.com/voxgig-sdk/ironoc-sdk"
+Repository = "https://github.com/voxgig-sdk/ironoc-sdk"
+Issues = "https://github.com/voxgig-sdk/ironoc-sdk/issues"
 
 # ONE package. core/entity/feature/utility were previously top-level packages;
 # those names are real PyPI distributions and common scratch filenames, and
 # Python searches the working directory first, so any of them beside the
 # caller silently shadowed the SDK's own. They now live inside
-# githubprojectissues_sdk/ where nothing can reach them.
+# ironoc_sdk/ where nothing can reach them.
 [tool.setuptools.packages.find]
-include = ["githubprojectissues_sdk*"]
+include = ["ironoc_sdk*"]
 
 # Ship the PEP 561 py.typed marker(s) so the inline type hints reach consumers.
 [tool.setuptools.package-data]

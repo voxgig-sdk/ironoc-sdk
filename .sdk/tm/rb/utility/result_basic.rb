@@ -1,5 +1,5 @@
-# GithubProjectIssues SDK utility: result_basic
-module GithubProjectIssuesUtilities
+# Ironoc SDK utility: result_basic
+module IronocUtilities
   ResultBasic = ->(ctx) {
     response = ctx.response
     result = ctx.result
@@ -9,7 +9,7 @@ module GithubProjectIssuesUtilities
       if result.status >= 400
         msg = "request: #{result.status}: #{result.status_text}"
         if result.err
-          prev = result.err.is_a?(GithubProjectIssuesError) ? result.err.msg : result.err.to_s
+          prev = result.err.is_a?(IronocError) ? result.err.msg : result.err.to_s
           result.err = ctx.make_error("request_status", "#{prev}: #{msg}")
         else
           result.err = ctx.make_error("request_status", msg)

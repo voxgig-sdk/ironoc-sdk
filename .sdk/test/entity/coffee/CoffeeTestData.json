@@ -33,5 +33,17 @@
         "title": "scc"
       }
     }
+  },
+  "requests": {
+    "GET /api/coffees": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PUT /api/coffees": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
   }
 }

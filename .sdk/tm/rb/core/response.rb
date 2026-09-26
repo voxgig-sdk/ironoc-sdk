@@ -1,8 +1,8 @@
-# GithubProjectIssues SDK response
+# Ironoc SDK response
 
 require_relative '../utility/struct/voxgig_struct'
 
-class GithubProjectIssuesResponse
+class IronocResponse
   attr_accessor :status, :status_text, :headers, :json_func, :body, :err
 
   def initialize(resmap = {})

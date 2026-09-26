@@ -1,8 +1,8 @@
-# GithubProjectIssues SDK netsim test
+# Ironoc SDK netsim test
 
 import time
 
-from githubprojectissues_sdk import GithubProjectIssuesSDK
+from ironoc_sdk import IronocSDK
 
 
 # Network-behaviour simulation over the offline mock transport. The `test`
@@ -13,18 +13,18 @@ from githubprojectissues_sdk import GithubProjectIssuesSDK
 class TestNetsim:
 
     def test_offline_simulation_fails_the_request(self):
-        sdk = GithubProjectIssuesSDK.test({"net": {"offline": True}})
+        sdk = IronocSDK.test({"net": {"offline": True}})
         res = sdk.direct({"path": "/ping"})
         assert res["ok"] is False, "offline network must fail the call"
 
     def test_fail_status_simulation_surfaces_the_error_status(self):
-        sdk = GithubProjectIssuesSDK.test({"net": {"failTimes": 1, "failStatus": 503}})
+        sdk = IronocSDK.test({"net": {"failTimes": 1, "failStatus": 503}})
         res = sdk.direct({"path": "/ping"})
         assert res["ok"] is False
         assert res["status"] == 503, "simulated failure status is surfaced"
 
     def test_error_times_simulation_yields_a_connection_error(self):
-        sdk = GithubProjectIssuesSDK.test({"net": {"errorTimes": 1}})
+        sdk = IronocSDK.test({"net": {"errorTimes": 1}})
         res = sdk.direct({"path": "/ping"})
         assert res["ok"] is False
         assert res.get("err") is not None
@@ -32,7 +32,7 @@ class TestNetsim:
 
     def test_latency_simulation_delays_the_request(self):
         delay = 60
-        sdk = GithubProjectIssuesSDK.test({"net": {"latency": delay}})
+        sdk = IronocSDK.test({"net": {"latency": delay}})
         start = time.time()
         sdk.direct({"path": "/ping"})
         elapsed = (time.time() - start) * 1000
@@ -42,11 +42,11 @@ class TestNetsim:
 
     def test_injectable_sleep_keeps_latency_deterministic(self):
         slept = []
-        sdk = GithubProjectIssuesSDK.test({"net": {"latency": 250,
+        sdk = IronocSDK.test({"net": {"latency": 250,
                                            "sleep": slept.append}})
         sdk.direct({"path": "/ping"})
         assert slept == [250]
 
     def test_a_plain_test_sdk_still_works_with_no_net_simulation(self):
-        sdk = GithubProjectIssuesSDK.test()
+        sdk = IronocSDK.test()
         assert sdk is not None

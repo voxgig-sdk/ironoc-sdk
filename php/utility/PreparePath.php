@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: prepare_path
+// Ironoc SDK utility: prepare_path
 
-class GithubProjectIssuesPreparePath
+class IronocPreparePath
 {
-    public static function call(GithubProjectIssuesContext $ctx): string
+    public static function call(IronocContext $ctx): string
     {
         $point = $ctx->point;
         $parts = [];

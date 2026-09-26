@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: result_headers
+-- Ironoc SDK utility: result_headers
 
 local function result_headers_util(ctx)
   local response = ctx.response

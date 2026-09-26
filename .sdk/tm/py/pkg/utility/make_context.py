@@ -1,7 +1,7 @@
-# GithubProjectIssues SDK utility: make_context
+# Ironoc SDK utility: make_context
 
-from projectname_sdk.core.context import GithubProjectIssuesContext
+from projectname_sdk.core.context import IronocContext
 
 
 def make_context_util(ctxmap, basectx):
-    return GithubProjectIssuesContext(ctxmap, basectx)
+    return IronocContext(ctxmap, basectx)

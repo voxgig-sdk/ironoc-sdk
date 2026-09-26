@@ -1,6 +1,6 @@
-# GithubProjectIssues SDK utility type
+# Ironoc SDK utility type
 
-class GithubProjectIssuesUtility
+class IronocUtility
   attr_accessor :clean, :done, :make_error, :feature_add, :feature_hook,
                 :feature_init, :fetcher, :make_fetch_def, :make_context,
                 :make_options, :make_request, :make_response, :make_result,
@@ -23,7 +23,7 @@ class GithubProjectIssuesUtility
   end
 
   def self.copy(src)
-    u = GithubProjectIssuesUtility.new
+    u = IronocUtility.new
     src.instance_variables.each do |var|
       u.instance_variable_set(var, src.instance_variable_get(var))
     end

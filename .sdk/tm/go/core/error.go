@@ -1,7 +1,7 @@
 package core
 
-type GithubProjectIssuesError struct {
-	IsGithubProjectIssuesError bool
+type IronocError struct {
+	IsIronocError bool
 	Sdk              string
 	Code             string
 	Msg              string
@@ -10,16 +10,16 @@ type GithubProjectIssuesError struct {
 	Spec             any
 }
 
-func NewGithubProjectIssuesError(code string, msg string, ctx *Context) *GithubProjectIssuesError {
-	return &GithubProjectIssuesError{
-		IsGithubProjectIssuesError: true,
-		Sdk:              "GithubProjectIssues",
+func NewIronocError(code string, msg string, ctx *Context) *IronocError {
+	return &IronocError{
+		IsIronocError: true,
+		Sdk:              "Ironoc",
 		Code:             code,
 		Msg:              msg,
 		Ctx:              ctx,
 	}
 }
 
-func (e *GithubProjectIssuesError) Error() string {
+func (e *IronocError) Error() string {
 	return e.Msg
 }

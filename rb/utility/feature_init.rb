@@ -1,6 +1,6 @@
-# GithubProjectIssues SDK utility: feature_init
+# Ironoc SDK utility: feature_init
 require_relative 'struct/voxgig_struct'
-module GithubProjectIssuesUtilities
+module IronocUtilities
   FeatureInit = ->(ctx, f) {
     fname = f.get_name
     fopts = {}

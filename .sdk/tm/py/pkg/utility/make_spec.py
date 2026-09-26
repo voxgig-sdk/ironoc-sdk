@@ -1,8 +1,8 @@
-# GithubProjectIssues SDK utility: make_spec
+# Ironoc SDK utility: make_spec
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
-from projectname_sdk.core.spec import GithubProjectIssuesSpec
+from projectname_sdk.core.spec import IronocSpec
 from projectname_sdk.utility.graphql import GRAPHQL_CONTENT_TYPE
 
 
@@ -40,7 +40,7 @@ def make_spec_util(ctx):
         if isinstance(pt, list):
             parts = pt
 
-    ctx.spec = GithubProjectIssuesSpec({
+    ctx.spec = IronocSpec({
         "base": base,
         "prefix": prefix,
         "parts": parts,

@@ -1,6 +1,6 @@
-# GithubProjectIssues SDK utility: make_url
+# Ironoc SDK utility: make_url
 require_relative 'struct/voxgig_struct'
-module GithubProjectIssuesUtilities
+module IronocUtilities
   MakeUrl = ->(ctx) {
     spec = ctx.spec
     result = ctx.result

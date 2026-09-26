@@ -1,5 +1,5 @@
 
-import { GithubProjectIssuesEntityBase } from './GithubProjectIssuesEntityBase'
+import { IronocEntityBase } from './IronocEntityBase'
 
 import { Point } from './Point'
 import { Context } from './Context'
@@ -47,7 +47,7 @@ export {
   Response,
   Result,
   Spec,
-  GithubProjectIssuesEntityBase,
+  IronocEntityBase,
 }
 
 

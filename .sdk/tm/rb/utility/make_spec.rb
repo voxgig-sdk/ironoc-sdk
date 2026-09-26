@@ -1,8 +1,8 @@
-# GithubProjectIssues SDK utility: make_spec
+# Ironoc SDK utility: make_spec
 require_relative 'struct/voxgig_struct'
 require_relative 'graphql'
 require_relative '../core/spec'
-module GithubProjectIssuesUtilities
+module IronocUtilities
   MakeSpec = ->(ctx) {
     if ctx.out["spec"]
       ctx.spec = ctx.out["spec"]
@@ -21,7 +21,7 @@ module GithubProjectIssuesUtilities
     parts = VoxgigStruct.getprop(point, "parts") if point
     parts = [] unless parts.is_a?(Array)
 
-    ctx.spec = GithubProjectIssuesSpec.new({
+    ctx.spec = IronocSpec.new({
       "base" => base, "prefix" => prefix, "parts" => parts,
       "suffix" => suffix, "step" => "start",
     })

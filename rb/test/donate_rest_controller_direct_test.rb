@@ -2,7 +2,7 @@
 
 require "minitest/autorun"
 require "json"
-require_relative "../GithubProjectIssues_sdk"
+require_relative "../Ironoc_sdk"
 require_relative "runner"
 
 class DonateRestControllerDirectTest < Minitest::Test
@@ -60,16 +60,18 @@ def donate_rest_controller_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "GITHUB_PROJECT_ISSUES_TEST_DONATE_REST_CONTROLLER_ENTID" => {},
-    "GITHUB_PROJECT_ISSUES_TEST_LIVE" => "FALSE",
+    "IRONOC_TEST_DONATE_REST_CONTROLLER_ENTID" => {},
+    "IRONOC_TEST_LIVE" => "FALSE",
   })
 
-  live = env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] == "TRUE"
+  live = env["IRONOC_TEST_LIVE"] == "TRUE"
 
   if live
-    merged_opts = {
-    }
-    client = GithubProjectIssuesSDK.new(merged_opts)
+    # Merged so the generated fields win: sdk-test-control.json's
+    # test.client.options adds to the live client, it does not redirect it.
+    merged_opts = Runner.live_client_options.merge({
+    })
+    client = IronocSDK.new(merged_opts)
     return {
       client: client,
       calls: calls,
@@ -94,7 +96,7 @@ def donate_rest_controller_direct_setup(mockres)
     }, nil
   }
 
-  client = GithubProjectIssuesSDK.new({
+  client = IronocSDK.new({
     "base" => "http://localhost:8080",
     "system" => {
       "fetch" => mock_fetch,

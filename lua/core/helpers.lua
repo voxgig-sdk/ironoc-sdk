@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK helpers
+-- Ironoc SDK helpers
 
 local helpers = {}
 

@@ -1,14 +1,14 @@
-# GithubProjectIssues Golang SDK Reference
+# Ironoc Golang SDK Reference
 
-Complete API reference for the GithubProjectIssues Golang SDK.
+Complete API reference for the Ironoc Golang SDK.
 
 
-## GithubProjectIssuesSDK
+## IronocSDK
 
 ### Constructor
 
 ```go
-func NewGithubProjectIssuesSDK(options map[string]any) *GithubProjectIssuesSDK
+func NewIronocSDK(options map[string]any) *IronocSDK
 ```
 
 Create a new SDK client instance.
@@ -28,7 +28,7 @@ Create a new SDK client instance.
 
 ### Static Methods
 
-#### `Test() *GithubProjectIssuesSDK`
+#### `Test() *IronocSDK`
 
 No-arg convenience constructor for the common no-options test case.
 
@@ -36,7 +36,7 @@ No-arg convenience constructor for the common no-options test case.
 client := sdk.Test()
 ```
 
-#### `TestSDK(testopts, sdkopts map[string]any) *GithubProjectIssuesSDK`
+#### `TestSDK(testopts, sdkopts map[string]any) *IronocSDK`
 
 Test client with options. Both arguments may be `nil`.
 
@@ -47,31 +47,31 @@ client := sdk.TestSDK(testopts, sdkopts)
 
 ### Instance Methods
 
-#### `Coffee(data map[string]any) GithubProjectIssuesEntity`
+#### `Coffee(data map[string]any) IronocEntity`
 
 Create a new `Coffee` entity instance. Pass `nil` for no initial data.
 
-#### `CoffeeDomain(data map[string]any) GithubProjectIssuesEntity`
+#### `CoffeeDomain(data map[string]any) IronocEntity`
 
 Create a new `CoffeeDomain` entity instance. Pass `nil` for no initial data.
 
-#### `DonateRestController(data map[string]any) GithubProjectIssuesEntity`
+#### `DonateRestController(data map[string]any) IronocEntity`
 
 Create a new `DonateRestController` entity instance. Pass `nil` for no initial data.
 
-#### `PortfolioController(data map[string]any) GithubProjectIssuesEntity`
+#### `PortfolioController(data map[string]any) IronocEntity`
 
 Create a new `PortfolioController` entity instance. Pass `nil` for no initial data.
 
-#### `RepositoryDetailDomain(data map[string]any) GithubProjectIssuesEntity`
+#### `RepositoryDetailDomain(data map[string]any) IronocEntity`
 
 Create a new `RepositoryDetailDomain` entity instance. Pass `nil` for no initial data.
 
-#### `RepositoryIssueDomain(data map[string]any) GithubProjectIssuesEntity`
+#### `RepositoryIssueDomain(data map[string]any) IronocEntity`
 
 Create a new `RepositoryIssueDomain` entity instance. Pass `nil` for no initial data.
 
-#### `Version(data map[string]any) GithubProjectIssuesEntity`
+#### `Version(data map[string]any) IronocEntity`
 
 Create a new `Version` entity instance. Pass `nil` for no initial data.
 
@@ -498,15 +498,21 @@ Return the entity name.
 
 | Feature | Version | Description |
 | --- | --- | --- |
-| `test` | 0.0.1 | In-memory mock transport for testing without a live server |
+| `ratelimit` | 0.0.1 | Rate limiting |
+| `retry` | 0.0.1 | Retry |
+| `test` | 0.0.1 | Test transport |
+| `timeout` | 0.0.1 | Timeout |
 
 
 Features are activated via the `feature` option:
 
 ```go
-client := sdk.NewGithubProjectIssuesSDK(map[string]any{
+client := sdk.NewIronocSDK(map[string]any{
     "feature": map[string]any{
+        "ratelimit": map[string]any{"active": true},
+        "retry": map[string]any{"active": true},
         "test": map[string]any{"active": true},
+        "timeout": map[string]any{"active": true},
     },
 })
 ```
@@ -521,9 +527,88 @@ unless you name it.
 The array form of \`feature\` is significant: several features wrap the
 transport, and the order you list them in is the order they nest.
 
+#### Ordering
+
+`ratelimit`, `retry`, `timeout` wrap the transport. Each
+wraps whatever is already installed, so **activation order is nesting order**:
+a feature activated later sits OUTSIDE one activated earlier, and sees the call
+first.
+
+That decides behaviour, not just sequence: a feature that short-circuits the
+call, such as a cache serving a hit, stops every feature nested inside it from
+ever seeing that call.
+
+`test` attach to pipeline hooks
+rather than the transport, so their order does not affect what they observe.
+
+#### `ratelimit`
+
+Rate limiting.
+
+**Configuration**
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `burst` | `5` |
+| `rate` | `5` |
+
+| Option | Type |
+|---|---|
+| `now` | function |
+| `sleep` | function |
+
+These take no default: the feature behaves one way when you supply them and
+another when you do not.
+
+**Usage**
+
+Set `feature.ratelimit.active` to true in the client options, and override any option above in the same entry. Every option keeps
+its default unless you name it.
+
+**Considerations**
+
+- Wraps the transport: its place in the activation order decides what it
+  sees. See [Ordering](#ordering) above.
+- Inactive by default: leaving it out costs nothing at runtime.
+
+#### `retry`
+
+Retry.
+
+**Configuration**
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `factor` | `2` |
+| `maxDelay` | `2000` |
+| `minDelay` | `50` |
+| `retries` | `2` |
+| `statuses` | `[408, 425, 429, 500, 502, 503, 504]` |
+
+| Option | Type |
+|---|---|
+| `jitter` | boolean |
+| `sleep` | function |
+
+These take no default: the feature behaves one way when you supply them and
+another when you do not.
+
+**Usage**
+
+Set `feature.retry.active` to true in the client options, and override any option above in the same entry. Every option keeps
+its default unless you name it.
+
+**Considerations**
+
+- Wraps the transport: its place in the activation order decides what it
+  sees. See [Ordering](#ordering) above.
+- Inactive by default: leaving it out costs nothing at runtime.
+
 #### `test`
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 **Configuration**
 
@@ -531,10 +616,13 @@ In-memory mock transport for testing without a live server.
 |---|---|
 | `active` | `false` |
 
-Options above are those the model carries a default for. A feature may
-also accept callback options — a `sink` to receive each record, for
-instance — which have no default and are covered in the full feature
-reference.
+| Option | Type |
+|---|---|
+| `entity` | map |
+| `net` | map |
+
+These take no default: the feature behaves one way when you supply them and
+another when you do not.
 
 **Usage**
 
@@ -547,5 +635,35 @@ its default unless you name it.
   not change what it observes.
 - Installs the BASE transport that the wrapping features wrap, so it must be
   activated before them.
+- Inactive by default: leaving it out costs nothing at runtime.
+
+#### `timeout`
+
+Timeout.
+
+**Configuration**
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `ms` | `30000` |
+
+| Option | Type |
+|---|---|
+| `clearTimer` | function |
+| `setTimer` | function |
+
+These take no default: the feature behaves one way when you supply them and
+another when you do not.
+
+**Usage**
+
+Set `feature.timeout.active` to true in the client options, and override any option above in the same entry. Every option keeps
+its default unless you name it.
+
+**Considerations**
+
+- Wraps the transport: its place in the activation order decides what it
+  sees. See [Ordering](#ordering) above.
 - Inactive by default: leaving it out costs nothing at runtime.
 

@@ -16,5 +16,12 @@
     "version": {
       "version_ref01": {}
     }
+  },
+  "requests": {
+    "GET /api/application/version": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
   }
 }

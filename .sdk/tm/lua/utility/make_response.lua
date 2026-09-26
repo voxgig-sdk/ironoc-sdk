@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: make_response
+-- Ironoc SDK utility: make_response
 
 local function make_response_util(ctx)
   if ctx.out["response"] ~= nil then

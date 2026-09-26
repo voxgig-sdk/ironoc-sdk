@@ -1,27 +1,27 @@
-# GithubProjectIssues SDK utility: make_error
+# Ironoc SDK utility: make_error
 
 from __future__ import annotations
-from projectname_sdk.core.operation import GithubProjectIssuesOperation
-from projectname_sdk.core.result import GithubProjectIssuesResult
-from projectname_sdk.core.control import GithubProjectIssuesControl
-from projectname_sdk.core.error import GithubProjectIssuesError
+from projectname_sdk.core.operation import IronocOperation
+from projectname_sdk.core.result import IronocResult
+from projectname_sdk.core.control import IronocControl
+from projectname_sdk.core.error import IronocError
 
 
 def make_error_util(ctx, err):
     if ctx is None:
-        from projectname_sdk.core.context import GithubProjectIssuesContext
-        ctx = GithubProjectIssuesContext({}, None)
+        from projectname_sdk.core.context import IronocContext
+        ctx = IronocContext({}, None)
 
     op = ctx.op
     if op is None:
-        op = GithubProjectIssuesOperation({})
+        op = IronocOperation({})
     opname = op.name
     if opname == "" or opname == "_":
         opname = "unknown operation"
 
     result = ctx.result
     if result is None:
-        result = GithubProjectIssuesResult({})
+        result = IronocResult({})
     result.ok = False
 
     if err is None:
@@ -30,7 +30,7 @@ def make_error_util(ctx, err):
         err = ctx.make_error("unknown", "unknown error")
 
     errmsg = ""
-    if isinstance(err, GithubProjectIssuesError):
+    if isinstance(err, IronocError):
         errmsg = err.msg
     elif hasattr(err, "msg") and err.msg is not None:
         errmsg = err.msg
@@ -39,7 +39,7 @@ def make_error_util(ctx, err):
     else:
         errmsg = str(err)
 
-    msg = "GithubProjectIssuesSDK: " + opname + ": " + errmsg
+    msg = "IronocSDK: " + opname + ": " + errmsg
     msg = ctx.utility.clean(ctx, msg)
 
     result.err = None
@@ -49,7 +49,7 @@ def make_error_util(ctx, err):
     if ctx.ctrl.explain is not None:
         ctx.ctrl.explain["err"] = {"message": msg}
 
-    sdk_err = GithubProjectIssuesError("", msg, ctx)
+    sdk_err = IronocError("", msg, ctx)
     sdk_err.result = ctx.utility.clean(ctx, result)
     sdk_err.spec = ctx.utility.clean(ctx, spec)
 
@@ -57,7 +57,7 @@ def make_error_util(ctx, err):
     # `err.status` / `err.not_found` instead of reaching into `err.result`.
     sdk_err.status = -1 if result.status is None else result.status
 
-    if isinstance(err, GithubProjectIssuesError):
+    if isinstance(err, IronocError):
         sdk_err.code = err.code
 
     ctx.ctrl.err = sdk_err

@@ -1,3 +1,4 @@
 /dist/
-/github-project-issues-cli
+/ironoc-cli
 /go-cli
+.jostraca/

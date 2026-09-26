@@ -3,7 +3,7 @@ package utility
 import (
 	"fmt"
 
-	"github.com/voxgig-sdk/github-project-issues-sdk/go/core"
+	"github.com/voxgig-sdk/ironoc-sdk/go/core"
 )
 
 func resultBasicUtil(ctx *core.Context) *core.Result {

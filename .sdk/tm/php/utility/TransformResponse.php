@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: transform_response
+// Ironoc SDK utility: transform_response
 
 require_once __DIR__ . '/../core/Helpers.php';
 
-class GithubProjectIssuesTransformResponse
+class IronocTransformResponse
 {
-    public static function call(GithubProjectIssuesContext $ctx): mixed
+    public static function call(IronocContext $ctx): mixed
     {
         $spec = $ctx->spec;
         $result = $ctx->result;
@@ -18,7 +18,7 @@ class GithubProjectIssuesTransformResponse
         if ($result === null || !$result->ok) {
             return null;
         }
-        $transform = GithubProjectIssuesHelpers::to_map(\Voxgig\Struct\Struct::getprop($point, 'transform'));
+        $transform = IronocHelpers::to_map(\Voxgig\Struct\Struct::getprop($point, 'transform'));
         if (!$transform) {
             return null;
         }

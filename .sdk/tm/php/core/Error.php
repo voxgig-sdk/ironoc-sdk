@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK error
+// Ironoc SDK error
 
-class GithubProjectIssuesError extends \Exception
+class IronocError extends \Exception
 {
     public bool $is_sdk_error;
     public string $sdk;
@@ -28,7 +28,7 @@ class GithubProjectIssuesError extends \Exception
     {
         parent::__construct($msg);
         $this->is_sdk_error = true;
-        $this->sdk = 'GithubProjectIssues';
+        $this->sdk = 'Ironoc';
         $this->sdk_code = $code;
         $this->msg = $msg;
         $this->ctx = $ctx;

@@ -1,10 +1,10 @@
-# GithubProjectIssues SDK operation
+# Ironoc SDK operation
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
 
 
-class GithubProjectIssuesOperation:
+class IronocOperation:
     def __init__(self, opmap=None):
         if opmap is None:
             opmap = {}

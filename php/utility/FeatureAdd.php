@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: feature_add
+// Ironoc SDK utility: feature_add
 
-class GithubProjectIssuesFeatureAdd
+class IronocFeatureAdd
 {
-    public static function call(GithubProjectIssuesContext $ctx, mixed $f): void
+    public static function call(IronocContext $ctx, mixed $f): void
     {
         $features = &$ctx->client->features;
 

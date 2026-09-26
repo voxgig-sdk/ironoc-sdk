@@ -10,5 +10,12 @@
     "donate_rest_controller": {
       "donate_rest_controller_ref01": {}
     }
+  },
+  "requests": {
+    "GET /api/donate-items": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
   }
 }

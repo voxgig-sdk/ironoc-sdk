@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK utility: clean
-module GithubProjectIssuesUtilities
+# Ironoc SDK utility: clean
+module IronocUtilities
   Clean = ->(ctx, val) { val }
 end

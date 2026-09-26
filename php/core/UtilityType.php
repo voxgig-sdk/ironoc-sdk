@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility type
+// Ironoc SDK utility type
 
-class GithubProjectIssuesUtility
+class IronocUtility
 {
     public mixed $clean = null;
     public mixed $done = null;
@@ -53,9 +53,9 @@ class GithubProjectIssuesUtility
         }
     }
 
-    public static function copy(GithubProjectIssuesUtility $src): GithubProjectIssuesUtility
+    public static function copy(IronocUtility $src): IronocUtility
     {
-        $u = new GithubProjectIssuesUtility();
+        $u = new IronocUtility();
         $u->clean = $src->clean;
         $u->done = $src->done;
         $u->make_error = $src->make_error;

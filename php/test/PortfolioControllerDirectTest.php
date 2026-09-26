@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 // PortfolioController direct test
 
-require_once __DIR__ . '/../githubprojectissues_sdk.php';
+require_once __DIR__ . '/../ironoc_sdk.php';
 require_once __DIR__ . '/Runner.php';
 
 use PHPUnit\Framework\TestCase;
@@ -66,16 +66,18 @@ function portfolio_controller_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "GITHUB_PROJECT_ISSUES_TEST_PORTFOLIO_CONTROLLER_ENTID" => [],
-        "GITHUB_PROJECT_ISSUES_TEST_LIVE" => "FALSE",
+        "IRONOC_TEST_PORTFOLIO_CONTROLLER_ENTID" => [],
+        "IRONOC_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] === "TRUE";
+    $live = $env["IRONOC_TEST_LIVE"] === "TRUE";
 
     if ($live) {
-        $merged_opts = [
-        ];
-        $client = new GithubProjectIssuesSDK($merged_opts);
+        // Merged so the generated fields win: sdk-test-control.json's
+        // test.client.options adds to the live client, it does not redirect it.
+        $merged_opts = array_merge(Runner::live_client_options(), [
+        ]);
+        $client = new IronocSDK($merged_opts);
         return [
             "client" => $client,
             "calls" => $calls,
@@ -103,7 +105,7 @@ function portfolio_controller_direct_setup($mockres)
         ];
     };
 
-    $client = new GithubProjectIssuesSDK([
+    $client = new IronocSDK([
         "base" => "http://localhost:8080",
         "system" => [
             "fetch" => $mock_fetch,

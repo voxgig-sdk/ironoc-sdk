@@ -5,7 +5,7 @@
         "appHome": "s46",
         "description": "s47",
         "fullName": "s48",
-        "issueCount": "s49",
+        "issueCount": 73,
         "name": "s4a",
         "repoUrl": "s4b",
         "topics": "s4c",
@@ -16,7 +16,7 @@
         "appHome": "s8c",
         "description": "s8d",
         "fullName": "s8e",
-        "issueCount": "s8f",
+        "issueCount": 143,
         "name": "s90",
         "repoUrl": "s91",
         "topics": "s92",
@@ -27,7 +27,7 @@
         "appHome": "sd2",
         "description": "sd3",
         "fullName": "sd4",
-        "issueCount": "sd5",
+        "issueCount": 213,
         "name": "sd6",
         "repoUrl": "sd7",
         "topics": "sd8",
@@ -42,11 +42,23 @@
         "appHome": "s118",
         "description": "s119",
         "fullName": "s11a",
-        "issueCount": "s11b",
+        "issueCount": 283,
         "name": "s11c",
         "repoUrl": "s11d",
         "topics": "s11e"
       }
+    }
+  },
+  "requests": {
+    "GET /api/get-repo-detail": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /api/get-repo-detail/{username}/": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
     }
   }
 }

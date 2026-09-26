@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK helpers
+// Ironoc SDK helpers
 
-class GithubProjectIssuesHelpers
+class IronocHelpers
 {
     public static function to_map(mixed $v): ?array
     {

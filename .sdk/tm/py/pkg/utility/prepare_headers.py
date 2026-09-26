@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK utility: prepare_headers
+# Ironoc SDK utility: prepare_headers
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs

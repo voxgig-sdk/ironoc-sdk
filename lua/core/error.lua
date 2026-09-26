@@ -1,13 +1,13 @@
--- GithubProjectIssues SDK error
+-- Ironoc SDK error
 
-local GithubProjectIssuesError = {}
-GithubProjectIssuesError.__index = GithubProjectIssuesError
+local IronocError = {}
+IronocError.__index = IronocError
 
 
-function GithubProjectIssuesError.new(code, msg, ctx)
-  local self = setmetatable({}, GithubProjectIssuesError)
+function IronocError.new(code, msg, ctx)
+  local self = setmetatable({}, IronocError)
   self.is_sdk_error = true
-  self.sdk = "GithubProjectIssues"
+  self.sdk = "Ironoc"
   self.code = code or ""
   self.msg = msg or ""
   self.ctx = ctx
@@ -17,14 +17,14 @@ function GithubProjectIssuesError.new(code, msg, ctx)
 end
 
 
-function GithubProjectIssuesError:error()
+function IronocError:error()
   return self.msg
 end
 
 
-function GithubProjectIssuesError:__tostring()
+function IronocError:__tostring()
   return self.msg
 end
 
 
-return GithubProjectIssuesError
+return IronocError

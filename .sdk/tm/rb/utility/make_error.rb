@@ -1,25 +1,25 @@
-# GithubProjectIssues SDK utility: make_error
+# Ironoc SDK utility: make_error
 require_relative '../core/operation'
 require_relative '../core/result'
 require_relative '../core/error'
-module GithubProjectIssuesUtilities
+module IronocUtilities
   MakeError = ->(ctx, err) {
     if ctx.nil?
       require_relative '../core/context'
-      ctx = GithubProjectIssuesContext.new({}, nil)
+      ctx = IronocContext.new({}, nil)
     end
-    op = ctx.op || GithubProjectIssuesOperation.new({})
+    op = ctx.op || IronocOperation.new({})
     opname = op.name
     opname = "unknown operation" if opname.empty? || opname == "_"
 
-    result = ctx.result || GithubProjectIssuesResult.new({})
+    result = ctx.result || IronocResult.new({})
     result.ok = false
 
     err = result.err if err.nil?
     err = ctx.make_error("unknown", "unknown error") if err.nil?
 
-    errmsg = err.is_a?(GithubProjectIssuesError) ? err.msg : err.to_s
-    msg = "GithubProjectIssuesSDK: #{opname}: #{errmsg}"
+    errmsg = err.is_a?(IronocError) ? err.msg : err.to_s
+    msg = "IronocSDK: #{opname}: #{errmsg}"
     msg = ctx.utility.clean.call(ctx, msg)
 
     result.err = nil
@@ -29,14 +29,14 @@ module GithubProjectIssuesUtilities
       ctx.ctrl.explain["err"] = { "message" => msg }
     end
 
-    sdk_err = GithubProjectIssuesError.new("", msg, ctx)
+    sdk_err = IronocError.new("", msg, ctx)
     sdk_err.result = ctx.utility.clean.call(ctx, result)
     sdk_err.spec = ctx.utility.clean.call(ctx, spec)
 
     # Promote the HTTP status to the top level, so a consumer can branch on
     # `err.status` / `err.not_found?` instead of reaching into `err.result`.
     sdk_err.status = result.status.nil? ? -1 : result.status
-    sdk_err.code = err.code if err.is_a?(GithubProjectIssuesError)
+    sdk_err.code = err.code if err.is_a?(IronocError)
 
     ctx.ctrl.err = sdk_err
 

@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: make_fetch_def
+// Ironoc SDK utility: make_fetch_def
 
 require_once __DIR__ . '/../core/Result.php';
 
-class GithubProjectIssuesMakeFetchDef
+class IronocMakeFetchDef
 {
-    public static function call(GithubProjectIssuesContext $ctx): array
+    public static function call(IronocContext $ctx): array
     {
         $spec = $ctx->spec;
         if (!$spec) {
@@ -15,7 +15,7 @@ class GithubProjectIssuesMakeFetchDef
         }
 
         if (!$ctx->result) {
-            $ctx->result = new GithubProjectIssuesResult([]);
+            $ctx->result = new IronocResult([]);
         }
         $spec->step = 'prepare';
 

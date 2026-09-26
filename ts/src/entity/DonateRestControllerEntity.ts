@@ -1,11 +1,11 @@
 
 import { inspect } from 'node:util'
 
-import { GithubProjectIssuesEntityBase } from '../GithubProjectIssuesEntityBase'
+import { IronocEntityBase } from '../IronocEntityBase'
 
 import type {
-  GithubProjectIssuesSDK,
-} from '../GithubProjectIssuesSDK'
+  IronocSDK,
+} from '../IronocSDK'
 
 
 import type {
@@ -17,12 +17,11 @@ import type {
 import type {
   DonateRestController,
   DonateRestControllerListMatch,
-} from '../GithubProjectIssuesTypes'
+} from '../IronocTypes'
 
-// TODO: needs Entity superclass
-class DonateRestControllerEntity extends GithubProjectIssuesEntityBase<DonateRestController> {
+class DonateRestControllerEntity extends IronocEntityBase<DonateRestController> {
 
-  constructor(client: GithubProjectIssuesSDK, entopts: any) {
+  constructor(client: IronocSDK, entopts: any) {
     super(client, entopts)
     this.name = 'donate_rest_controller'
     this.name_ = 'donate_rest_controller'

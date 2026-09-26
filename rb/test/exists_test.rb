@@ -1,11 +1,11 @@
-# GithubProjectIssues SDK exists test
+# Ironoc SDK exists test
 
 require "minitest/autorun"
-require_relative "../GithubProjectIssues_sdk"
+require_relative "../Ironoc_sdk"
 
 class ExistsTest < Minitest::Test
   def test_create_test_sdk
-    testsdk = GithubProjectIssuesSDK.test(nil, nil)
+    testsdk = IronocSDK.test(nil, nil)
     assert !testsdk.nil?
   end
 end

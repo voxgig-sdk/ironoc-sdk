@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK RepositoryIssueDomain entity
+# Ironoc SDK RepositoryIssueDomain entity
 
 require_relative '../utility/struct/voxgig_struct'
 require_relative '../core/helpers'
@@ -53,7 +53,7 @@ class RepositoryIssueDomainEntity
 
   def data_set(args)
     if args
-      @_data = GithubProjectIssuesHelpers.to_map(VoxgigStruct.clone(args)) || {}
+      @_data = IronocHelpers.to_map(VoxgigStruct.clone(args)) || {}
       @_utility.feature_hook.call(@_entctx, "SetData")
     end
   end
@@ -66,7 +66,7 @@ class RepositoryIssueDomainEntity
 
   def match_set(args)
     if args
-      @_match = GithubProjectIssuesHelpers.to_map(VoxgigStruct.clone(args)) || {}
+      @_match = IronocHelpers.to_map(VoxgigStruct.clone(args)) || {}
       @_utility.feature_hook.call(@_entctx, "SetMatch")
     end
   end
@@ -178,7 +178,7 @@ class RepositoryIssueDomainEntity
   # @param reqmatch [RepositoryIssueDomainListMatch, Hash, nil] match filter (any subset of
   #   RepositoryIssueDomain fields); defaults to nil, treated as an empty match that lists all.
   # @param ctrl [Object, nil] optional per-call control
-  # @return [Array<RepositoryIssueDomain>, Array] the matching RepositoryIssueDomain items; raises GithubProjectIssuesError on failure
+  # @return [Array<RepositoryIssueDomain>, Array] the matching RepositoryIssueDomain items; raises IronocError on failure
   def list(reqmatch = nil, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

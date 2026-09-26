@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 // DonateRestController entity test
 
-require_once __DIR__ . '/../githubprojectissues_sdk.php';
+require_once __DIR__ . '/../ironoc_sdk.php';
 require_once __DIR__ . '/Runner.php';
 
 use PHPUnit\Framework\TestCase;
@@ -13,7 +13,7 @@ class DonateRestControllerEntityTest extends TestCase
 {
     public function test_create_instance(): void
     {
-        $testsdk = GithubProjectIssuesSDK::test(null, null);
+        $testsdk = IronocSDK::test(null, null);
         $ent = $testsdk->DonateRestController(null);
         $this->assertNotNull($ent);
     }
@@ -35,14 +35,14 @@ class DonateRestControllerEntityTest extends TestCase
         ];
 
         // Fallback: streaming inactive -> yields the materialised list items.
-        $base = GithubProjectIssuesSDK::test($seed, null);
+        $base = IronocSDK::test($seed, null);
         $seen = iterator_to_array($base->DonateRestController(null)->stream("list", null, null), false);
         $this->assertCount(3, $seen);
 
         // Inbound: streaming active -> yields each item from the feature.
-        $cfg = GithubProjectIssuesConfig::shared_config();
+        $cfg = IronocConfig::shared_config();
         if (isset($cfg["feature"]) && is_array($cfg["feature"]) && isset($cfg["feature"]["streaming"])) {
-            $sdk = GithubProjectIssuesSDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
+            $sdk = IronocSDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
             $got = [];
             foreach ($sdk->DonateRestController(null)->stream("list", null, null) as $item) {
                 if (is_array($item) && array_is_list($item)) {
@@ -72,7 +72,7 @@ class DonateRestControllerEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set GITHUB_PROJECT_ISSUES_TEST_DONATE_REST_CONTROLLER_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set IRONOC_TEST_DONATE_REST_CONTROLLER_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -106,7 +106,7 @@ function donate_rest_controller_basic_setup($extra)
     $options = [];
     $options["entity"] = $entity_data["existing"];
 
-    $client = GithubProjectIssuesSDK::test($options, $extra);
+    $client = IronocSDK::test($options, $extra);
 
     // Generate idmap.
     $idmap = [];
@@ -117,37 +117,52 @@ function donate_rest_controller_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("GITHUB_PROJECT_ISSUES_TEST_DONATE_REST_CONTROLLER_ENTID");
+    $entid_env_raw = getenv("IRONOC_TEST_DONATE_REST_CONTROLLER_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "GITHUB_PROJECT_ISSUES_TEST_DONATE_REST_CONTROLLER_ENTID" => $idmap,
-        "GITHUB_PROJECT_ISSUES_TEST_LIVE" => "FALSE",
-        "GITHUB_PROJECT_ISSUES_TEST_EXPLAIN" => "FALSE",
+        "IRONOC_TEST_DONATE_REST_CONTROLLER_ENTID" => $idmap,
+        "IRONOC_TEST_LIVE" => "FALSE",
+        "IRONOC_TEST_EXPLAIN" => "FALSE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["GITHUB_PROJECT_ISSUES_TEST_DONATE_REST_CONTROLLER_ENTID"]);
+        $env["IRONOC_TEST_DONATE_REST_CONTROLLER_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] === "TRUE") {
+    if ($env["IRONOC_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
+            // FIRST, so the generated fields below win: sdk-test-control.json's
+            // test.client.options adds to the live client, it does not redirect it.
+            Runner::live_client_options(),
             [
             ],
-            $extra ?? [],
+            // ismap, not a plain "?? []" default: an empty PHP array is a
+            // LIST, and a non-map later entry REPLACES the accumulated map in
+            // merge - so the no-extras call discarded live_client_options()
+            // and the apikey/server map above it.
+            Vs::ismap($extra) ? $extra : new \stdClass(),
         ]);
-        $client = new GithubProjectIssuesSDK(Helpers::to_map($merged_opts));
+        // "?? []" because merge legitimately answers with a stdClass when every
+        // contributing entry is an EMPTY map - an SDK with no apikey and no
+        // server variables generates an empty middle entry, so that is the
+        // common case, not the edge one. to_map returns null for a non-array by
+        // design, and the constructor takes a non-nullable array, so without the
+        // fallback every such SDK died on "must be of type array, null given"
+        // the moment live mode was switched on. Offline mode never reaches this
+        // branch, which is why the offline suite stayed green.
+        $client = new IronocSDK(Helpers::to_map($merged_opts) ?? []);
     }
 
-    $live = $env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] === "TRUE";
+    $live = $env["IRONOC_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["GITHUB_PROJECT_ISSUES_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["IRONOC_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

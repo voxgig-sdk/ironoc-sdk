@@ -1,0 +1,45 @@
+# Entity: version
+
+main: kit: entity: version: {
+
+  alias: field: {}
+
+  name: "version"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /api/application/version"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/api/application/version"
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "application"
+            }
+            {
+              lit: "version"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+
+}

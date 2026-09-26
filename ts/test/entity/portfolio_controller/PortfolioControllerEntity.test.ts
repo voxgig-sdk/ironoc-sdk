@@ -1,19 +1,21 @@
 
-const envlocal = __dirname + '/../../../.env.local'
-require('dotenv').config({ quiet: true, path: [envlocal] })
 
 import Path from 'node:path'
 import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
-import { GithubProjectIssuesSDK, BaseFeature, stdutil } from '../../..'
+import { IronocSDK, BaseFeature, stdutil } from '../../..'
 
 import {
   envOverride,
+  liveClientOptions,
   liveDelay,
+  loadEnvLocal,
   makeCtrl,
   makeMatch,
   makeReqdata,
@@ -23,14 +25,17 @@ import {
 } from '../../utility'
 
 
+loadEnvLocal(__dirname + '/../../../.env.local')
+
+
 describe('PortfolioControllerEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUB_PROJECT_ISSUES_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUB_PROJECT_ISSUES_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when IRONOC_TEST_LIVE=TRUE.
+  afterEach(liveDelay('IRONOC_TEST_LIVE'))
 
   test('instance', async () => {
-    const testsdk = GithubProjectIssuesSDK.test()
+    const testsdk = IronocSDK.test()
     const ent = testsdk.PortfolioController()
     assert(null != ent)
   })
@@ -38,18 +43,15 @@ describe('PortfolioControllerEntity', async () => {
 
   test('basic', async (t) => {
 
-    const live = 'TRUE' === process.env.GITHUB_PROJECT_ISSUES_TEST_LIVE
+    const live = 'TRUE' === process.env.IRONOC_TEST_LIVE
     for (const op of ['list']) {
-      if (maybeSkipControl(t, 'entityOp', 'portfolio_controller.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'portfolio_controller.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set GITHUB_PROJECT_ISSUES_TEST_PORTFOLIO_CONTROLLER_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"portfolio_controller","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /api/portfolio-items","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/api/portfolio-items","q":{},"r":{},"s":[{"lit":"api"},{"lit":"portfolio-items"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"portfolio_controller","name__orig":"portfolio_controller","Name":"PortfolioController","name_":"portfolio_controller","name-":"portfolio-controller","NAME":"PORTFOLIO_CONTROLLER","index$":3}, {"active":true,"entity":"portfolio_controller","key$":"BasicPortfolioControllerFlow","kind":"basic","name":"BasicPortfolioControllerFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"portfolio_controller_ref01"}}],"index$":0}]}, 'PortfolioController', {"GET /api/portfolio-items":{"protocol":"http","operationId":"getPortfolioItems","responses":{"200":{"description":"Successfully retrieved Portfolio Projects.","content":{"application/json":{"schema":{"type":"array","items":{"type":"object","additionalProperties":{},"key$":"items"}}}}}},"parameters":[],"securitySource":"unspecified"}})
     }
     const client = setup.client
     const struct = setup.struct
@@ -88,7 +90,7 @@ function basicSetup(extra?: any) {
 
   options.entity = entityData.existing
 
-  let client = GithubProjectIssuesSDK.test(options, extra)
+  let client = IronocSDK.test(options, extra)
   const struct = client.utility().struct
   const merge = struct.merge
   const transform = struct.transform
@@ -102,28 +104,36 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['GITHUB_PROJECT_ISSUES_TEST_PORTFOLIO_CONTROLLER_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
-    'GITHUB_PROJECT_ISSUES_TEST_PORTFOLIO_CONTROLLER_ENTID': idmap,
-    'GITHUB_PROJECT_ISSUES_TEST_LIVE': 'FALSE',
-    'GITHUB_PROJECT_ISSUES_TEST_EXPLAIN': 'FALSE',
+    'IRONOC_TEST_PORTFOLIO_CONTROLLER_ENTID': idmap,
+    'IRONOC_TEST_LIVE': 'FALSE',
+    'IRONOC_TEST_EXPLAIN': 'FALSE',
   })
 
-  idmap = env['GITHUB_PROJECT_ISSUES_TEST_PORTFOLIO_CONTROLLER_ENTID']
+  idmap = env['IRONOC_TEST_PORTFOLIO_CONTROLLER_ENTID']
 
-  const live = 'TRUE' === env.GITHUB_PROJECT_ISSUES_TEST_LIVE
+  const live = 'TRUE' === env.IRONOC_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
-    client = new GithubProjectIssuesSDK(merge([
+    const rawIds = process.env['IRONOC_TEST_PORTFOLIO_CONTROLLER_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
+    client = new IronocSDK(merge([
+      // FIRST, so the generated fields below win: sdk-test-control.json's
+      // test.client.options adds to the live client, it does not redirect it.
+      liveClientOptions(),
       {
       },
-      extra
+      // 'extra || {}', not a bare 'extra': struct.merge returns UNDEFINED when the
+      // last entry is undefined, and basicSetup is normally called with no
+      // argument at all - so a bare 'extra' silently discarded the apikey
+      // and server values above and handed the SDK undefined. Harmless
+      // while there was nothing in that object; not harmless now.
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -134,9 +144,9 @@ function basicSetup(extra?: any) {
     client,
     struct,
     data: entityData,
-    explain: 'TRUE' === env.GITHUB_PROJECT_ISSUES_TEST_EXPLAIN,
+    explain: 'TRUE' === env.IRONOC_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

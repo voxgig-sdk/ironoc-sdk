@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK utility: graphql
+# Ironoc SDK utility: graphql
 
 # GraphQL transport. API-INDEPENDENT: every GraphQL SDK this generator
 # produces uses this file unchanged. The API-specific part — which

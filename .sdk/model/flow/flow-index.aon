@@ -1,9 +1,0 @@
-# Flows
-
-@"BasicCoffeeDomainFlow.aon"
-@"BasicCoffeeFlow.aon"
-@"BasicDonateRestControllerFlow.aon"
-@"BasicPortfolioControllerFlow.aon"
-@"BasicRepositoryDetailDomainFlow.aon"
-@"BasicRepositoryIssueDomainFlow.aon"
-@"BasicVersionFlow.aon"

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK spec
+// Ironoc SDK spec
 
-class GithubProjectIssuesSpec
+class IronocSpec
 {
     public array $parts;
     public array $headers;

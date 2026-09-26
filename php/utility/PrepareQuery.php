@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: prepare_query
+// Ironoc SDK utility: prepare_query
 
-class GithubProjectIssuesPrepareQuery
+class IronocPrepareQuery
 {
-    public static function call(GithubProjectIssuesContext $ctx): array
+    public static function call(IronocContext $ctx): array
     {
         $point = $ctx->point;
         $reqmatch = $ctx->reqmatch ?? [];
@@ -22,7 +22,7 @@ class GithubProjectIssuesPrepareQuery
             foreach ($items as $item) {
                 $key = $item[0];
                 $val = $item[1];
-                if ($val !== null && is_string($key) && !in_array($key, $params, true)) {
+                if ($val !== null && is_string($key) && '$action' !== $key && !in_array($key, $params, true)) {
                     $out[$key] = $val;
                 }
             }

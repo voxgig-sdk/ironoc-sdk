@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: clean
+-- Ironoc SDK utility: clean
 
 local function clean_util(ctx, val)
   return val

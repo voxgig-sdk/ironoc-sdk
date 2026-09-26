@@ -1,23 +1,32 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK feature factory
+// Ironoc SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
-class GithubProjectIssuesFeatures
+class IronocFeatures
 {
     public static function make_feature(string $name)
     {
         switch ($name) {
             case "base":
-                return new GithubProjectIssuesBaseFeature();
+                return new IronocBaseFeature();
+            case "ratelimit":
+                return new IronocRatelimitFeature();
+            case "retry":
+                return new IronocRetryFeature();
             case "test":
-                return new GithubProjectIssuesTestFeature();
+                return new IronocTestFeature();
+            case "timeout":
+                return new IronocTimeoutFeature();
             default:
-                return new GithubProjectIssuesBaseFeature();
+                return new IronocBaseFeature();
         }
     }
 
@@ -31,7 +40,10 @@ class GithubProjectIssuesFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

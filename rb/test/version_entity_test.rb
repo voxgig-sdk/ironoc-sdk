@@ -2,12 +2,12 @@
 
 require "minitest/autorun"
 require "json"
-require_relative "../GithubProjectIssues_sdk"
+require_relative "../Ironoc_sdk"
 require_relative "runner"
 
 class VersionEntityTest < Minitest::Test
   def test_create_instance
-    testsdk = GithubProjectIssuesSDK.test(nil, nil)
+    testsdk = IronocSDK.test(nil, nil)
     ent = testsdk.Version(nil)
     assert !ent.nil?
   end
@@ -26,7 +26,7 @@ class VersionEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set GITHUB_PROJECT_ISSUES_TEST_VERSION_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set IRONOC_TEST_VERSION_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -58,7 +58,7 @@ def version_basic_setup(extra)
   options = {}
   options["entity"] = entity_data["existing"]
 
-  client = GithubProjectIssuesSDK.test(options, extra)
+  client = IronocSDK.test(options, extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
@@ -74,37 +74,40 @@ def version_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["GITHUB_PROJECT_ISSUES_TEST_VERSION_ENTID"]
+  entid_env_raw = ENV["IRONOC_TEST_VERSION_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "GITHUB_PROJECT_ISSUES_TEST_VERSION_ENTID" => idmap,
-    "GITHUB_PROJECT_ISSUES_TEST_LIVE" => "FALSE",
-    "GITHUB_PROJECT_ISSUES_TEST_EXPLAIN" => "FALSE",
+    "IRONOC_TEST_VERSION_ENTID" => idmap,
+    "IRONOC_TEST_LIVE" => "FALSE",
+    "IRONOC_TEST_EXPLAIN" => "FALSE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["GITHUB_PROJECT_ISSUES_TEST_VERSION_ENTID"])
+    env["IRONOC_TEST_VERSION_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] == "TRUE"
+  if env["IRONOC_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
       },
       extra || {},
     ])
-    client = GithubProjectIssuesSDK.new(Helpers.to_map(merged_opts))
+    client = IronocSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] == "TRUE"
+  live = env["IRONOC_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["GITHUB_PROJECT_ISSUES_TEST_EXPLAIN"] == "TRUE",
+    explain: env["IRONOC_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

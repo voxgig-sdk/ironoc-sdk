@@ -2,13 +2,13 @@
 import { test, describe } from 'node:test'
 import { equal } from 'node:assert'
 
-import { GithubProjectIssuesSDK } from '../..'
+import { IronocSDK } from '../..'
 
 
 describe('Custom', () => {
 
   test('basic', async () => {
-    const client = GithubProjectIssuesSDK.test({}, {
+    const client = IronocSDK.test({}, {
       apikey: 'APIKEY01',
 
       // NOTE: original utility.options must remain in place.

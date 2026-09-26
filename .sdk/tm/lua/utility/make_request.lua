@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: make_request
+-- Ironoc SDK utility: make_request
 
 local Response = require("core.response")
 local Result = require("core.result")

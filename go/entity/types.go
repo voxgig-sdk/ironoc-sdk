@@ -1,7 +1,7 @@
-// Typed models for the GithubProjectIssues SDK.
+// Typed models for the Ironoc SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -9,16 +9,11 @@ package entity
 import (
 	"encoding/json"
 
-	"github.com/voxgig-sdk/github-project-issues-sdk/go/core"
+	"github.com/voxgig-sdk/ironoc-sdk/go/core"
 )
 
 // Coffee is the typed data model for the coffee entity.
 type Coffee struct {
-	Description *string `json:"description,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Image string `json:"image"`
-	Ingredients []any `json:"ingredients"`
-	Title string `json:"title"`
 }
 
 // CoffeeListMatch is the typed request payload for Coffee.ListTyped.
@@ -41,11 +36,6 @@ type CoffeeUpdateData struct {
 
 // CoffeeDomain is the typed data model for the coffee_domain entity.
 type CoffeeDomain struct {
-	Description *string `json:"description,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Image string `json:"image"`
-	Ingredients []any `json:"ingredients"`
-	Title string `json:"title"`
 }
 
 // CoffeeDomainListMatch is the typed request payload for CoffeeDomain.ListTyped.
@@ -75,13 +65,6 @@ type PortfolioControllerListMatch struct {
 
 // RepositoryDetailDomain is the typed data model for the repository_detail_domain entity.
 type RepositoryDetailDomain struct {
-	AppHome *string `json:"appHome,omitempty"`
-	Description *string `json:"description,omitempty"`
-	FullName string `json:"fullName"`
-	IssueCount *int `json:"issueCount,omitempty"`
-	Name string `json:"name"`
-	RepoUrl string `json:"repoUrl"`
-	Topics *string `json:"topics,omitempty"`
 }
 
 // RepositoryDetailDomainLoadMatch is the typed request payload for RepositoryDetailDomain.LoadTyped.
@@ -96,11 +79,6 @@ type RepositoryDetailDomainListMatch struct {
 
 // RepositoryIssueDomain is the typed data model for the repository_issue_domain entity.
 type RepositoryIssueDomain struct {
-	Body *string `json:"body,omitempty"`
-	Labels *[]any `json:"labels,omitempty"`
-	Number string `json:"number"`
-	State *string `json:"state,omitempty"`
-	Title string `json:"title"`
 }
 
 // RepositoryIssueDomainListMatch is the typed request payload for RepositoryIssueDomain.ListTyped.

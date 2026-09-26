@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from githubprojectissues_sdk.utility.voxgig_struct import voxgig_struct as vs
-from githubprojectissues_sdk import GithubProjectIssuesSDK
-from githubprojectissues_sdk.core import helpers
+from ironoc_sdk.utility.voxgig_struct import voxgig_struct as vs
+from ironoc_sdk import IronocSDK
+from ironoc_sdk.core import helpers
 from test import runner
 
 
@@ -58,16 +58,19 @@ def _portfolio_controller_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "GITHUB_PROJECT_ISSUES_TEST_PORTFOLIO_CONTROLLER_ENTID": {},
-        "GITHUB_PROJECT_ISSUES_TEST_LIVE": "FALSE",
+        "IRONOC_TEST_PORTFOLIO_CONTROLLER_ENTID": {},
+        "IRONOC_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("GITHUB_PROJECT_ISSUES_TEST_LIVE") == "TRUE"
+    live = env.get("IRONOC_TEST_LIVE") == "TRUE"
 
     if live:
-        merged_opts = {
-        }
-        client = GithubProjectIssuesSDK(merged_opts)
+        # sdk-test-control.json's test.client.options seeds the live
+        # client; the generated fields below overwrite anything they name.
+        merged_opts = dict(runner.live_client_options())
+        merged_opts.update({
+        })
+        client = IronocSDK(merged_opts)
         return {
             "client": client,
             "calls": calls,
@@ -85,7 +88,7 @@ def _portfolio_controller_direct_setup(mockres):
             "body": "mock",
         }, None
 
-    client = GithubProjectIssuesSDK({
+    client = IronocSDK({
         "base": "http://localhost:8080",
         "system": {
             "fetch": mock_fetch,

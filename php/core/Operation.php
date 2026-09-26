@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK operation
+// Ironoc SDK operation
 
-class GithubProjectIssuesOperation
+class IronocOperation
 {
     public string $entity;
     public string $name;

@@ -1,5 +1,5 @@
-# GithubProjectIssues SDK utility: result_headers
-module GithubProjectIssuesUtilities
+# Ironoc SDK utility: result_headers
+module IronocUtilities
   ResultHeaders = ->(ctx) {
     response = ctx.response
     result = ctx.result

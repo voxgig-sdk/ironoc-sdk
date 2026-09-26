@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility type
+-- Ironoc SDK utility type
 
 local Utility = {}
 Utility.__index = Utility

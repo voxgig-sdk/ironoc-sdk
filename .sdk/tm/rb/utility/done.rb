@@ -1,5 +1,5 @@
-# GithubProjectIssues SDK utility: done
-module GithubProjectIssuesUtilities
+# Ironoc SDK utility: done
+module IronocUtilities
   Done = ->(ctx) {
     if ctx.ctrl.explain
       ctx.ctrl.explain = ctx.utility.clean.call(ctx, ctx.ctrl.explain)

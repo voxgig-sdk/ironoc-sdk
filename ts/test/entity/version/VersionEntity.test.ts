@@ -1,19 +1,21 @@
 
-const envlocal = __dirname + '/../../../.env.local'
-require('dotenv').config({ quiet: true, path: [envlocal] })
 
 import Path from 'node:path'
 import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
-import { GithubProjectIssuesSDK, BaseFeature, stdutil } from '../../..'
+import { IronocSDK, BaseFeature, stdutil } from '../../..'
 
 import {
   envOverride,
+  liveClientOptions,
   liveDelay,
+  loadEnvLocal,
   makeCtrl,
   makeMatch,
   makeReqdata,
@@ -23,14 +25,17 @@ import {
 } from '../../utility'
 
 
+loadEnvLocal(__dirname + '/../../../.env.local')
+
+
 describe('VersionEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUB_PROJECT_ISSUES_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUB_PROJECT_ISSUES_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when IRONOC_TEST_LIVE=TRUE.
+  afterEach(liveDelay('IRONOC_TEST_LIVE'))
 
   test('instance', async () => {
-    const testsdk = GithubProjectIssuesSDK.test()
+    const testsdk = IronocSDK.test()
     const ent = testsdk.Version()
     assert(null != ent)
   })
@@ -38,18 +43,15 @@ describe('VersionEntity', async () => {
 
   test('basic', async (t) => {
 
-    const live = 'TRUE' === process.env.GITHUB_PROJECT_ISSUES_TEST_LIVE
+    const live = 'TRUE' === process.env.IRONOC_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'version.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'version.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set GITHUB_PROJECT_ISSUES_TEST_VERSION_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"version","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /api/application/version","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/api/application/version","q":{},"r":{},"s":[{"lit":"api"},{"lit":"application"},{"lit":"version"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"version","name__orig":"version","Name":"Version","name_":"version","name-":"version","NAME":"VERSION","index$":6}, {"active":true,"entity":"version","key$":"BasicVersionFlow","kind":"basic","name":"BasicVersionFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"version_ref01","srcdatavar":"version_ref01_data","suffix":"_dt0"},"m":{},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-version_ref01"}}],"index$":0}]}, 'Version', {"GET /api/application/version":{"protocol":"http","operationId":"getApplicationVersion","responses":{"200":{"description":"Successfully retrieved ironoc application version.","content":{"text/plain":{"schema":{"type":"string"}}}}},"parameters":[],"securitySource":"unspecified"}})
     }
     const client = setup.client
     const struct = setup.struct
@@ -88,7 +90,7 @@ function basicSetup(extra?: any) {
 
   options.entity = entityData.existing
 
-  let client = GithubProjectIssuesSDK.test(options, extra)
+  let client = IronocSDK.test(options, extra)
   const struct = client.utility().struct
   const merge = struct.merge
   const transform = struct.transform
@@ -102,28 +104,36 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['GITHUB_PROJECT_ISSUES_TEST_VERSION_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
-    'GITHUB_PROJECT_ISSUES_TEST_VERSION_ENTID': idmap,
-    'GITHUB_PROJECT_ISSUES_TEST_LIVE': 'FALSE',
-    'GITHUB_PROJECT_ISSUES_TEST_EXPLAIN': 'FALSE',
+    'IRONOC_TEST_VERSION_ENTID': idmap,
+    'IRONOC_TEST_LIVE': 'FALSE',
+    'IRONOC_TEST_EXPLAIN': 'FALSE',
   })
 
-  idmap = env['GITHUB_PROJECT_ISSUES_TEST_VERSION_ENTID']
+  idmap = env['IRONOC_TEST_VERSION_ENTID']
 
-  const live = 'TRUE' === env.GITHUB_PROJECT_ISSUES_TEST_LIVE
+  const live = 'TRUE' === env.IRONOC_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
-    client = new GithubProjectIssuesSDK(merge([
+    const rawIds = process.env['IRONOC_TEST_VERSION_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
+    client = new IronocSDK(merge([
+      // FIRST, so the generated fields below win: sdk-test-control.json's
+      // test.client.options adds to the live client, it does not redirect it.
+      liveClientOptions(),
       {
       },
-      extra
+      // 'extra || {}', not a bare 'extra': struct.merge returns UNDEFINED when the
+      // last entry is undefined, and basicSetup is normally called with no
+      // argument at all - so a bare 'extra' silently discarded the apikey
+      // and server values above and handed the SDK undefined. Harmless
+      // while there was nothing in that object; not harmless now.
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -134,9 +144,9 @@ function basicSetup(extra?: any) {
     client,
     struct,
     data: entityData,
-    explain: 'TRUE' === env.GITHUB_PROJECT_ISSUES_TEST_EXPLAIN,
+    explain: 'TRUE' === env.IRONOC_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

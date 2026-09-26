@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK Coffee entity
+// Ironoc SDK Coffee entity
 
 require_once __DIR__ . '/../utility/struct/Struct.php';
 require_once __DIR__ . '/../core/Helpers.php';
@@ -83,7 +83,7 @@ class CoffeeEntity
     public function data_set($args): void
     {
         if ($args) {
-            $this->_data = GithubProjectIssuesHelpers::to_map(Struct::clone($args)) ?? [];
+            $this->_data = IronocHelpers::to_map(Struct::clone($args)) ?? [];
             ($this->_utility->feature_hook)($this->_entctx, "SetData");
         }
     }
@@ -103,7 +103,7 @@ class CoffeeEntity
     public function match_set($args): void
     {
         if ($args) {
-            $this->_match = GithubProjectIssuesHelpers::to_map(Struct::clone($args)) ?? [];
+            $this->_match = IronocHelpers::to_map(Struct::clone($args)) ?? [];
             ($this->_utility->feature_hook)($this->_entctx, "SetMatch");
         }
     }
@@ -251,7 +251,7 @@ class CoffeeEntity
      *   of Coffee fields) as an assoc-array; CoffeeListMatch names the shape.
      * @param mixed $ctrl Optional per-call control overrides.
      * @return Coffee[]|array A list of Coffee items as assoc-arrays at
-     *   the SDK boundary; throws GithubProjectIssuesError on failure (item-5 convention).
+     *   the SDK boundary; throws IronocError on failure (item-5 convention).
      */
     public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
@@ -285,7 +285,7 @@ class CoffeeEntity
      *   a typed CoffeeUpdateData names the shape.
      * @param mixed $ctrl Optional per-call control overrides.
      * @return Coffee|array The updated Coffee as an assoc-array at the
-     *   SDK boundary; throws GithubProjectIssuesError on failure (item-5 convention).
+     *   SDK boundary; throws IronocError on failure (item-5 convention).
      */
     public function update(?array $reqdata = null, $ctrl = null): mixed
     {
@@ -304,7 +304,7 @@ class CoffeeEntity
                     $this->_match = $ctx->result->resmatch;
                 }
                 if ($ctx->result->resdata) {
-                    $this->_data = GithubProjectIssuesHelpers::to_map(Struct::clone($ctx->result->resdata)) ?? [];
+                    $this->_data = IronocHelpers::to_map(Struct::clone($ctx->result->resdata)) ?? [];
                 }
             }
         });

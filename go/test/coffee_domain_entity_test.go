@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/github-project-issues-sdk/go"
-	"github.com/voxgig-sdk/github-project-issues-sdk/go/core"
+	sdk "github.com/voxgig-sdk/ironoc-sdk/go"
+	"github.com/voxgig-sdk/ironoc-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/github-project-issues-sdk/go/utility/struct"
+	vs "github.com/voxgig-sdk/ironoc-sdk/go/utility/struct"
 )
 
 func TestCoffeeDomainEntity(t *testing.T) {
@@ -92,13 +92,13 @@ func TestCoffeeDomainEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set GITHUB_PROJECT_ISSUES_TEST_COFFEE_DOMAIN_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set IRONOC_TEST_COFFEE_DOMAIN_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		coffeeDomainRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.coffee_domain", setup.data)))
+		coffeeDomainRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.coffee_domain")))
 		var coffeeDomainRef01Data map[string]any
 		if len(coffeeDomainRef01DataRaw) > 0 {
 			coffeeDomainRef01Data = core.ToMapAny(coffeeDomainRef01DataRaw[0][1])
@@ -147,7 +147,7 @@ func coffee_domainBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"coffee_domain01", "coffee_domain02", "coffee_domain03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -160,36 +160,48 @@ func coffee_domainBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("GITHUB_PROJECT_ISSUES_TEST_COFFEE_DOMAIN_ENTID")
+	entidEnvRaw := os.Getenv("IRONOC_TEST_COFFEE_DOMAIN_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"GITHUB_PROJECT_ISSUES_TEST_COFFEE_DOMAIN_ENTID": idmap,
-		"GITHUB_PROJECT_ISSUES_TEST_LIVE":      "FALSE",
-		"GITHUB_PROJECT_ISSUES_TEST_EXPLAIN":   "FALSE",
+		"IRONOC_TEST_COFFEE_DOMAIN_ENTID": idmap,
+		"IRONOC_TEST_LIVE":      "FALSE",
+		"IRONOC_TEST_EXPLAIN":   "FALSE",
 	})
 
-	idmapResolved := core.ToMapAny(env["GITHUB_PROJECT_ISSUES_TEST_COFFEE_DOMAIN_ENTID"])
+	idmapResolved := core.ToMapAny(env["IRONOC_TEST_COFFEE_DOMAIN_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] == "TRUE" {
+	if env["IRONOC_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 			},
-			extra,
+			extraOpts,
 		})
-		client = sdk.NewGithubProjectIssuesSDK(core.ToMapAny(mergedOpts))
+		client = sdk.NewIronocSDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["GITHUB_PROJECT_ISSUES_TEST_LIVE"] == "TRUE"
+	live := env["IRONOC_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["GITHUB_PROJECT_ISSUES_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["IRONOC_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

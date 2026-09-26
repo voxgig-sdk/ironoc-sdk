@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: result_headers
+// Ironoc SDK utility: result_headers
 
-class GithubProjectIssuesResultHeaders
+class IronocResultHeaders
 {
-    public static function call(GithubProjectIssuesContext $ctx): ?GithubProjectIssuesResult
+    public static function call(IronocContext $ctx): ?IronocResult
     {
         $response = $ctx->response;
         $result = $ctx->result;

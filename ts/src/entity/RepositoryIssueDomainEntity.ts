@@ -1,11 +1,11 @@
 
 import { inspect } from 'node:util'
 
-import { GithubProjectIssuesEntityBase } from '../GithubProjectIssuesEntityBase'
+import { IronocEntityBase } from '../IronocEntityBase'
 
 import type {
-  GithubProjectIssuesSDK,
-} from '../GithubProjectIssuesSDK'
+  IronocSDK,
+} from '../IronocSDK'
 
 
 import type {
@@ -17,12 +17,11 @@ import type {
 import type {
   RepositoryIssueDomain,
   RepositoryIssueDomainListMatch,
-} from '../GithubProjectIssuesTypes'
+} from '../IronocTypes'
 
-// TODO: needs Entity superclass
-class RepositoryIssueDomainEntity extends GithubProjectIssuesEntityBase<RepositoryIssueDomain> {
+class RepositoryIssueDomainEntity extends IronocEntityBase<RepositoryIssueDomain> {
 
-  constructor(client: GithubProjectIssuesSDK, entopts: any) {
+  constructor(client: IronocSDK, entopts: any) {
     super(client, entopts)
     this.name = 'repository_issue_domain'
     this.name_ = 'repository_issue_domain'

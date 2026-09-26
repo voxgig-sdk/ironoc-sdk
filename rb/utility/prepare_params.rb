@@ -1,6 +1,6 @@
-# GithubProjectIssues SDK utility: prepare_params
+# Ironoc SDK utility: prepare_params
 require_relative 'struct/voxgig_struct'
-module GithubProjectIssuesUtilities
+module IronocUtilities
   PrepareParams = ->(ctx) {
     utility = ctx.utility
     point = ctx.point

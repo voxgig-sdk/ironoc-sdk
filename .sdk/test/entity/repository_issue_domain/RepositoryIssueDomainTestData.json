@@ -40,5 +40,12 @@
         "title": "scc"
       }
     }
+  },
+  "requests": {
+    "GET /api/get-repo-issue/{username}/{repository}/": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
   }
 }

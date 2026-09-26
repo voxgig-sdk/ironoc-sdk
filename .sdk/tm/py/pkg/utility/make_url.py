@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK utility: make_url
+# Ironoc SDK utility: make_url
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs

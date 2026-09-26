@@ -1,0 +1,107 @@
+# Entity: repository_issue_domain
+
+main: kit: entity: repository_issue_domain: {
+
+  alias: field: {}
+
+  fields: {
+    body: {
+      h: "Body"
+      n: "body"
+      r: false
+      sh: "Issue Content & Description."
+      t: "`$STRING`"
+    }
+    labels: {
+      h: "Labels"
+      n: "labels"
+      r: false
+      sh: "Issue Labels / Tags."
+      t: "`$ARRAY`"
+    }
+    number: {
+      h: "Number"
+      n: "number"
+      r: true
+      sh: "Project Issue Number."
+      t: "`$STRING`"
+    }
+    state: {
+      h: "State"
+      n: "state"
+      r: false
+      sh: "Issue State."
+      t: "`$STRING`"
+    }
+    title: {
+      h: "Title"
+      n: "title"
+      r: true
+      sh: "Issue Title Text."
+      t: "`$STRING`"
+    }
+  }
+
+  name: "repository_issue_domain"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /api/get-repo-issue/{username}/{repository}/"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "repository"
+                or: "repository"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "username"
+                or: "username"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/get-repo-issue/{username}/{repository}/"
+          q: {
+            exist: [
+              "repository"
+              "username"
+            ]
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "get-repo-issue"
+            }
+            {
+              var: "username"
+            }
+            {
+              var: "repository"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

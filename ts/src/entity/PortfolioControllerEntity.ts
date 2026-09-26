@@ -1,11 +1,11 @@
 
 import { inspect } from 'node:util'
 
-import { GithubProjectIssuesEntityBase } from '../GithubProjectIssuesEntityBase'
+import { IronocEntityBase } from '../IronocEntityBase'
 
 import type {
-  GithubProjectIssuesSDK,
-} from '../GithubProjectIssuesSDK'
+  IronocSDK,
+} from '../IronocSDK'
 
 
 import type {
@@ -17,12 +17,11 @@ import type {
 import type {
   PortfolioController,
   PortfolioControllerListMatch,
-} from '../GithubProjectIssuesTypes'
+} from '../IronocTypes'
 
-// TODO: needs Entity superclass
-class PortfolioControllerEntity extends GithubProjectIssuesEntityBase<PortfolioController> {
+class PortfolioControllerEntity extends IronocEntityBase<PortfolioController> {
 
-  constructor(client: GithubProjectIssuesSDK, entopts: any) {
+  constructor(client: IronocSDK, entopts: any) {
     super(client, entopts)
     this.name = 'portfolio_controller'
     this.name_ = 'portfolio_controller'

@@ -1,6 +1,6 @@
-# GithubProjectIssues SDK base feature
+# Ironoc SDK base feature
 
-class GithubProjectIssuesBaseFeature
+class IronocBaseFeature
   attr_accessor :version, :name, :active
 
   # Positions this feature when added via the client `extend` option:

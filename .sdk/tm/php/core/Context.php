@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK context
+// Ironoc SDK context
 
 require_once __DIR__ . '/Control.php';
 require_once __DIR__ . '/Operation.php';
@@ -11,13 +11,13 @@ require_once __DIR__ . '/Response.php';
 require_once __DIR__ . '/Error.php';
 require_once __DIR__ . '/Helpers.php';
 
-class GithubProjectIssuesContext
+class IronocContext
 {
     public string $id;
     public array $out;
     public mixed $client;
-    public ?GithubProjectIssuesUtility $utility;
-    public GithubProjectIssuesControl $ctrl;
+    public ?IronocUtility $utility;
+    public IronocControl $ctrl;
     public array $meta;
     public ?array $config;
     public ?array $entopts;
@@ -30,21 +30,21 @@ class GithubProjectIssuesContext
     public array $match;
     public array $reqmatch;
     public ?array $point;
-    public ?GithubProjectIssuesSpec $spec;
-    public ?GithubProjectIssuesResult $result;
-    public ?GithubProjectIssuesResponse $response;
-    public GithubProjectIssuesOperation $op;
+    public ?IronocSpec $spec;
+    public ?IronocResult $result;
+    public ?IronocResponse $response;
+    public IronocOperation $op;
 
     public function __construct(array $ctxmap = [], ?self $basectx = null)
     {
         $this->id = 'C' . random_int(10000000, 99999999);
         $this->out = [];
 
-        $this->client = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'client') ?? ($basectx ? $basectx->client : null);
-        $this->utility = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'utility') ?? ($basectx ? $basectx->utility : null);
+        $this->client = IronocHelpers::get_ctx_prop($ctxmap, 'client') ?? ($basectx ? $basectx->client : null);
+        $this->utility = IronocHelpers::get_ctx_prop($ctxmap, 'utility') ?? ($basectx ? $basectx->utility : null);
 
-        $this->ctrl = new GithubProjectIssuesControl();
-        $ctrl_raw = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'ctrl');
+        $this->ctrl = new IronocControl();
+        $ctrl_raw = IronocHelpers::get_ctx_prop($ctxmap, 'ctrl');
         if (is_array($ctrl_raw)) {
             if (array_key_exists('throw', $ctrl_raw)) {
                 $this->ctrl->throw_err = $ctrl_raw['throw'];
@@ -55,53 +55,57 @@ class GithubProjectIssuesContext
             if (array_key_exists('actor', $ctrl_raw)) {
                 $this->ctrl->actor = $ctrl_raw['actor'];
             }
-        } elseif ($basectx !== null && $basectx->ctrl !== null) {
+            if (isset($ctrl_raw['paging']) && is_array($ctrl_raw['paging'])) {
+                $this->ctrl->paging = $ctrl_raw['paging'];
+            }
+        } elseif ($basectx !== null && $basectx->ctrl !== null
+            && IronocHelpers::get_ctx_prop($ctxmap, "opname") === null) {
             $this->ctrl = $basectx->ctrl;
         }
 
-        $m = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'meta');
+        $m = IronocHelpers::get_ctx_prop($ctxmap, 'meta');
         $this->meta = is_array($m) ? $m : ($basectx ? $basectx->meta ?? [] : []);
 
-        $cfg = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'config');
+        $cfg = IronocHelpers::get_ctx_prop($ctxmap, 'config');
         $this->config = is_array($cfg) ? $cfg : ($basectx ? $basectx->config : null);
 
-        $eo = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'entopts');
+        $eo = IronocHelpers::get_ctx_prop($ctxmap, 'entopts');
         $this->entopts = is_array($eo) ? $eo : ($basectx ? $basectx->entopts : null);
 
-        $o = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'options');
+        $o = IronocHelpers::get_ctx_prop($ctxmap, 'options');
         $this->options = is_array($o) ? $o : ($basectx ? $basectx->options : null);
 
-        $e = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'entity');
+        $e = IronocHelpers::get_ctx_prop($ctxmap, 'entity');
         $this->entity = $e ?? ($basectx ? $basectx->entity : null);
 
-        $s = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'shared');
+        $s = IronocHelpers::get_ctx_prop($ctxmap, 'shared');
         $this->shared = is_array($s) ? $s : ($basectx ? $basectx->shared : null);
 
-        $om = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'opmap');
+        $om = IronocHelpers::get_ctx_prop($ctxmap, 'opmap');
         $this->opmap = is_array($om) ? $om : ($basectx ? $basectx->opmap ?? [] : []);
 
-        $this->data = GithubProjectIssuesHelpers::to_map(GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'data')) ?? [];
-        $this->reqdata = GithubProjectIssuesHelpers::to_map(GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'reqdata')) ?? [];
-        $this->match = GithubProjectIssuesHelpers::to_map(GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'match')) ?? [];
-        $this->reqmatch = GithubProjectIssuesHelpers::to_map(GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'reqmatch')) ?? [];
+        $this->data = IronocHelpers::to_map(IronocHelpers::get_ctx_prop($ctxmap, 'data')) ?? [];
+        $this->reqdata = IronocHelpers::to_map(IronocHelpers::get_ctx_prop($ctxmap, 'reqdata')) ?? [];
+        $this->match = IronocHelpers::to_map(IronocHelpers::get_ctx_prop($ctxmap, 'match')) ?? [];
+        $this->reqmatch = IronocHelpers::to_map(IronocHelpers::get_ctx_prop($ctxmap, 'reqmatch')) ?? [];
 
-        $pt = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'point');
+        $pt = IronocHelpers::get_ctx_prop($ctxmap, 'point');
         $this->point = is_array($pt) ? $pt : ($basectx ? $basectx->point : null);
 
-        $sp = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'spec');
-        $this->spec = ($sp instanceof GithubProjectIssuesSpec) ? $sp : ($basectx ? $basectx->spec : null);
+        $sp = IronocHelpers::get_ctx_prop($ctxmap, 'spec');
+        $this->spec = ($sp instanceof IronocSpec) ? $sp : ($basectx ? $basectx->spec : null);
 
-        $r = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'result');
-        $this->result = ($r instanceof GithubProjectIssuesResult) ? $r : ($basectx ? $basectx->result : null);
+        $r = IronocHelpers::get_ctx_prop($ctxmap, 'result');
+        $this->result = ($r instanceof IronocResult) ? $r : ($basectx ? $basectx->result : null);
 
-        $rp = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'response');
-        $this->response = ($rp instanceof GithubProjectIssuesResponse) ? $rp : ($basectx ? $basectx->response : null);
+        $rp = IronocHelpers::get_ctx_prop($ctxmap, 'response');
+        $this->response = ($rp instanceof IronocResponse) ? $rp : ($basectx ? $basectx->response : null);
 
-        $opname = GithubProjectIssuesHelpers::get_ctx_prop($ctxmap, 'opname') ?? '';
+        $opname = IronocHelpers::get_ctx_prop($ctxmap, 'opname') ?? '';
         $this->op = $this->resolve_op($opname);
     }
 
-    public function resolve_op(string $opname): GithubProjectIssuesOperation
+    public function resolve_op(string $opname): IronocOperation
     {
         // Cache key is `<entity>:<opname>` so two entities with the same op
         // (e.g. both have a "list") get distinct cached Operations. Keying
@@ -116,7 +120,7 @@ class GithubProjectIssuesContext
             return $this->opmap[$cacheKey];
         }
         if ($opname === '') {
-            return new GithubProjectIssuesOperation([]);
+            return new IronocOperation([]);
         }
 
         $opcfg = \Voxgig\Struct\Struct::getpath($this->config, "entity.{$entname}.op.{$opname}");
@@ -131,7 +135,7 @@ class GithubProjectIssuesContext
             }
         }
 
-        $op = new GithubProjectIssuesOperation([
+        $op = new IronocOperation([
             'entity' => $entname,
             'name' => $opname,
             'input' => $input,
@@ -141,8 +145,8 @@ class GithubProjectIssuesContext
         return $op;
     }
 
-    public function make_error(string $code, string $msg): GithubProjectIssuesError
+    public function make_error(string $code, string $msg): IronocError
     {
-        return new GithubProjectIssuesError($code, $msg, $this);
+        return new IronocError($code, $msg, $this);
     }
 }

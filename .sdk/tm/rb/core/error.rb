@@ -1,12 +1,12 @@
-# GithubProjectIssues SDK error
+# Ironoc SDK error
 
-class GithubProjectIssuesError < StandardError
+class IronocError < StandardError
   attr_accessor :is_sdk_error, :sdk, :code, :msg, :ctx, :result, :spec, :status
 
   def initialize(code = "", msg = "", ctx = nil)
     super(msg)
     @is_sdk_error = true
-    @sdk = "GithubProjectIssues"
+    @sdk = "Ironoc"
     @code = code
     @msg = msg
     @ctx = ctx

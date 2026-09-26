@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the generated GithubProjectIssues SDK are documented here.
+All notable changes to the generated Ironoc SDK are documented here.
 This project follows [Keep a Changelog](https://keepachangelog.com) and
 [Semantic Versioning](https://semver.org).
 
@@ -8,6 +8,6 @@ This project follows [Keep a Changelog](https://keepachangelog.com) and
 
 ## [0.0.1]
 
-- Initial generated release of the GithubProjectIssues SDK (TypeScript, Python, PHP, Go,
+- Initial generated release of the Ironoc SDK (TypeScript, Python, PHP, Go,
   Ruby, and Lua, plus CLI and MCP surfaces), generated from the upstream
   OpenAPI specification by @voxgig/sdkgen.

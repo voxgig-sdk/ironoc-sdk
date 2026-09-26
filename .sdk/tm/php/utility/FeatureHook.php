@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: feature_hook
+// Ironoc SDK utility: feature_hook
 
-class GithubProjectIssuesFeatureHook
+class IronocFeatureHook
 {
-    public static function call(GithubProjectIssuesContext $ctx, string $name): void
+    public static function call(IronocContext $ctx, string $name): void
     {
         if (!$ctx->client) {
             return;

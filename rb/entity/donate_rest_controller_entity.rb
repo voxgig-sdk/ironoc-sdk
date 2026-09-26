@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK DonateRestController entity
+# Ironoc SDK DonateRestController entity
 
 require_relative '../utility/struct/voxgig_struct'
 require_relative '../core/helpers'
@@ -53,7 +53,7 @@ class DonateRestControllerEntity
 
   def data_set(args)
     if args
-      @_data = GithubProjectIssuesHelpers.to_map(VoxgigStruct.clone(args)) || {}
+      @_data = IronocHelpers.to_map(VoxgigStruct.clone(args)) || {}
       @_utility.feature_hook.call(@_entctx, "SetData")
     end
   end
@@ -66,7 +66,7 @@ class DonateRestControllerEntity
 
   def match_set(args)
     if args
-      @_match = GithubProjectIssuesHelpers.to_map(VoxgigStruct.clone(args)) || {}
+      @_match = IronocHelpers.to_map(VoxgigStruct.clone(args)) || {}
       @_utility.feature_hook.call(@_entctx, "SetMatch")
     end
   end
@@ -178,7 +178,7 @@ class DonateRestControllerEntity
   # @param reqmatch [DonateRestControllerListMatch, Hash, nil] match filter (any subset of
   #   DonateRestController fields); defaults to nil, treated as an empty match that lists all.
   # @param ctrl [Object, nil] optional per-call control
-  # @return [Array<DonateRestController>, Array] the matching DonateRestController items; raises GithubProjectIssuesError on failure
+  # @return [Array<DonateRestController>, Array] the matching DonateRestController items; raises IronocError on failure
   def list(reqmatch = nil, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

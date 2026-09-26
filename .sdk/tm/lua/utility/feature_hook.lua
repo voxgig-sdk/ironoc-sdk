@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: feature_hook
+-- Ironoc SDK utility: feature_hook
 
 local function feature_hook_util(ctx, name)
   local client = ctx.client

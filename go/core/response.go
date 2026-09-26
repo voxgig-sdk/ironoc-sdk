@@ -1,7 +1,7 @@
 package core
 
 import (
-	vs "github.com/voxgig-sdk/github-project-issues-sdk/go/utility/struct"
+	vs "github.com/voxgig-sdk/ironoc-sdk/go/utility/struct"
 )
 
 type Response struct {

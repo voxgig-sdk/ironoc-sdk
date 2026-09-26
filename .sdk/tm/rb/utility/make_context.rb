@@ -1,7 +1,7 @@
-# GithubProjectIssues SDK utility: make_context
+# Ironoc SDK utility: make_context
 require_relative '../core/context'
-module GithubProjectIssuesUtilities
+module IronocUtilities
   MakeContext = ->(ctxmap, basectx) {
-    GithubProjectIssuesContext.new(ctxmap, basectx)
+    IronocContext.new(ctxmap, basectx)
   }
 end

@@ -1,6 +1,6 @@
-# GithubProjectIssues SDK utility: prepare_path
+# Ironoc SDK utility: prepare_path
 require_relative 'struct/voxgig_struct'
-module GithubProjectIssuesUtilities
+module IronocUtilities
   PreparePath = ->(ctx) {
     point = ctx.point
     parts = []

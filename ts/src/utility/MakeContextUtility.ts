@@ -1,5 +1,5 @@
 
-import { GithubProjectIssuesSDK } from '../GithubProjectIssuesSDK'
+import { IronocSDK } from '../IronocSDK'
 
 import { Utility } from './Utility'
 

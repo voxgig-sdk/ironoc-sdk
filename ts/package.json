@@ -1,5 +1,5 @@
 {
-  "name": "@voxgig-sdk/github-project-issues",
+  "name": "@voxgig-sdk/ironoc-sdk",
   "version": "0.0.1",
   "description": "Unofficial generated TypeScript SDK for the iRonoc public API. Not affiliated with or endorsed by the upstream API provider.",
   "keywords": [
@@ -8,22 +8,23 @@
     "generated-sdk",
     "openapi",
     "api-client",
-    "github-project-issues"
+    "ironoc"
   ],
-  "homepage": "https://github.com/voxgig-sdk/github-project-issues-sdk#readme",
+  "homepage": "https://github.com/voxgig-sdk/ironoc-sdk#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/voxgig-sdk/github-project-issues-sdk.git"
+    "url": "git+https://github.com/voxgig-sdk/ironoc-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/voxgig-sdk/github-project-issues-sdk/issues"
+    "url": "https://github.com/voxgig-sdk/ironoc-sdk/issues"
   },
-  "main": "dist/GithubProjectIssuesSDK.js",
+  "main": "dist/IronocSDK.js",
   "type": "commonjs",
-  "types": "dist/GithubProjectIssuesSDK.d.ts",
+  "types": "dist/IronocSDK.d.ts",
   "files": [
     "dist",
-    "src"
+    "src",
+    "README.md"
   ],
   "scripts": {
     "pretest": "npm run build",
@@ -46,7 +47,6 @@
   "peerDependencies": {},
   "devDependencies": {
     "@types/node": "^25.6.0",
-    "dotenv": "^17.4.2",
     "typescript": "^5.9.3"
   }
 }

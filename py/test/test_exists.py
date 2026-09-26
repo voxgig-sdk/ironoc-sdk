@@ -1,11 +1,11 @@
-# GithubProjectIssues SDK exists test
+# Ironoc SDK exists test
 
 import pytest
-from githubprojectissues_sdk import GithubProjectIssuesSDK
+from ironoc_sdk import IronocSDK
 
 
 class TestExists:
 
     def test_should_create_test_sdk(self):
-        testsdk = GithubProjectIssuesSDK.test(None, None)
+        testsdk = IronocSDK.test(None, None)
         assert testsdk is not None

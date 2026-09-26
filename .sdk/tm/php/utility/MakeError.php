@@ -1,27 +1,27 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: make_error
+// Ironoc SDK utility: make_error
 
 require_once __DIR__ . '/../core/Operation.php';
 require_once __DIR__ . '/../core/Result.php';
 require_once __DIR__ . '/../core/Error.php';
 
-class GithubProjectIssuesMakeError
+class IronocMakeError
 {
-    public static function call(?GithubProjectIssuesContext $ctx, mixed $err): mixed
+    public static function call(?IronocContext $ctx, mixed $err): mixed
     {
         if ($ctx === null) {
             require_once __DIR__ . '/../core/Context.php';
-            $ctx = new GithubProjectIssuesContext([], null);
+            $ctx = new IronocContext([], null);
         }
-        $op = $ctx->op ?? new GithubProjectIssuesOperation([]);
+        $op = $ctx->op ?? new IronocOperation([]);
         $opname = $op->name;
         if ($opname === '' || $opname === '_') {
             $opname = 'unknown operation';
         }
 
-        $result = $ctx->result ?? new GithubProjectIssuesResult([]);
+        $result = $ctx->result ?? new IronocResult([]);
         $result->ok = false;
 
         if ($err === null) {
@@ -31,8 +31,8 @@ class GithubProjectIssuesMakeError
             $err = $ctx->make_error('unknown', 'unknown error');
         }
 
-        $errmsg = ($err instanceof GithubProjectIssuesError) ? $err->msg : (string)$err;
-        $msg = "GithubProjectIssuesSDK: {$opname}: {$errmsg}";
+        $errmsg = ($err instanceof IronocError) ? $err->msg : (string)$err;
+        $msg = "IronocSDK: {$opname}: {$errmsg}";
         $msg = ($ctx->utility->clean)($ctx, $msg);
 
         $result->err = null;
@@ -42,7 +42,7 @@ class GithubProjectIssuesMakeError
             $ctx->ctrl->explain['err'] = ['message' => $msg];
         }
 
-        $sdk_err = new GithubProjectIssuesError('', $msg, $ctx);
+        $sdk_err = new IronocError('', $msg, $ctx);
         $sdk_err->result = ($ctx->utility->clean)($ctx, $result);
         $sdk_err->spec = ($ctx->utility->clean)($ctx, $spec);
 
@@ -50,7 +50,7 @@ class GithubProjectIssuesMakeError
         // on `err->status` / `err->notFound()` rather than reaching into
         // `err->result`.
         $sdk_err->status = null === $result->status ? -1 : (int)$result->status;
-        if ($err instanceof GithubProjectIssuesError) {
+        if ($err instanceof IronocError) {
             $sdk_err->sdk_code = $err->sdk_code;
         }
 

@@ -1,4 +1,4 @@
-module github.com/voxgig-sdk/github-project-issues-sdk/go
+module github.com/voxgig-sdk/ironoc-sdk/go
 
 go 1.21
 

@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: done
+-- Ironoc SDK utility: done
 
 local function done_util(ctx)
   if ctx.ctrl.explain ~= nil then

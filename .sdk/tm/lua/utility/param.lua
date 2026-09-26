@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: param
+-- Ironoc SDK utility: param
 
 local vs = require("utility.struct.struct")
 local helpers = require("core.helpers")

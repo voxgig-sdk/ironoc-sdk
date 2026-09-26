@@ -1,13 +1,13 @@
-# GithubProjectIssues SDK test runner
+# Ironoc SDK test runner
 
 from __future__ import annotations
 import os
 import json
 
-from githubprojectissues_sdk.utility.voxgig_struct import voxgig_struct as vs
+from ironoc_sdk.utility.voxgig_struct import voxgig_struct as vs
 
 
-class GithubProjectIssuesTestRunner:
+class IronocTestRunner:
     _env = {}
 
     @staticmethod
@@ -27,23 +27,23 @@ class GithubProjectIssuesTestRunner:
                 continue
             key = line[:eq_idx].strip()
             val = line[eq_idx + 1:].strip()
-            GithubProjectIssuesTestRunner._env[key] = val
+            IronocTestRunner._env[key] = val
 
     @staticmethod
     def getenv(key):
-        val = GithubProjectIssuesTestRunner._env.get(key)
+        val = IronocTestRunner._env.get(key)
         if val is not None:
             return val
         return os.environ.get(key)
 
     @staticmethod
     def env_override(m):
-        live = GithubProjectIssuesTestRunner.getenv("GITHUB_PROJECT_ISSUES_TEST_LIVE")
-        override = GithubProjectIssuesTestRunner.getenv("GITHUB_PROJECT_ISSUES_TEST_OVERRIDE")
+        live = IronocTestRunner.getenv("IRONOC_TEST_LIVE")
+        override = IronocTestRunner.getenv("IRONOC_TEST_OVERRIDE")
 
         if live == "TRUE" or override == "TRUE":
             for key in list(m.keys()):
-                envval = GithubProjectIssuesTestRunner.getenv(key)
+                envval = IronocTestRunner.getenv(key)
                 if envval is not None and envval != "":
                     envval = envval.strip()
                     if envval.startswith("{"):
@@ -56,9 +56,9 @@ class GithubProjectIssuesTestRunner:
                             pass
                     m[key] = envval
 
-        explain = GithubProjectIssuesTestRunner.getenv("GITHUB_PROJECT_ISSUES_TEST_EXPLAIN")
+        explain = IronocTestRunner.getenv("IRONOC_TEST_EXPLAIN")
         if explain is not None and explain != "":
-            m["GITHUB_PROJECT_ISSUES_TEST_EXPLAIN"] = explain
+            m["IRONOC_TEST_EXPLAIN"] = explain
 
         return m
 
@@ -70,26 +70,26 @@ class GithubProjectIssuesTestRunner:
         Returns a dict with the empty-skip default if the file is missing or invalid
         so tests never crash on a bad config.
         """
-        if GithubProjectIssuesTestRunner._test_control is not None:
-            return GithubProjectIssuesTestRunner._test_control
+        if IronocTestRunner._test_control is not None:
+            return IronocTestRunner._test_control
         ctrl_path = os.path.join(os.path.dirname(__file__), "sdk-test-control.json")
         try:
             with open(ctrl_path, "r") as f:
-                GithubProjectIssuesTestRunner._test_control = json.load(f)
+                IronocTestRunner._test_control = json.load(f)
         except (FileNotFoundError, IOError, ValueError):
-            GithubProjectIssuesTestRunner._test_control = {
+            IronocTestRunner._test_control = {
                 "version": 1,
                 "test": {"skip": {
                     "live": {"direct": [], "entityOp": []},
                     "unit": {"direct": [], "entityOp": []},
                 }},
             }
-        return GithubProjectIssuesTestRunner._test_control
+        return IronocTestRunner._test_control
 
     @staticmethod
     def is_control_skipped(kind, name, mode):
         """Check sdk-test-control.json for a skip entry. Returns (skip, reason)."""
-        ctrl = GithubProjectIssuesTestRunner.load_test_control()
+        ctrl = IronocTestRunner.load_test_control()
         skip = ctrl.get("test", {}).get("skip", {}).get(mode, {}) or {}
         items = skip.get(kind, []) or []
         for item in items:
@@ -102,9 +102,37 @@ class GithubProjectIssuesTestRunner:
         return False, None
 
     @staticmethod
+    def live_client_options():
+        """Extra SDK options every LIVE client is constructed with, from
+        sdk-test-control.json `test.client.options`.
+
+        The generated live client knows two things: the base URL (from the
+        spec) and the credential (from the environment). Everything else
+        about how a particular API wants to be talked to - which features to
+        switch on, and with what settings - is a property of THAT API, known
+        to the project and to nothing in the toolchain.
+
+        Merged UNDER the generated fields, so the suite's own
+        base/apikey/server values win: this ADDS to the live client, it does
+        not redirect it.
+
+        Reserved fields are stripped HERE rather than at each merge site:
+        the generated dict only names a field when the model calls for one,
+        so a "base" in this block would face no competing value and would
+        silently redirect the whole suite - credential included - to another
+        host.
+        """
+        ctrl = IronocTestRunner.load_test_control()
+        opts = ctrl.get("test", {}).get("client", {}).get("options")
+        if not isinstance(opts, dict):
+            return {}
+        reserved = ("base", "prefix", "suffix", "server", "apikey", "secret")
+        return {k: v for k, v in opts.items() if k not in reserved}
+
+    @staticmethod
     def live_delay_ms():
         """Per-test live pacing delay (ms); default 500."""
-        ctrl = GithubProjectIssuesTestRunner.load_test_control()
+        ctrl = IronocTestRunner.load_test_control()
         v = ctrl.get("test", {}).get("live", {}).get("delayMs")
         if isinstance(v, int) and v >= 0:
             return v
@@ -138,28 +166,32 @@ class GithubProjectIssuesTestRunner:
 
 # Module-level convenience functions.
 def load_env_local():
-    GithubProjectIssuesTestRunner.load_env_local()
+    IronocTestRunner.load_env_local()
 
 
 def env_override(m):
-    return GithubProjectIssuesTestRunner.env_override(m)
+    return IronocTestRunner.env_override(m)
 
 
 def entity_data(v):
-    return GithubProjectIssuesTestRunner.entity_data(v)
+    return IronocTestRunner.entity_data(v)
 
 
 def entity_list_to_data(lst):
-    return GithubProjectIssuesTestRunner.entity_list_to_data(lst)
+    return IronocTestRunner.entity_list_to_data(lst)
 
 
 def is_control_skipped(kind, name, mode):
-    return GithubProjectIssuesTestRunner.is_control_skipped(kind, name, mode)
+    return IronocTestRunner.is_control_skipped(kind, name, mode)
 
 
 def load_test_control():
-    return GithubProjectIssuesTestRunner.load_test_control()
+    return IronocTestRunner.load_test_control()
+
+
+def live_client_options():
+    return IronocTestRunner.live_client_options()
 
 
 def live_delay_ms():
-    return GithubProjectIssuesTestRunner.live_delay_ms()
+    return IronocTestRunner.live_delay_ms()

@@ -1,14 +1,14 @@
-# GithubProjectIssues SDK utility: transform_response
+# Ironoc SDK utility: transform_response
 require_relative 'struct/voxgig_struct'
 require_relative '../core/helpers'
-module GithubProjectIssuesUtilities
+module IronocUtilities
   TransformResponse = ->(ctx) {
     spec = ctx.spec
     result = ctx.result
     point = ctx.point
     spec.step = "resform" if spec
     return nil if result.nil? || !result.ok
-    transform = GithubProjectIssuesHelpers.to_map(VoxgigStruct.getprop(point, "transform"))
+    transform = IronocHelpers.to_map(VoxgigStruct.getprop(point, "transform"))
     return nil unless transform
     resform = VoxgigStruct.getprop(transform, "res")
     return nil unless resform

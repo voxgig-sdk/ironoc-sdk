@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK utility: make_point
+# Ironoc SDK utility: make_point
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs

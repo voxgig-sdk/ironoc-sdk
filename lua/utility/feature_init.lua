@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: feature_init
+-- Ironoc SDK utility: feature_init
 
 local vs = require("utility.struct.struct")
 

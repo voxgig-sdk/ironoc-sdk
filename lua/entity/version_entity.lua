@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK Version entity
+-- Ironoc SDK Version entity
 
 local vs = require("utility.struct.struct")
 local helpers = require("core.helpers")

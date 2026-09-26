@@ -1,6 +1,6 @@
-# GithubProjectIssues SDK helpers
+# Ironoc SDK helpers
 
-module GithubProjectIssuesHelpers
+module IronocHelpers
   def self.to_map(v)
     v.is_a?(Hash) ? v : nil
   end

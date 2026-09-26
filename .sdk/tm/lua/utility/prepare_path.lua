@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: prepare_path
+-- Ironoc SDK utility: prepare_path
 
 local vs = require("utility.struct.struct")
 

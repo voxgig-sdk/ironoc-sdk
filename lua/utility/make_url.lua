@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: make_url
+-- Ironoc SDK utility: make_url
 
 local vs = require("utility.struct.struct")
 

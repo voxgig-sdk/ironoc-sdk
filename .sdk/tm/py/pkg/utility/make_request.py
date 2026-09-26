@@ -1,8 +1,8 @@
-# GithubProjectIssues SDK utility: make_request
+# Ironoc SDK utility: make_request
 
 from __future__ import annotations
-from projectname_sdk.core.response import GithubProjectIssuesResponse
-from projectname_sdk.core.result import GithubProjectIssuesResult
+from projectname_sdk.core.response import IronocResponse
+from projectname_sdk.core.result import IronocResult
 
 
 def make_request_util(ctx):
@@ -16,8 +16,8 @@ def make_request_util(ctx):
     spec = ctx.spec
     utility = ctx.utility
 
-    response = GithubProjectIssuesResponse({})
-    result = GithubProjectIssuesResult({})
+    response = IronocResponse({})
+    result = IronocResult({})
     ctx.result = result
 
     if spec is None:
@@ -42,11 +42,11 @@ def make_request_util(ctx):
     if fetch_err is not None:
         response.err = fetch_err
     elif fetched is None:
-        response = GithubProjectIssuesResponse({
+        response = IronocResponse({
             "err": ctx.make_error("request_no_response", "response: undefined"),
         })
     elif isinstance(fetched, dict):
-        response = GithubProjectIssuesResponse(fetched)
+        response = IronocResponse(fetched)
     else:
         response.err = ctx.make_error("request_invalid_response", "response: invalid type")
 

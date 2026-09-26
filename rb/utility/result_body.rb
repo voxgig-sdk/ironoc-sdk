@@ -1,5 +1,5 @@
-# GithubProjectIssues SDK utility: result_body
-module GithubProjectIssuesUtilities
+# Ironoc SDK utility: result_body
+module IronocUtilities
   ResultBody = ->(ctx) {
     response = ctx.response
     result = ctx.result

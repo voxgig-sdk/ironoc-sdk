@@ -1,5 +1,5 @@
-# GithubProjectIssues SDK utility: make_response
-module GithubProjectIssuesUtilities
+# Ironoc SDK utility: make_response
+module IronocUtilities
   MakeResponse = ->(ctx) {
     return ctx.out["response"], nil if ctx.out["response"]
     utility = ctx.utility

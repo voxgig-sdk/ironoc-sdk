@@ -1,4 +1,4 @@
-# GithubProjectIssues SDK feature test harness
+# Ironoc SDK feature test harness
 #
 # Offline feature-test harness for the generated SDK.
 #
@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from githubprojectissues_sdk.config import shared_config
-from githubprojectissues_sdk.features import _make_feature
-from githubprojectissues_sdk.core.control import GithubProjectIssuesControl
-from githubprojectissues_sdk.core.error import GithubProjectIssuesError
-from githubprojectissues_sdk.core.result import GithubProjectIssuesResult
-from githubprojectissues_sdk.core.spec import GithubProjectIssuesSpec
+from ironoc_sdk.config import shared_config
+from ironoc_sdk.features import _make_feature
+from ironoc_sdk.core.control import IronocControl
+from ironoc_sdk.core.error import IronocError
+from ironoc_sdk.core.result import IronocResult
+from ironoc_sdk.core.spec import IronocSpec
 
 
 # True when this SDK was generated with the named feature.
@@ -161,7 +161,7 @@ class _Ctx:
         self.client = client
         self.utility = utility
         self.out = {}
-        self.ctrl = ctrl if ctrl is not None else GithubProjectIssuesControl()
+        self.ctrl = ctrl if ctrl is not None else IronocControl()
         self.meta = {}
         self.op = op
         self.entity = entity
@@ -177,7 +177,7 @@ class _Ctx:
         self.shared = {}
 
     def make_error(self, code, msg):
-        return GithubProjectIssuesError(code, msg, self)
+        return IronocError(code, msg, self)
 
 
 # Construct a fake client wired with the given features (in init order) and
@@ -227,7 +227,7 @@ class Harness:
                 method(ctx)
 
     def _populate_result(self, ctx, response, fetch_err):
-        result = GithubProjectIssuesResult({})
+        result = IronocResult({})
         ctx.result = result
 
         if fetch_err is not None:
@@ -272,7 +272,7 @@ class Harness:
         ctx = _Ctx(self.client, self.utility,
                    op=_Op(opname, entity),
                    entity=_Entity(entity),
-                   ctrl=GithubProjectIssuesControl(ctrl or {}))
+                   ctrl=IronocControl(ctrl or {}))
 
         self.feature_hook(ctx, "PostConstructEntity")
 
@@ -288,7 +288,7 @@ class Harness:
                 merged = dict(self.headers)
                 for key, val in (headers or {}).items():
                     merged[key] = val
-                spec = GithubProjectIssuesSpec({
+                spec = IronocSpec({
                     "method": method,
                     "base": self.base,
                     "path": path if path is not None else "/" + entity,

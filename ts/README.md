@@ -1,8 +1,8 @@
-# GithubProjectIssues TypeScript SDK
+# Ironoc TypeScript SDK
 
 
 
-The TypeScript SDK for the GithubProjectIssues API — a type-safe, entity-oriented client with full async/await support.
+The TypeScript SDK for the Ironoc API — a type-safe, entity-oriented client with full async/await support.
 
 The API is exposed as capitalised, semantic **Entities** — e.g.
 `client.Coffee()` — each with a small set of operations (`list`, `load`, `update`)
@@ -17,7 +17,7 @@ predictable and low-friction for both humans and AI agents.
 This package is not yet published to npm. Install it from the GitHub
 release tag (`ts/vX.Y.Z`):
 
-- Releases: [https://github.com/voxgig-sdk/github-project-issues-sdk/releases](https://github.com/voxgig-sdk/github-project-issues-sdk/releases)
+- Releases: [https://github.com/voxgig-sdk/ironoc-sdk/releases](https://github.com/voxgig-sdk/ironoc-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -28,9 +28,9 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { GithubProjectIssuesSDK } from '@voxgig-sdk/github-project-issues'
+import { IronocSDK } from '@voxgig-sdk/ironoc-sdk'
 
-const client = new GithubProjectIssuesSDK()
+const client = new IronocSDK()
 ```
 
 ### 2. List coffee records
@@ -44,22 +44,6 @@ const coffees = await client.Coffee().list()
 
 for (const coffee of coffees) {
   console.log(coffee)
-}
-```
-
-### 3. Load a repositorydetaildomain
-
-RepositoryDetailDomain is nested under username, so provide the `username`.
-`load()` returns the entity directly and throws on failure:
-
-```ts
-try {
-  const repositorydetaildomain = await client.RepositoryDetailDomain().load({
-    username: 'example_username',
-  })
-  console.log(repositorydetaildomain)
-} catch (err) {
-  console.error('load failed:', err)
 }
 ```
 
@@ -146,7 +130,7 @@ console.log(fetchdef.headers)
 Create a mock client for unit testing — no server required:
 
 ```ts
-const client = GithubProjectIssuesSDK.test()
+const client = IronocSDK.test()
 
 const repositoryissuedomain = await client.RepositoryIssueDomain().list()
 // repositoryissuedomain is the entity, populated with mock response data
@@ -157,7 +141,7 @@ console.log(repositoryissuedomain)
 You can also use the instance method:
 
 ```ts
-const client = new GithubProjectIssuesSDK()
+const client = new IronocSDK()
 const testClient = client.tester()
 ```
 
@@ -192,7 +176,7 @@ const logger = {
   },
 }
 
-const client = new GithubProjectIssuesSDK({
+const client = new IronocSDK({
   extend: [logger],
 })
 ```
@@ -202,7 +186,7 @@ const client = new GithubProjectIssuesSDK({
 Create a `.env.local` file at the project root:
 
 ```
-GITHUB_PROJECT_ISSUES_TEST_LIVE=TRUE
+IRONOC_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -211,15 +195,20 @@ Then run:
 cd ts && npm test
 ```
 
+Live entity tests continue independent operations after errors and attempt
+supported cleanup. Their final result reports failures and missing prerequisites
+after the remaining work completes. The model and test inputs determine which
+API operations the generated scenarios cover.
+
 
 ## Reference
 
-### GithubProjectIssuesSDK
+### IronocSDK
 
 #### Constructor
 
 ```ts
-new GithubProjectIssuesSDK(options?: {
+new IronocSDK(options?: {
   base?: string
   prefix?: string
   suffix?: string
@@ -251,13 +240,13 @@ new GithubProjectIssuesSDK(options?: {
 | `RepositoryDetailDomain(data?)` | `RepositoryDetailDomainEntity` | Create a RepositoryDetailDomain entity instance. |
 | `RepositoryIssueDomain(data?)` | `RepositoryIssueDomainEntity` | Create a RepositoryIssueDomain entity instance. |
 | `Version(data?)` | `VersionEntity` | Create a Version entity instance. |
-| `tester(testopts?, sdkopts?)` | `GithubProjectIssuesSDK` | Create a test-mode client instance. |
+| `tester(testopts?, sdkopts?)` | `IronocSDK` | Create a test-mode client instance. |
 
 #### Static methods
 
 | Method | Returns | Description |
 | --- | --- | --- |
-| `GithubProjectIssuesSDK.test(testopts?, sdkopts?)` | `GithubProjectIssuesSDK` | Create a test-mode client. |
+| `IronocSDK.test(testopts?, sdkopts?)` | `IronocSDK` | Create a test-mode client. |
 
 ### Entity interface
 
@@ -273,7 +262,7 @@ All entities share the same interface.
 | `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
 | `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
-| `client` | `client(): GithubProjectIssuesSDK` | Return the parent SDK client. |
+| `client` | `client(): IronocSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
 #### Return values
@@ -579,7 +568,7 @@ const version = await client.Version().load()
 
 ## Features
 
-This SDK ships 1 optional features. Each is **inactive until you
+This SDK ships 4 optional features. Each is **inactive until you
 switch it on**, so an SDK you have not configured behaves exactly as if none of
 them existed — no retries, no cache, no logging, no measurable overhead.
 
@@ -588,17 +577,75 @@ above:
 
 | Feature | What it does |
 |---|---|
-| [`test`](#test) | In-memory mock transport for testing without a live server |
+| [`ratelimit`](#ratelimit) | Rate limiting |
+| [`retry`](#retry) | Retry |
+| [`test`](#test) | Test transport |
+| [`timeout`](#timeout) | Timeout |
+
+> **Order matters for `ratelimit`, `retry`, `timeout`.** These wrap the
+> transport, so each one wraps whatever is already installed: the order you
+> activate them in IS the nesting order. Activating them as an ordered list
+> rather than a map is what fixes that order.
+
+### ratelimit
+
+Rate limiting.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `burst` | `5` |
+| `rate` | `5` |
+
+Set `feature.ratelimit.active` to enable it, then override any of the options above.
+
+`ratelimit` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
+
+### retry
+
+Retry.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `factor` | `2` |
+| `maxDelay` | `2000` |
+| `minDelay` | `50` |
+| `retries` | `2` |
+| `statuses` | `[408, 425, 429, 500, 502, 503, 504]` |
+
+Set `feature.retry.active` to enable it, then override any of the options above.
+
+`retry` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 ### test
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 | Option | Default |
 |---|---|
 | `active` | `false` |
 
 Set `feature.test.active` to enable it, then override any of the options above.
+
+### timeout
+
+Timeout.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `ms` | `30000` |
+
+Set `feature.timeout.active` to enable it, then override any of the options above.
+
+`timeout` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 
 ## Advanced
@@ -639,7 +686,10 @@ a function that receives the context.
 
 The SDK ships with built-in features:
 
-- **TestFeature**: In-memory mock transport for testing without a live server
+- **RatelimitFeature**: Rate limiting
+- **RetryFeature**: Retry
+- **TestFeature**: Test transport
+- **TimeoutFeature**: Timeout
 
 Features are initialized in order. Hooks fire in the order features
 were added, so later features can override earlier ones.
@@ -647,9 +697,9 @@ were added, so later features can override earlier ones.
 ### Module structure
 
 ```
-github-project-issues/
+ironoc/
 ├── src/
-│   ├── GithubProjectIssuesSDK.ts        # Main SDK class
+│   ├── IronocSDK.ts        # Main SDK class
 │   ├── entity/             # Entity implementations
 │   ├── feature/            # Built-in features (Base, Test, Log)
 │   └── utility/            # Utility functions
@@ -660,7 +710,7 @@ github-project-issues/
 Import the SDK from the package root:
 
 ```ts
-import { GithubProjectIssuesSDK } from '@voxgig-sdk/github-project-issues'
+import { IronocSDK } from '@voxgig-sdk/ironoc-sdk'
 ```
 
 ### Entity state

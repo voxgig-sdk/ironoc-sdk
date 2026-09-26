@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: prepare_auth
+// Ironoc SDK utility: prepare_auth
 
-class GithubProjectIssuesPrepareAuth
+class IronocPrepareAuth
 {
     private const HEADER_AUTH = 'authorization';
     private const OPTION_APIKEY = 'apikey';
     private const NOT_FOUND = '__NOTFOUND__';
 
-    public static function call(GithubProjectIssuesContext $ctx): array
+    public static function call(IronocContext $ctx): array
     {
         $spec = $ctx->spec;
         if (!$spec) {

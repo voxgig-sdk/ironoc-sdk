@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/github-project-issues-sdk/go/core"
+	"github.com/voxgig-sdk/ironoc-sdk/go/core"
 )
 
 type BaseFeature struct {

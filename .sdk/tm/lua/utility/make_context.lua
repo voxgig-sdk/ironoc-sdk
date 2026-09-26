@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: make_context
+-- Ironoc SDK utility: make_context
 
 local Context = require("core.context")
 

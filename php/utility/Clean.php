@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: clean
+// Ironoc SDK utility: clean
 
-class GithubProjectIssuesClean
+class IronocClean
 {
-    public static function call(GithubProjectIssuesContext $ctx, mixed $val): mixed
+    public static function call(IronocContext $ctx, mixed $val): mixed
     {
         return $val;
     }

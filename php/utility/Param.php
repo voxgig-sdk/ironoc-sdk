@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: param
+// Ironoc SDK utility: param
 
 require_once __DIR__ . '/../core/Helpers.php';
 
-class GithubProjectIssuesParam
+class IronocParam
 {
-    public static function call(GithubProjectIssuesContext $ctx, mixed $paramdef): mixed
+    public static function call(IronocContext $ctx, mixed $paramdef): mixed
     {
         $point = $ctx->point;
         $spec = $ctx->spec;
@@ -26,7 +26,7 @@ class GithubProjectIssuesParam
 
         $akey = '';
         if ($point) {
-            $alias_map = GithubProjectIssuesHelpers::to_map(\Voxgig\Struct\Struct::getprop($point, 'alias'));
+            $alias_map = IronocHelpers::to_map(\Voxgig\Struct\Struct::getprop($point, 'alias'));
             if ($alias_map) {
                 $ak = \Voxgig\Struct\Struct::getprop($alias_map, $key);
                 if (is_string($ak)) {

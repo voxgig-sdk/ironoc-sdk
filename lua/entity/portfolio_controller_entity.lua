@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK PortfolioController entity
+-- Ironoc SDK PortfolioController entity
 
 local vs = require("utility.struct.struct")
 local helpers = require("core.helpers")

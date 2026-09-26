@@ -1,6 +1,6 @@
-# GithubProjectIssues SDK spec
+# Ironoc SDK spec
 
-class GithubProjectIssuesSpec
+class IronocSpec
   attr_accessor :parts, :headers, :alias_map, :base, :prefix, :suffix,
                 :params, :query, :step, :method, :body, :url, :path
 

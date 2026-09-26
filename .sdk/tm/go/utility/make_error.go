@@ -33,7 +33,7 @@ func makeErrorUtil(ctx *core.Context, err error) (any, error) {
 	}
 
 	errmsg := err.Error()
-	msg := "GithubProjectIssuesSDK: " + opname + ": " + errmsg
+	msg := "IronocSDK: " + opname + ": " + errmsg
 	msg = cleanUtil(ctx, msg).(string)
 
 	result.Err = nil
@@ -46,16 +46,16 @@ func makeErrorUtil(ctx *core.Context, err error) (any, error) {
 		}
 	}
 
-	sdkErr := &core.GithubProjectIssuesError{
-		IsGithubProjectIssuesError: true,
-		Sdk:              "GithubProjectIssues",
+	sdkErr := &core.IronocError{
+		IsIronocError: true,
+		Sdk:              "Ironoc",
 		Code:             "",
 		Msg:              msg,
 		Ctx:              ctx,
 		Result:           cleanUtil(ctx, result),
 		Spec:             cleanUtil(ctx, spec),
 	}
-	if se, ok := err.(*core.GithubProjectIssuesError); ok {
+	if se, ok := err.(*core.IronocError); ok {
 		sdkErr.Code = se.Code
 	}
 

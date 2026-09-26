@@ -5,7 +5,7 @@ const config = {
   root: __dirname+'/../dist/Root.js',
   folder: __dirname+'/../..',
   meta: {
-    name: 'github-project-issues'
+    name: 'ironoc'
   },
   model: {
     folder: __dirname+'/../model',

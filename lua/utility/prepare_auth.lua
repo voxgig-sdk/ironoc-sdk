@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK utility: prepare_auth
+-- Ironoc SDK utility: prepare_auth
 
 local vs = require("utility.struct.struct")
 

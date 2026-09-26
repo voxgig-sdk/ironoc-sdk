@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK response
+// Ironoc SDK response
 
-class GithubProjectIssuesResponse
+class IronocResponse
 {
     public int $status;
     public string $status_text;

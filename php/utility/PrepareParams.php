@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK utility: prepare_params
+// Ironoc SDK utility: prepare_params
 
-class GithubProjectIssuesPrepareParams
+class IronocPrepareParams
 {
-    public static function call(GithubProjectIssuesContext $ctx): array
+    public static function call(IronocContext $ctx): array
     {
         $utility = $ctx->utility;
         $point = $ctx->point;

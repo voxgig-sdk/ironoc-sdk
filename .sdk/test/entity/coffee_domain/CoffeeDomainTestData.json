@@ -33,5 +33,12 @@
         "title": "scc"
       }
     }
+  },
+  "requests": {
+    "GET /api/coffees-graph-ql": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
   }
 }

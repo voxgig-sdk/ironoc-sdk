@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// GithubProjectIssues SDK Version entity
+// Ironoc SDK Version entity
 
 require_once __DIR__ . '/../utility/struct/Struct.php';
 require_once __DIR__ . '/../core/Helpers.php';
@@ -83,7 +83,7 @@ class VersionEntity
     public function data_set($args): void
     {
         if ($args) {
-            $this->_data = GithubProjectIssuesHelpers::to_map(Struct::clone($args)) ?? [];
+            $this->_data = IronocHelpers::to_map(Struct::clone($args)) ?? [];
             ($this->_utility->feature_hook)($this->_entctx, "SetData");
         }
     }
@@ -103,7 +103,7 @@ class VersionEntity
     public function match_set($args): void
     {
         if ($args) {
-            $this->_match = GithubProjectIssuesHelpers::to_map(Struct::clone($args)) ?? [];
+            $this->_match = IronocHelpers::to_map(Struct::clone($args)) ?? [];
             ($this->_utility->feature_hook)($this->_entctx, "SetMatch");
         }
     }
@@ -249,7 +249,7 @@ class VersionEntity
      *   fields) as an assoc-array; a typed VersionLoadMatch names the shape.
      * @param mixed $ctrl Optional per-call control overrides.
      * @return Version|array The loaded Version as an assoc-array at the
-     *   SDK boundary; throws GithubProjectIssuesError on failure (item-5 convention).
+     *   SDK boundary; throws IronocError on failure (item-5 convention).
      */
     public function load(?array $reqmatch = null, $ctrl = null): mixed
     {
@@ -268,7 +268,7 @@ class VersionEntity
                     $this->_match = $ctx->result->resmatch;
                 }
                 if ($ctx->result->resdata) {
-                    $this->_data = GithubProjectIssuesHelpers::to_map(Struct::clone($ctx->result->resdata)) ?? [];
+                    $this->_data = IronocHelpers::to_map(Struct::clone($ctx->result->resdata)) ?? [];
                 }
             }
         });

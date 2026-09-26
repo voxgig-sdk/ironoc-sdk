@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK result
+-- Ironoc SDK result
 
 local vs = require("utility.struct.struct")
 

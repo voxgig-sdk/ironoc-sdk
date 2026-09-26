@@ -1,8 +1,8 @@
-# GithubProjectIssues SDK result
+# Ironoc SDK result
 
 require_relative '../utility/struct/voxgig_struct'
 
-class GithubProjectIssuesResult
+class IronocResult
   attr_accessor :ok, :status, :status_text, :headers, :body, :err, :resdata, :resmatch,
                 :paging, :streaming, :stream
 

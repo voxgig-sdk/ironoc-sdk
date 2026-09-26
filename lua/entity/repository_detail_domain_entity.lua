@@ -1,4 +1,4 @@
--- GithubProjectIssues SDK RepositoryDetailDomain entity
+-- Ironoc SDK RepositoryDetailDomain entity
 
 local vs = require("utility.struct.struct")
 local helpers = require("core.helpers")
